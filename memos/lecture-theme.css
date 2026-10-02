@@ -1,0 +1,376 @@
+/* 本文件由 script.py polish 自动生成，请勿手改（改 script.py 里的 LECTURE_THEME_CSS） */
+
+/* ── 设计 token ── */
+:root {
+  --lec-green:#52c41a;  --lec-green-bg:#f2fbe9;  --lec-green-line:#a5e07a;
+  --lec-blue:#3498db;   --lec-blue-bg:#eef6fd;   --lec-blue-line:#9dcdf0;
+  --lec-orange:#e67e22; --lec-orange-bg:#fef6ea; --lec-orange-line:#f3c18a;
+  --lec-purple:#9d3dcf; --lec-purple-bg:#f7effb; --lec-purple-line:#d4a5ea;
+  --lec-indigo:#5b6ee1; --lec-indigo-bg:#eef0fc; --lec-indigo-line:#aeb7f0;
+  --lec-red:#e5484d;    --lec-red-bg:#fdeff0;    --lec-red-line:#f2a7aa;
+  --lec-text:#2f3437;
+  /* 代码块：浅色中性调，和站点主色只在 hover / 强调处相遇 */
+  --lec-code-bg:#fbfcfd;  --lec-code-head:#f6f8fa;  --lec-code-border:#e5e8ec;
+  --lec-code-sub:#6b7280;
+  --lec-mono:'Fira Code','JetBrains Mono','Menlo','Consolas',monospace;
+}
+
+/* ── 阅读进度条 ── */
+#lec-progress {
+  position: fixed; top: 0; left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #52c41a, #3498db);
+  width: 0%; z-index: 9999;
+  transition: width .12s ease;
+}
+
+/* ── h2 自动编号 + 彩色圆圈 ── */
+#write { counter-reset: h2c egc; }
+#write h2 {
+  counter-increment: h2c;
+  border-bottom: none !important;
+  padding: 8px 14px 8px 48px !important;
+  background: linear-gradient(to right, #f0fbe8, transparent);
+  border-radius: 8px;
+  margin-top: 2em !important;
+  position: relative;
+}
+#write h2::before {
+  content: counter(h2c);
+  position: absolute; left: 8px; top: 50%; transform: translateY(-50%);
+  width: 28px; height: 28px;
+  background: #52c41a; color: #fff;
+  border-radius: 50%;
+  font-size: .82rem; font-weight: 700;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+
+/* ── h3 左边框 ── */
+#write h3 {
+  border-left: 4px solid #3498db !important;
+  padding-left: 12px !important;
+  background: linear-gradient(to right, #ebf5fb 0%, transparent 80%);
+  border-radius: 0 6px 6px 0;
+}
+
+/* ── h4 小节标题：比 h3 更轻，靛蓝菱形标记 ── */
+#write h4 {
+  position: relative;
+  font-size: 1.05rem !important;
+  font-weight: 600;
+  color: #33383d;
+  margin: 1.7em 0 .7em !important;
+  padding: 0 0 5px 16px !important;
+  border-bottom: 1px solid #edeff2;
+}
+#write h4::before {
+  content: '';
+  position: absolute;
+  left: 1px; top: .62em;
+  width: 7px; height: 7px;
+  background: var(--lec-indigo);
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
+
+/* 「例题：」标题 → 自动编号的靛蓝徽标（例题 1、例题 2 …） */
+#write h4.lec-eg {
+  counter-increment: egc;
+  padding-left: 0 !important;
+  border-bottom: none;
+}
+#write h4.lec-eg::before {
+  content: '例题 ' counter(egc);
+  position: static;
+  display: inline-block;
+  width: auto; height: auto;
+  margin-right: 9px;
+  padding: 2px 11px;
+  transform: none;
+  border-radius: 6px;
+  background: var(--lec-indigo);
+  color: #fff;
+  font-size: 12.5px; font-weight: 700;
+  letter-spacing: .02em;
+  vertical-align: 2px;
+}
+
+/* 例题 h4 作为引用的首行时，收掉多余上间距 */
+#write blockquote > h4:first-child { margin-top: .1em !important; }
+
+/* h4 里的题目链接：去掉刺眼的下划线蓝，hover 才提示可点 */
+#write h4 a {
+  color: #2f3437 !important;
+  text-decoration: none !important;
+  border-bottom: 1px dashed var(--lec-indigo-line);
+  transition: color .15s, border-color .15s;
+}
+#write h4 a:hover {
+  color: var(--lec-indigo) !important;
+  border-bottom-color: var(--lec-indigo);
+}
+
+/* ── 引用 / Callout 卡片 ──
+   默认（无前缀标记）= 淡蓝「定义卡」，讲义里大量的概念定义走这一档  */
+#write blockquote,
+.typora-export blockquote {
+  position: relative;
+  margin: 1.35em 0 !important;
+  padding: 12px 16px 12px 18px !important;
+  border: 1px solid var(--lec-blue-line) !important;
+  border-left: 4px solid var(--lec-blue) !important;
+  border-radius: 4px 9px 9px 4px !important;
+  background: var(--lec-blue-bg) !important;
+  color: var(--lec-text) !important;      /* 盖掉 Typora 的 color:#777 */
+  box-shadow: 0 1px 3px rgba(24,60,92,.05);
+  transition: box-shadow .18s ease;
+}
+#write blockquote:hover { box-shadow: 0 3px 12px rgba(24,60,92,.09); }
+
+/* 引用内部排版细节 */
+#write blockquote > :first-child { margin-top: 0 !important; }
+#write blockquote > :last-child  { margin-bottom: 0 !important; }
+#write blockquote p { line-height: 1.75; }
+#write blockquote code {
+  background: rgba(255,255,255,.75) !important;
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+#write blockquote blockquote {      /* 嵌套引用收窄一点 */
+  margin: .8em 0 !important;
+  box-shadow: none;
+}
+#write li blockquote { margin: .7em 0 !important; }
+
+/* 类型标签（由 lecture-enhance.js 加 class 后显示） */
+#write blockquote[data-lec-label]::before {
+  content: attr(data-lec-label);
+  display: inline-block;
+  margin: 0 0 7px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 11.5px; font-weight: 700;
+  letter-spacing: .03em;
+  line-height: 1.6;
+  color: #fff;
+  background: var(--lec-blue);
+}
+
+/* 各类型配色 */
+#write blockquote.lec-tip {
+  border-color: var(--lec-green-line) !important;
+  border-left-color: var(--lec-green) !important;
+  background: var(--lec-green-bg) !important;
+}
+#write blockquote.lec-tip::before { background: var(--lec-green); }
+
+#write blockquote.lec-warn {
+  border-color: var(--lec-orange-line) !important;
+  border-left-color: var(--lec-orange) !important;
+  background: var(--lec-orange-bg) !important;
+}
+#write blockquote.lec-warn::before { background: var(--lec-orange); }
+
+#write blockquote.lec-key {
+  border-color: var(--lec-purple-line) !important;
+  border-left-color: var(--lec-purple) !important;
+  background: var(--lec-purple-bg) !important;
+}
+#write blockquote.lec-key::before { background: var(--lec-purple); }
+
+#write blockquote.lec-example {
+  border-color: var(--lec-indigo-line) !important;
+  border-left-color: var(--lec-indigo) !important;
+  background: var(--lec-indigo-bg) !important;
+}
+#write blockquote.lec-example::before { background: var(--lec-indigo); }
+
+#write blockquote.lec-pitfall {
+  border-color: var(--lec-red-line) !important;
+  border-left-color: var(--lec-red) !important;
+  background: var(--lec-red-bg) !important;
+}
+#write blockquote.lec-pitfall::before { background: var(--lec-red); }
+
+/* 引用里的公式不要溢出卡片 */
+#write blockquote mjx-container[display="true"],
+#write blockquote .MathJax_Display {
+  overflow-x: auto; overflow-y: hidden;
+  max-width: 100%;
+}
+
+/* ── 代码块 wrapper + header bar ── */
+.lec-code-wrap {
+  margin: 1.4em 0;
+  border: 1px solid var(--lec-code-border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--lec-code-bg);
+  box-shadow: 0 1px 3px rgba(24,60,92,.05);
+  transition: box-shadow .18s ease, border-color .18s ease;
+}
+.lec-code-wrap:hover {
+  border-color: #d6dbe2;
+  box-shadow: 0 4px 14px rgba(24,60,92,.08);
+}
+
+.lec-code-header {
+  display: flex; align-items: center; gap: 9px;
+  padding: 7px 10px 7px 12px;
+  background: var(--lec-code-head);
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+  user-select: none;
+  transition: background .15s, border-color .15s;
+}
+.lec-code-wrap.is-open .lec-code-header { border-bottom-color: var(--lec-code-border); }
+.lec-code-header:hover { background: #f0f3f6; }
+
+/* 语言徽标：左侧小圆点 + 语言名 */
+.lec-lang-name {
+  display: inline-flex; align-items: center; gap: 6px;
+  flex: none;
+  font-size: 11px; font-weight: 600;
+  color: var(--lec-code-sub);
+  font-family: var(--lec-mono);
+  text-transform: uppercase; letter-spacing: .06em;
+}
+.lec-lang-name::before {
+  content: '';
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--lec-green);
+  box-shadow: 0 0 0 2px rgba(82,196,26,.16);
+}
+
+/* 可选标题：`// @open 快速幂` 里的「快速幂」 */
+.lec-code-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 12.5px; font-weight: 600; color: #3f4650;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.lec-code-title:empty { display: none; }
+.lec-code-title:empty + .lec-code-lines { margin-left: auto; }
+
+/* 行数提示 */
+.lec-code-lines {
+  flex: none;
+  font-size: 11px; color: var(--lec-text-light, #a3a9b3);
+  font-family: var(--lec-mono);
+}
+.lec-lang-name + .lec-code-lines { margin-left: auto; }
+
+.lec-header-actions { flex: none; display: flex; gap: 6px; margin-left: 4px; }
+.lec-header-btn {
+  padding: 3px 10px; font-size: 11px; line-height: 1.5;
+  background: #fff; color: #5b6270;
+  border: 1px solid var(--lec-code-border); border-radius: 6px;
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+.lec-header-btn:hover {
+  background: var(--lec-green); color: #fff;
+  border-color: var(--lec-green);
+}
+.lec-header-btn.is-done {
+  background: var(--lec-green-bg); color: var(--lec-green-dark, #3da613);
+  border-color: var(--lec-green-line);
+}
+
+/* 折叠区域：max-height 由 JS 精确设置，动画不再跳 */
+.lec-code-inner {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height .28s cubic-bezier(.4,0,.2,1);
+}
+/* 展开动画结束后解除裁剪，交回 CodeMirror 自己的横向滚动 */
+.lec-code-inner.is-settled { overflow: visible; }
+
+/* pre 交给 wrapper 管圆角和外边距 */
+.lec-code-inner > pre.md-fences,
+.lec-code-inner > pre {
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: var(--lec-code-bg) !important;
+}
+.lec-code-inner .CodeMirror,
+.lec-code-inner .CodeMirror-scroll { background: var(--lec-code-bg) !important; }
+/* 行号列：淡一点，别抢代码的注意力 */
+.lec-code-inner .CodeMirror-linenumber { color: #c2c8d0 !important; }
+.lec-code-inner .CodeMirror-gutters {
+  background: var(--lec-code-bg) !important;
+  border-right: 1px solid #eef1f4 !important;
+}
+
+/* ── 表格美化 ── */
+#write table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(0,0,0,.08);
+  border-collapse: collapse;
+  width: 100%;
+}
+#write thead tr { background: #52c41a !important; }
+#write thead th { background: #52c41a !important; color: #fff !important; border: none !important; padding: 10px 14px !important; }
+#write tbody tr:hover { background: #f0fbe8 !important; }
+#write tbody td { border-color: #e8eaed !important; padding: 8px 14px !important; }
+
+/* ── 动画演示卡片（assets/*.html iframe 嵌入） ── */
+.lec-demo {
+  margin: 1.6em 0;
+  border: 1px solid #e8eaed;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+.lec-demo-head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 14px;
+  background: linear-gradient(to right, #f0fbe8, #fff);
+  border-bottom: 1px solid #e8eaed;
+}
+.lec-demo-badge {
+  flex: none;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: #52c41a; color: #fff;
+  font-size: 11px; font-weight: 700; letter-spacing: .04em;
+}
+.lec-demo-title {
+  flex: 1 1 auto;
+  font-size: 14px; font-weight: 600; color: #1a1a1a;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.lec-demo-open {
+  flex: none;
+  font-size: 12px; color: #3da613 !important;
+  text-decoration: none !important;
+  border: 1px solid #b7e59a; border-radius: 6px;
+  padding: 2px 9px;
+  transition: background .15s, color .15s;
+}
+.lec-demo-open:hover { background: #52c41a; color: #fff !important; border-color: #52c41a; }
+.lec-demo iframe {
+  display: block;
+  width: 100% !important;
+  border: none !important;
+  margin: 0 !important;
+  background: #f7f9fc;
+}
+
+/* ── 打印 ── */
+@media print {
+  #lec-progress { display: none; }
+  #write blockquote { box-shadow: none; break-inside: avoid; }
+  .lec-demo iframe { display: none; }
+  .lec-demo-head { border-bottom: none; }
+  /* 折叠的代码也要打出来 */
+  .lec-code-inner { max-height: none !important; overflow: visible !important; }
+  .lec-header-actions { display: none; }
+  .lec-code-wrap { box-shadow: none; break-inside: avoid; }
+}
