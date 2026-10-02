@@ -1,0 +1,62 @@
+[
+  {
+    "id": "001",
+    "pid": "SGU132",
+    "title": "Another Chocolate Maniac",
+    "source": "CF",
+    "href": "solutions/sgu132.html",
+    "diff": "提高+/省选-",
+    "tags": [
+      "状压DP，动态规划"
+    ],
+    "problemUrl": "https://codeforces.com/problemsets/acmsguru/problem/99999/132"
+  },
+  {
+    "id": "002",
+    "pid": "CF1342F",
+    "title": "Make It Ascending",
+    "source": "CF",
+    "href": "solutions/cf1342f.html",
+    "diff": "省选/NOI-",
+    "tags": [
+      "状压DP，状态合并"
+    ],
+    "problemUrl": "https://www.luogu.com.cn/problem/CF1342F"
+  },
+  {
+    "id": "003",
+    "pid": "P2322",
+    "title": "[HNOI2006] 最短母串问题",
+    "source": "洛谷",
+    "href": "solutions/p2322.html",
+    "diff": "提高+/省选-",
+    "tags": [
+      "字符串，状压DP，AC自动机"
+    ],
+    "problemUrl": "https://www.luogu.com.cn/problem/P2322"
+  },
+  {
+    "id": "004",
+    "pid": "ABC198_D",
+    "title": "Send More Money",
+    "source": "AtCoder",
+    "href": "solutions/abc198_d.html",
+    "diff": "普及/提高-",
+    "tags": [
+      "全排列"
+    ],
+    "problemUrl": "https://atcoder.jp/contests/abc198/tasks/abc198_d?lang=en"
+  },
+  {
+    "id": "005",
+    "pid": "CF1324E",
+    "title": "Sleeping Schedule",
+    "source": "CF",
+    "href": "solutions/cf1324e.html",
+    "diff": "普及+/提高",
+    "tags": [
+      "动态规划(DP)"
+    ],
+    "problemUrl": "https://codeforces.com/problemset/problem/1324/E"
+  }
+]

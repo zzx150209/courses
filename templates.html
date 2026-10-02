@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>模板 - OI 工具箱</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #52C41A; --green-light: #f0fbe8; --green-dark: #3da613;
+      --bg: #f4f5f7; --white: #fff; --text: #1a1a1a; --text-sub: #8e8e93;
+      --text-light: #b0b0b6; --border: #e8eaed; --radius: 10px;
+      --font: 'Noto Sans SC', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--green-dark); text-decoration: none; }
+    a:hover { color: var(--green); }
+    .topbar { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+    .topbar-inner { max-width: 1060px; margin: 0 auto; padding: 0 24px; height: 56px; display: flex; align-items: center; }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.1rem; color: var(--text); }
+    .logo:hover { text-decoration: none; color: var(--text); }
+    .logo-icon { width: 32px; height: 32px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.85rem; }
+    .container { max-width: 1060px; margin: 0 auto; padding: 28px 24px 60px; }
+    .empty-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 80px 40px; text-align: center; }
+    .empty-card h1 { font-size: 1.4rem; font-weight: 700; margin-bottom: 12px; }
+    .empty-card p { color: var(--text-sub); font-size: 0.9rem; margin-bottom: 24px; }
+    .back-btn { display: inline-block; padding: 8px 24px; background: var(--green-light); color: var(--green-dark); border-radius: 8px; font-weight: 500; font-size: 0.88rem; transition: all 0.15s; }
+    .back-btn:hover { background: var(--green); color: white; text-decoration: none; }
+    .site-footer { text-align: center; padding: 20px 0 32px; font-size: 0.78rem; color: var(--text-light); }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="index.html" class="logo"><div class="logo-icon">OI</div><span>OI 工具箱</span></a>
+    </div>
+  </header>
+  <div class="container">
+    <div class="empty-card">
+      <h1>模板</h1>
+      <p>该页面正在建设中，内容即将上线 ···</p>
+      <a href="index.html" class="back-btn">← 返回首页</a>
+    </div>
+  </div>
+  <footer class="site-footer">P2026 &copy; Showball's OI 工具箱</footer>
+</body>
+</html>

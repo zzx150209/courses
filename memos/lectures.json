@@ -1,0 +1,626 @@
+[
+  {
+    "id": "lec-001",
+    "slug": "lec-001",
+    "title": "AC自动机",
+    "tags": [
+      "ACAM"
+    ],
+    "courses": [
+      "algo-improve"
+    ],
+    "topics": [
+      "string"
+    ],
+    "href": "memos/lec-001.html",
+    "created": "2026-05-13"
+  },
+  {
+    "id": "lec-002",
+    "slug": "lec-002",
+    "title": "SAM(后缀自动机)",
+    "tags": [
+      "SAM"
+    ],
+    "courses": [
+      "algo-improve"
+    ],
+    "topics": [
+      "string"
+    ],
+    "href": "memos/lec-002.html",
+    "created": "2026-05-13"
+  },
+  {
+    "id": "lec-003",
+    "slug": "lec-003",
+    "title": "程序设计介绍及环境配置",
+    "tags": [
+      "入门"
+    ],
+    "courses": [
+      "syntax-basics"
+    ],
+    "topics": [],
+    "href": "memos/lec-003.html",
+    "created": "2026-05-13"
+  },
+  {
+    "id": "lec-004",
+    "slug": "lec-004",
+    "title": "简单写程序",
+    "tags": [
+      "入门"
+    ],
+    "courses": [
+      "syntax-basics"
+    ],
+    "topics": [],
+    "href": "memos/Lec-basic-programming.html",
+    "created": "2026-05-13"
+  },
+  {
+    "id": "lec-005",
+    "slug": "lec-005",
+    "title": "顺序结构程序设计",
+    "tags": [
+      "入门"
+    ],
+    "courses": [
+      "syntax-basics"
+    ],
+    "topics": [],
+    "href": "memos/Lec-sequential-programming.html",
+    "created": "2026-05-13"
+  },
+  {
+    "id": "lec-006",
+    "slug": "lec-006",
+    "title": "分支结构程序设计",
+    "tags": [
+      "入门"
+    ],
+    "courses": [
+      "syntax-basics"
+    ],
+    "topics": [],
+    "href": "memos/Lec-conditional-programming.html",
+    "created": "2026-05-14"
+  },
+  {
+    "id": "lec-007",
+    "slug": "lec-007",
+    "title": "循环结构程序设计",
+    "tags": [
+      "入门"
+    ],
+    "courses": [
+      "syntax-basics"
+    ],
+    "topics": [],
+    "href": "memos/Lec-loop-programming.html",
+    "created": "2026-05-15"
+  },
+  {
+    "id": "lec-008",
+    "slug": "lec-008",
+    "title": "数字拆分技巧",
+    "tags": [
+      "入门"
+    ],
+    "courses": [
+      "syntax-basics"
+    ],
+    "topics": [],
+    "href": "memos/Lec-digit-decomposition.html",
+    "created": "2026-05-15"
+  },
+  {
+    "id": "lec-009",
+    "slug": "lec-009",
+    "title": "循环嵌套与复杂循环",
+    "tags": [
+      "入门"
+    ],
+    "courses": [
+      "syntax-basics"
+    ],
+    "topics": [],
+    "href": "memos/Lec-nested-and-complex-loops.html",
+    "created": "2026-05-15"
+  },
+  {
+    "id": "lec-010",
+    "slug": "lec-010",
+    "title": "数组的基本概念",
+    "tags": [
+      "入门"
+    ],
+    "courses": [
+      "syntax-basics"
+    ],
+    "topics": [],
+    "href": "memos/Lec-array-basics.html",
+    "created": "2026-05-21"
+  },
+  {
+    "id": "lec-011",
+    "slug": "lec-011",
+    "title": "多维数组及应用",
+    "tags": [
+      "入门"
+    ],
+    "courses": [
+      "syntax-basics"
+    ],
+    "topics": [],
+    "href": "memos/Lec-multidimensional-arrays.html",
+    "created": "2026-05-21"
+  },
+  {
+    "id": "lec-012",
+    "slug": "lec-012",
+    "title": "数组拓展(数组计数与打标记思想)",
+    "tags": [
+      "入门"
+    ],
+    "courses": [
+      "syntax-basics"
+    ],
+    "topics": [],
+    "href": "memos/Lec-array-techniques-index-counting-and-marking.html",
+    "created": "2026-05-21"
+  },
+  {
+    "id": "lec-013",
+    "slug": "lec-013",
+    "title": "时间复杂度",
+    "tags": [
+      "算法基础课"
+    ],
+    "courses": [
+      "algo-basics"
+    ],
+    "topics": [
+      "misc"
+    ],
+    "href": "memos/Lec-time-complexity.html",
+    "created": "2026-06-17"
+  },
+  {
+    "id": "lec-014",
+    "slug": "lec-014",
+    "title": "枚举法",
+    "tags": [
+      "算法基础课程"
+    ],
+    "courses": [
+      "algo-basics"
+    ],
+    "topics": [],
+    "href": "memos/Lec-enumeration.html",
+    "created": "2026-06-19"
+  },
+  {
+    "id": "lec-015",
+    "slug": "lec-015",
+    "title": "字符串的基本概念",
+    "tags": [
+      "语法基础课程"
+    ],
+    "courses": [
+      "syntax-basics"
+    ],
+    "topics": [],
+    "href": "memos/Lec-string-basics.html",
+    "created": "2026-06-25"
+  },
+  {
+    "id": "lec-016",
+    "slug": "lec-016",
+    "title": "函数的基本概念",
+    "tags": [
+      "语法基础课程"
+    ],
+    "courses": [
+      "syntax-basics"
+    ],
+    "topics": [],
+    "href": "memos/Lec-function-basics.html",
+    "created": "2026-06-25"
+  },
+  {
+    "id": "lec-017",
+    "slug": "lec-017",
+    "title": "结构体",
+    "tags": [
+      "语法基础课程"
+    ],
+    "courses": [
+      "syntax-basics"
+    ],
+    "topics": [],
+    "href": "memos/Lec-structs.html",
+    "created": "2026-06-25"
+  },
+  {
+    "id": "lec-018",
+    "slug": "lec-018",
+    "title": "指针与引用",
+    "tags": [
+      "语法入门"
+    ],
+    "courses": [
+      "syntax-basics"
+    ],
+    "topics": [],
+    "href": "memos/Lec-pointers-and-references.html",
+    "created": "2026-06-25"
+  },
+  {
+    "id": "lec-019",
+    "slug": "lec-019",
+    "title": "进制转换",
+    "tags": [
+      "算法基础课程"
+    ],
+    "courses": [
+      "algo-basics"
+    ],
+    "topics": [
+      "basic-algo"
+    ],
+    "href": "memos/Lec-base-conversion.html",
+    "created": "2026-06-25"
+  },
+  {
+    "id": "lec-020",
+    "slug": "lec-020",
+    "title": "编码与位运算",
+    "tags": [
+      "基础算法课程"
+    ],
+    "courses": [
+      "algo-basics"
+    ],
+    "topics": [
+      "basic-algo"
+    ],
+    "href": "memos/Lec-encoding-and-bitwise-operations.html",
+    "created": "2026-06-25"
+  },
+  {
+    "id": "lec-022",
+    "slug": "lec-022",
+    "title": "模拟法",
+    "tags": [
+      "算法基础"
+    ],
+    "courses": [
+      "algo-basics"
+    ],
+    "topics": [
+      "basic-algo"
+    ],
+    "href": "memos/Lec-simulation.html",
+    "created": "2026-07-04"
+  },
+  {
+    "id": "lec-023",
+    "slug": "lec-023",
+    "title": "递推与递归",
+    "tags": [
+      "基础算法课程"
+    ],
+    "courses": [
+      "algo-basics"
+    ],
+    "topics": [
+      "basic-algo"
+    ],
+    "href": "memos/Lec-recursion-and-recurrence.html",
+    "created": "2026-07-08"
+  },
+  {
+    "id": "lec-024",
+    "slug": "lec-024",
+    "title": "排序算法",
+    "tags": [
+      "基础算法课程"
+    ],
+    "courses": [
+      "algo-basics"
+    ],
+    "topics": [
+      "basic-algo"
+    ],
+    "href": "memos/Lec-sorting-algorithms.html",
+    "created": "2026-07-10"
+  },
+  {
+    "id": "lec-025",
+    "slug": "lec-025",
+    "title": "一维前缀和与差分",
+    "tags": [
+      "基础算法"
+    ],
+    "courses": [
+      "algo-basics"
+    ],
+    "topics": [
+      "basic-algo"
+    ],
+    "href": "memos/Lec-1d-prefix-sums-and-difference-arrays.html",
+    "created": "2026-07-13"
+  },
+  {
+    "id": "lec-026",
+    "slug": "lec-026",
+    "title": "二维前缀和与差分",
+    "tags": [
+      "基础算法"
+    ],
+    "courses": [
+      "algo-basics"
+    ],
+    "topics": [
+      "basic-algo"
+    ],
+    "href": "memos/Lec-2d-prefix-sums-and-difference-arrays.html",
+    "created": "2026-07-13"
+  },
+  {
+    "id": "lec-027",
+    "slug": "lec-027",
+    "title": "前缀和与差分的拓展应用",
+    "tags": [
+      "基础算法"
+    ],
+    "courses": [
+      "algo-basics"
+    ],
+    "topics": [
+      "basic-algo"
+    ],
+    "href": "memos/Lec-advanced-prefix-sums-and-difference-arrays.html",
+    "created": "2026-07-13"
+  },
+  {
+    "id": "lec-028",
+    "slug": "lec-028",
+    "title": "“好区间”问题",
+    "tags": [
+      "基础算法"
+    ],
+    "courses": [
+      "algo-basics"
+    ],
+    "topics": [
+      "basic-algo"
+    ],
+    "href": "memos/Lec-good-interval-problems.html",
+    "created": "2026-07-13"
+  },
+  {
+    "id": "lec-029",
+    "slug": "lec-029",
+    "title": "双指针算法(尺取法)",
+    "tags": [
+      "基础算法"
+    ],
+    "courses": [
+      "algo-basics"
+    ],
+    "topics": [
+      "basic-algo"
+    ],
+    "href": "memos/Lec-two-pointers.html",
+    "created": "2026-07-14"
+  },
+  {
+    "id": "lec-030",
+    "slug": "lec-030",
+    "title": "常用STL",
+    "tags": [
+      "基础算法"
+    ],
+    "courses": [
+      "algo-basics"
+    ],
+    "topics": [
+      "basic-algo"
+    ],
+    "href": "memos/Lec-common-stl.html",
+    "created": "2026-07-14"
+  },
+  {
+    "id": "lec-031",
+    "slug": "lec-031",
+    "title": "数学符号与基本知识",
+    "tags": [],
+    "courses": [
+      "algo-basics"
+    ],
+    "topics": [
+      "math"
+    ],
+    "href": "memos/Lec-mathematical-notation-and-basics.html",
+    "created": "2026-07-26"
+  },
+  {
+    "id": "lec-032",
+    "slug": "lec-032",
+    "title": "素数筛法",
+    "tags": [
+      "基础算法"
+    ],
+    "courses": [
+      "algo-basics"
+    ],
+    "topics": [
+      "math"
+    ],
+    "href": "memos/Lec-prime-sieve.html",
+    "created": "2026-07-29"
+  },
+  {
+    "id": "lec-033",
+    "slug": "lec-033",
+    "title": "贪心策略",
+    "tags": [
+      "基础算法课程"
+    ],
+    "courses": [
+      "algo-basics"
+    ],
+    "topics": [
+      "basic-algo"
+    ],
+    "href": "memos/Lec-greedy-strategies.html",
+    "created": "2026-08-01"
+  },
+  {
+    "id": "lec-034",
+    "slug": "lec-034",
+    "title": "二分查找",
+    "tags": [
+      "基础算法"
+    ],
+    "courses": [
+      "algo-basics"
+    ],
+    "topics": [
+      "basic-algo"
+    ],
+    "href": "memos/Lec-binary-search.html",
+    "created": "2026-08-03"
+  },
+  {
+    "id": "lec-035",
+    "slug": "lec-035",
+    "title": "二分答案",
+    "tags": [
+      "基础算法"
+    ],
+    "courses": [
+      "algo-basics"
+    ],
+    "topics": [
+      "basic-algo"
+    ],
+    "href": "memos/Lec-binary-search-on-answer.html",
+    "created": "2026-08-06"
+  },
+  {
+    "id": "lec-036",
+    "slug": "lec-036",
+    "title": "GESP 一级知识点",
+    "tags": [
+      "GESP 一级"
+    ],
+    "courses": [
+      "contest-prep"
+    ],
+    "topics": [],
+    "href": "memos/lec-036.html",
+    "created": "2026-09-10"
+  },
+  {
+    "id": "lec-037",
+    "slug": "lec-037",
+    "title": "GESP 一级上机题型",
+    "tags": [
+      "GESP 一级"
+    ],
+    "courses": [
+      "contest-prep"
+    ],
+    "topics": [],
+    "href": "memos/lec-037.html",
+    "created": "2026-09-10"
+  },
+  {
+    "id": "lec-038",
+    "slug": "lec-038",
+    "title": "GESP 二级知识点",
+    "tags": [
+      "GESP 二级"
+    ],
+    "courses": [
+      "contest-prep"
+    ],
+    "topics": [],
+    "href": "memos/lec-038.html",
+    "created": "2026-09-10"
+  },
+  {
+    "id": "lec-039",
+    "slug": "lec-039",
+    "title": "GESP 二级上机题型",
+    "tags": [
+      "GESP 二级"
+    ],
+    "courses": [
+      "contest-prep"
+    ],
+    "topics": [],
+    "href": "memos/lec-039.html",
+    "created": "2026-09-10"
+  },
+  {
+    "id": "lec-040",
+    "slug": "lec-040",
+    "title": "GESP 三级知识点",
+    "tags": [
+      "GESP 三级"
+    ],
+    "courses": [
+      "contest-prep"
+    ],
+    "topics": [],
+    "href": "memos/lec-040.html",
+    "created": "2026-09-10"
+  },
+  {
+    "id": "lec-041",
+    "slug": "lec-041",
+    "title": "GESP 三级上机题型",
+    "tags": [
+      "GESP 三级"
+    ],
+    "courses": [
+      "contest-prep"
+    ],
+    "topics": [],
+    "href": "memos/lec-041.html",
+    "created": "2026-09-10"
+  },
+  {
+    "id": "lec-042",
+    "slug": "lec-042",
+    "title": "GESP 四级知识点",
+    "tags": [
+      "GESP 四级"
+    ],
+    "courses": [
+      "contest-prep"
+    ],
+    "topics": [],
+    "href": "memos/lec-042.html",
+    "created": "2026-09-10"
+  },
+  {
+    "id": "lec-043",
+    "slug": "lec-043",
+    "title": "GESP 四级上机题型",
+    "tags": [
+      "GESP 四级"
+    ],
+    "courses": [
+      "contest-prep"
+    ],
+    "topics": [],
+    "href": "memos/lec-043.html",
+    "created": "2026-09-10"
+  }
+]

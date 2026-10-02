@@ -1,0 +1,258 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="信息学竞赛知识手册：GESP、CSP、NOIP 知识手册，按章节阅读与全文检索。"><title>第5章 原码反码补码和位运算 · 信息学知识手册</title><script>try{document.documentElement.dataset.theme=localStorage.getItem('showball-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light')}catch(e){}</script><link rel="stylesheet" href="../../../assets/source/971002830b8a88c44f98.css"><link rel="stylesheet" href="../../../assets/theme.css"><script defer src="../../../assets/app.js"></script></head><body data-root="../../../" class="document"><a class="skip" href="#main">跳到正文</a><aside class="sidebar"><a class="brand" href="../../../index.html"><span class="brand-mark">S</span><span>Showball <b>OI</b></span><span class="brand-tag">知识手册</span></a><div class="nav-scroll"><nav aria-label="主导航"><a class="nav-link back-to-site" href="../../../../memos.html"><span aria-hidden="true">←</span> 返回 Showball OI</a><a class="nav-link " href="../../../index.html"><span aria-hidden="true">⌂</span> 首页</a><a class="nav-link " href="../../../courses/index.html"><span aria-hidden="true">▤</span> 全部课程</a><a class="nav-link " href="../../tags/index.html"><span aria-hidden="true">#</span> 知识标签</a><p class="nav-label">学习手册</p><a class="nav-link " href="../../../courses/1/index.html">GESP 1级</a><a class="nav-link " href="../../../courses/2/index.html">GESP 2级</a><a class="nav-link " href="../../../courses/3/index.html">GESP 3级</a><a class="nav-link " href="../../../courses/4/index.html">GESP 4级</a><a class="nav-link " href="../../../courses/5/index.html">GESP 5级</a><a class="nav-link " href="../../../courses/6/index.html">GESP 6级</a><a class="nav-link " href="../../../courses/7/index.html">GESP 7级</a><a class="nav-link " href="../../../courses/8/index.html">GESP 8级</a><a class="nav-link active" href="../../../courses/9/index.html">CSP-J</a><div class="chapter-nav"><a class="nav-link " href="../chapter-01-computer-basics/index.html">第1章 计算机基础知识</a><a class="nav-link " href="../chapter-02-computer-architecture/index.html">第2章 计算机体系基本结构</a><a class="nav-link " href="../chapter-03-software-and-programming-languages/index.html">第3章 计算机软件和计算机语言</a><a class="nav-link " href="../chapter-04-number-systems-and-encoding/index.html">第4章 数制转换和信息编码</a><a class="nav-link current" href="index.html">第5章 原码反码补码和位运算</a><a class="nav-link " href="../chapter-06-computer-networks/index.html">第6章 计算机网络</a><a class="nav-link " href="../chapter-07-internet/index.html">第7章 因特网</a><a class="nav-link " href="../chapter-08-linear-data-structures/index.html">第8章 线性数据结构</a><a class="nav-link " href="../chapter-09-trees-and-graphs/index.html">第9章 树和图</a><a class="nav-link " href="../chapter-10-advanced-time-complexity/index.html">第10章 时间复杂度进阶</a><a class="nav-link " href="../chapter-11-mathematics/index.html">第11章 数学专题</a><a class="nav-link " href="../chapter-12-algorithm-topics/index.html">第12章 算法专题(排序算法、哈夫曼树)</a><a class="nav-link " href="../chapter-13-cspj-essential-codes/index.html">CSP-J 复赛必备编程模板（核心代码速查）</a></div><a class="nav-link " href="../../../courses/10/index.html">CSP-S</a><a class="nav-link " href="../../../courses/11/index.html">NOIP</a></nav></div><div class="sidebar-note"><strong>学懂一个知识点，<br>再解决一道好题。</strong><span>GESP · CSP · NOIP</span></div></aside><div class="layout"><header class="topbar"><div class="topbar-left"><button class="icon-button mobile-toggle" aria-label="打开导航菜单" data-menu-open>☰</button><span class="topbar-title">第5章 原码反码补码和位运算</span></div><div class="topbar-actions"><a class="search-shortcut" href="../../../search/index.html"><span aria-hidden="true">⌕</span> 搜索知识点 <kbd>/</kbd></a><button class="icon-button" data-theme aria-label="切换主题" title="切换主题">◐</button></div></header><main id="main" class="reader-layout" tabindex="-1"><div class="reading-column"><nav class="breadcrumb" aria-label="当前位置"><a href="../../../index.html">首页</a><span>/</span><a href="../../../courses/9/index.html">CSP-J</a><span>/</span><span>第5章 原码反码补码和位运算</span></nav><article class="prose "><div class="theme-doc-markdown markdown"><header><h1>第5章 原码反码补码和位运算</h1></header>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="信息编码">信息编码</h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="机器数与真值">机器数与真值</h2>
+<p>一个数在计算机中的二进制表示形式，被称为这个数的 <strong>机器数</strong>。</p>
+<p>将带符号位的机器数对应的真正数值称为机器数的 <strong>真值</strong>。</p>
+<p>为了区分正负数，机器数的最高位被用于存储符号，被称为 <strong>符号位</strong>：</p>
+<ul>
+<li class="">正数：符号位为 <code>0</code></li>
+<li class="">负数：符号位为 <code>1</code></li>
+</ul>
+<p>如果计算机字长为 8 位：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">+1 的机器数：00000001</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">机器数 00000001 的真值：+1</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">-1 的机器数：10000001</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">机器数 10000001 的真值：-1</span><br/></div></code></pre></div></div>
+<p>教材提出问题：</p>
+<blockquote>
+<p>如果电脑直接使用机器数进行运算，<code>(+1) + (-1)</code> 等于多少？</p>
+</blockquote>
+<p>这也是引入反码和补码表示的重要背景。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="原码">原码</h2>
+<p>原码就是该数值的机器数，即：</p>
+<ul>
+<li class="">最高位为符号位</li>
+<li class="">其余位表示数值</li>
+</ul>
+<p>这是人脑最容易理解和计算的表示方式。</p>
+<p>例如：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">[+1]原 = 00000001</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">[-1]原 = 10000001</span><br/></div></code></pre></div></div>
+<p>在考虑符号位的前提下，8 位二进制原码的取值范围为：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">[-127, 127]</span><br/></div></code></pre></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="反码">反码</h2>
+<p>反码的表示方法：</p>
+<ul>
+<li class=""><strong>正数的反码是其本身</strong></li>
+<li class=""><strong>负数的反码</strong>：在原码基础上，符号位不变，其余各位取反</li>
+</ul>
+<p>例如：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">[+1]原 = 00000001</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">[+1]反 = 00000001</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">[-1]原 = 10000001</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">[-1]反 = 11111110</span><br/></div></code></pre></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="补码">补码</h2>
+<p>补码的表示方法：</p>
+<ul>
+<li class=""><strong>正数的补码就是其本身</strong></li>
+<li class=""><strong>负数的补码</strong>：在反码基础上 <code>+1</code></li>
+</ul>
+<p>例如：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">[+1]原 = 00000001</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">[+1]反 = 00000001</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">[+1]补 = 00000001</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">[-1]原 = 10000001</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">[-1]反 = 11111110</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">[-1]补 = 11111111</span><br/></div></code></pre></div></div>
+<p>教材还列出特殊情况：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">00000000 代表 0 的原码、反码和补码</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">10000000 代表 -128</span><br/></div></code></pre></div></div>
+<p>教材描述：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">-128 的反码：11111111</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">-128 的补码：10000000</span><br/></div></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="补码运算示例">补码运算示例</h3>
+<p>教材示例：使用补码计算 <code>(+2) + (-2)</code>。</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">2 - 2 = 2 + (-2)</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">0000 0010  原</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">1000 0010  原</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">0000 0010  反</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">1111 1101  反</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">0000 0010  补</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">1111 1110  补</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">----------------</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">1 0000 0000</span><br/></div></code></pre></div></div>
+<p>最高位产生的进位舍弃：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">0000 0000 补</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">0000 0000 反</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">0000 0000 原</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">= 0</span><br/></div></code></pre></div></div>
+<div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewbox="0 0 12 16"><path d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z" fill-rule="evenodd"></path></svg></span>教材总结</div><div class="admonitionContent_BuS1"><p>在计算机中，所有的数均以 <strong>补码形式</strong>存在。</p><p>补码可以简化运算，把减法转换为加法。</p><p>正数：</p><div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">原码 = 反码 = 补码</span><br/></div></code></pre></div></div></div></div>
+<figure><img alt="原码及补码" src="../../../assets/source/e41a222362c888c370c9.png"/><figcaption>图5-1 原码及补码</figcaption></figure>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="练习-1">练习 1</h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-求-119-的原码反码和补码">1. 求 <code>+119</code> 的原码、反码和补码。</h3>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">原码：01110111</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">反码：01110111</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">补码：01110111</span><br/></div></code></pre></div></div></div></div></details>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-求--56-的原码反码和补码">2. 求 <code>-56</code> 的原码、反码和补码。</h3>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">原码：10111000</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">反码：11000111</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">补码：11001000</span><br/></div></code></pre></div></div></div></div></details>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-在-8-位二进制补码中10101011-表示的数是十进制下的-">3. 在 8 位二进制补码中，<code>10101011</code> 表示的数是十进制下的（ ）。</h3>
+<ul>
+<li class="">A. 43</li>
+<li class="">B. -85</li>
+<li class="">C. -43</li>
+<li class="">D. -84</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：B</strong></p></div></div></details>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="什么是位运算">什么是位运算？</h2>
+<p>现代计算机中的数据都是以二进制形式存储的，每一位都可以存储 <code>0</code>、<code>1</code> 两种状态。</p>
+<p>计算机对每一位进行的运算称为 <strong>位运算</strong>，教材强调符号位也共同参与运算。</p>
+<figure><img alt="位移运算和位运算" src="../../../assets/source/1fd70e0213ec4474c17e.png"/><figcaption>图5-2 位移运算和位运算</figcaption></figure>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="位逻辑运算符">位逻辑运算符</h2>
+<p>位逻辑运算是将每个二进制位作为布尔值进行布尔运算，以逻辑中的真和假（<code>1</code> 和 <code>0</code>）作为运算单元，结果也为 <code>1</code> 或 <code>0</code>。</p>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewbox="0 0 16 16"><path d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z" fill-rule="evenodd"></path></svg></span>注意</div><div class="admonitionContent_BuS1"><p>教材强调：</p><ul>
+<li class="">位运算是针对二进制位的运算</li>
+<li class="">计算机中的数以补码形式存在</li>
+<li class="">手工计算位运算时，需要先把数转换成二进制补码</li>
+<li class="">各数右对齐后，逐位进行运算</li>
+</ul></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="按位与-">按位与 <code>&amp;</code></h2>
+<p>运算规则：</p>
+<blockquote>
+<p>两个位都为 <code>1</code> 时，结果才为 <code>1</code>。</p>
+</blockquote>
+<p>真值表：</p>
+<table><thead><tr><th>A</th><th>B</th><th>A &amp; B</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1</td></tr></tbody></table>
+<p>运算方式：</p>
+<ol>
+<li class="">将数字转换成补码</li>
+<li class="">逐位进行与运算</li>
+<li class="">得到结果后再转换成原码，或转换为对应的十进制数</li>
+</ol>
+<p>教材示例：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">3 &amp; 5 = 1</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">3 = 0000 0011</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">5 = 0000 0101</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain" style="display:inline-block"></span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    0000 0011</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">&amp;   0000 0101</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">--------------</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">    0000 0001</span><br/></div></code></pre></div></div>
+<figure><img alt="位与运算示例" src="../../../assets/source/e1404eca23e33b7d6a9d.png"/><figcaption>图5-3 位与运算示例</figcaption></figure>
+<p>教材还给出了负数参与按位与的示例：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">-3 &amp; -5 = -7</span><br/></div></code></pre></div></div>
+<figure><img alt="位与运算示例（负数）" src="../../../assets/source/4080c596ccbeccd6c521.png"/><figcaption>图5-4 位与运算示例（负数）</figcaption></figure>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="练习-2">练习 2</h3>
+<ol>
+<li class="">
+<p>表达式 <code>0x13 &amp; 0x17</code> 的值是 _________。</p>
+<p><strong>答案：19</strong></p>
+</li>
+<li class="">
+<p>若 <code>x = -2</code>，<code>y = 3</code>，则 <code>x &amp; y</code> 的结果是 _________。</p>
+<p><strong>答案：2</strong></p>
+</li>
+<li class="">
+<p>若 <code>x = -2</code>，<code>y = -3</code>，则 <code>x &amp; y</code> 的结果是 _________。</p>
+<p><strong>答案：-4</strong></p>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="按位或-">按位或 <code>|</code></h2>
+<p>运算规则：</p>
+<blockquote>
+<p>两个位只要有一个为 <code>1</code>，结果就为 <code>1</code>。</p>
+</blockquote>
+<p>真值表：</p>
+<table><thead><tr><th>A</th><th>B</th><th>A | B</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>1</td></tr></tbody></table>
+<p>运算方式：</p>
+<ol>
+<li class="">将数字转换成补码</li>
+<li class="">逐位进行或运算</li>
+<li class="">得到结果后再转换成原码，或转换为对应的十进制数</li>
+</ol>
+<figure><img alt="位或运算示例（正数）" src="../../../assets/source/6cd91848afd6afdb8b24.png"/><figcaption>图5-5 位或运算示例（正数）</figcaption></figure>
+<figure><img alt="位或运算示例（正负数）" src="../../../assets/source/2d3d69ff48e59989ca15.png"/><figcaption>图5-6 位或运算示例（正负数）</figcaption></figure>
+<figure><img alt="位或运算示例（负负数）" src="../../../assets/source/3b983ca2e08af03cf599.png"/><figcaption>图5-7 位或运算示例（负负数）</figcaption></figure>
+<p>教材示例：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">3 | 5 = 7</span><br/></div></code></pre></div></div>
+<p>教材还给出了负数参与按位或的示例：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">-3 | 5 = -3</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">-3 | -5 = -1</span><br/></div></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="练习-3">练习 3</h3>
+<ol>
+<li class="">
+<p>表达式 <code>0x13 | 0x17</code> 的值是 _________。</p>
+<p><strong>答案：23</strong></p>
+</li>
+<li class="">
+<p>若 <code>x = -2</code>，<code>y = 3</code>，则 <code>x | y</code> 的结果是 _________。</p>
+<p><strong>答案：-1</strong></p>
+</li>
+<li class="">
+<p>若 <code>x = -2</code>，<code>y = -3</code>，则 <code>x | y</code> 的结果是 _________。</p>
+<p><strong>答案：-1</strong></p>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="按位异或-">按位异或 <code>^</code></h2>
+<p>运算规则：</p>
+<blockquote>
+<p>两个位不同为 <code>1</code>，相同为 <code>0</code>。</p>
+</blockquote>
+<p>真值表：</p>
+<table><thead><tr><th>A</th><th>B</th><th>A ^ B</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>0</td></tr></tbody></table>
+<p>运算方式：</p>
+<ol>
+<li class="">将数字转换成补码</li>
+<li class="">逐位进行异或运算</li>
+<li class="">得到结果后再转换成原码，或转换成对应的十进制数</li>
+</ol>
+<p>教材示例：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">3 ^ 5 = 6</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">-3 ^ 5 = -8</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">-3 ^ -5 = 6</span><br/></div></code></pre></div></div>
+<figure><img alt="按位异或运算示例（正正数）" src="../../../assets/source/547a810e925354e943db.png"/><figcaption>图5-8 按位异或运算示例（正正数）</figcaption></figure>
+<figure><img alt="按位异或运算示例（正负数）" src="../../../assets/source/42ac8ba6012b47dc1a95.png"/><figcaption>图5-9 按位异或运算示例（正负数）</figcaption></figure>
+<figure><img alt="按位异或运算示例（负负数）" src="../../../assets/source/dedd326d534846da1a30.png"/><figcaption>图5-10 按位异或运算示例（负负数）</figcaption></figure>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="练习-4">练习 4</h3>
+<ol>
+<li class="">
+<p>表达式 <code>0x13 ^ 0x17</code> 的值是 _________。</p>
+<p><strong>答案：4</strong></p>
+</li>
+<li class="">
+<p>若 <code>x = -2</code>，<code>y = 3</code>，则 <code>x ^ y</code> 的结果是 _________。</p>
+<p><strong>答案：-3</strong></p>
+</li>
+<li class="">
+<p>若 <code>x = -2</code>，<code>y = -3</code>，则 <code>x ^ y</code> 的结果是 _________。</p>
+<p><strong>答案：3</strong></p>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="按位取反-">按位取反 <code>~</code></h2>
+<p>运算规则：</p>
+<blockquote>
+<p><code>0</code> 变 <code>1</code>，<code>1</code> 变 <code>0</code>。</p>
+</blockquote>
+<p>运算方式：</p>
+<ol>
+<li class="">将数字转换成补码</li>
+<li class="">对每一位进行取反</li>
+<li class="">得到结果后再转换成原码，或转换为对应的十进制数</li>
+</ol>
+<p>教材示例：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">~3 = -4</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">~(-3) = 2</span><br/></div></code></pre></div></div>
+<figure><img alt="按位取反运算示例（负负数）" src="../../../assets/source/274fde0702bb1192a1fd.png"/><figcaption>图5-11 按位取反运算示例（负负数）</figcaption></figure>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="练习-5">练习 5</h3>
+<ol>
+<li class="">
+<p>表达式 <code>~0x17</code> 的值是 _________。</p>
+<p><strong>答案：-24</strong></p>
+</li>
+<li class="">
+<p>表达式 <code>~-3</code> 的值是 _________。</p>
+<p><strong>答案：2</strong></p>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="位移运算符">位移运算符</h2>
+<p>位移运算是将一个运算对象的各位数字全部向左或向右移动若干位。</p>
+<p>教材总结：</p>
+<ul>
+<li class="">左移 <code>&lt;&lt;</code>：向左移动 X 位，数值大小扩大为原来的 2<sup>X</sup> 倍</li>
+<li class="">右移 <code>&gt;&gt;</code>：向右移动 X 位，数值大小缩小为原来的 2<sup>X</sup> 倍</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="左移-">左移 <code>&lt;&lt;</code></h2>
+<p>运算规则：</p>
+<blockquote>
+<p>向左移动 X 位，数值大小扩大为原来的 2<sup>X</sup> 倍。</p>
+</blockquote>
+<p>运算方式：</p>
+<p>在不考虑溢出的情况下，将除符号位之外的数字整体向左移动，低位（右侧空位）补 <code>0</code>。</p>
+<p>快速运算：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">a &lt;&lt; X</span><br/></div></code></pre></div></div>
+<p>可按教材理解为：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">a × 2^X</span><br/></div></code></pre></div></div>
+<p>教材示例：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">3 &lt;&lt; 2 = 12</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">-3 &lt;&lt; 2 = -12</span><br/></div></code></pre></div></div>
+<figure><img alt="左移示例" src="../../../assets/source/808dbb5fabb810f8c4a1.png"/><figcaption>图5-12 左移示例</figcaption></figure>
+<figure><img alt="右移示例" src="../../../assets/source/f8cdc03a109cce9880e1.png"/><figcaption>图5-13 右移示例</figcaption></figure>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="右移-">右移 <code>&gt;&gt;</code></h2>
+<p>运算规则：</p>
+<blockquote>
+<p>向右移动 X 位，数值大小缩小为原来的 2<sup>X</sup> 倍。</p>
+</blockquote>
+<p>运算方式：</p>
+<p>教材表述为：</p>
+<ol>
+<li class="">将数字转换成补码</li>
+<li class="">所有数字整体向右移动</li>
+<li class="">高位（左侧空位）补符号位数字</li>
+</ol>
+<p>快速运算：</p>
+<p>教材按“直接除以 2<sup>X</sup>，向下取整”理解。</p>
+<p>例如：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">35 &gt;&gt; 2 = 8</span><br/></div><div class="token-line" style="color:#bfc7d5"><span class="token plain">-35 &gt;&gt; 2 = -9</span><br/></div></code></pre></div></div>
+<p>教材特别提示负数向下取整，例如：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">⌊-35.0 / 4⌋ = -9</span><br/></div></code></pre></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="练习-6">练习 6</h2>
+<ol>
+<li class="">
+<p>表达式 <code>0x17 &lt;&lt; 2</code> 的值是 _________。</p>
+<p><strong>答案：92</strong></p>
+</li>
+<li class="">
+<p>表达式 <code>-0x17 &gt;&gt; 2</code> 的值是 _________。</p>
+<p><strong>答案：-6</strong></p>
+</li>
+</ol></div></article><nav class="pagination" aria-label="章节翻页"><a href="../chapter-04-number-systems-and-encoding/index.html"><small>← 上一章</small><strong>第4章 数制转换和信息编码</strong></a><a href="../chapter-06-computer-networks/index.html"><small>下一章 →</small><strong>第6章 计算机网络</strong></a></nav></div><aside class="toc"><p>本章目录</p><nav aria-label="本章目录"><a class="toc-h2" href="#信息编码">信息编码</a><a class="toc-h2" href="#机器数与真值">机器数与真值</a><a class="toc-h2" href="#原码">原码</a><a class="toc-h2" href="#反码">反码</a><a class="toc-h2" href="#补码">补码</a><a class="toc-h3" href="#补码运算示例">补码运算示例</a><a class="toc-h2" href="#练习-1">练习 1</a><a class="toc-h3" href="#1-求-119-的原码反码和补码">1. 求 +119 的原码、反码和补码。</a><a class="toc-h3" href="#2-求--56-的原码反码和补码">2. 求 -56 的原码、反码和补码。</a><a class="toc-h3" href="#3-在-8-位二进制补码中10101011-表示的数是十进制下的-">3. 在 8 位二进制补码中， 10101011 表示的数是十进制下的（ ）。</a><a class="toc-h2" href="#什么是位运算">什么是位运算？</a><a class="toc-h2" href="#位逻辑运算符">位逻辑运算符</a><a class="toc-h2" href="#按位与-">按位与 &amp;</a><a class="toc-h3" href="#练习-2">练习 2</a><a class="toc-h2" href="#按位或-">按位或 |</a><a class="toc-h3" href="#练习-3">练习 3</a><a class="toc-h2" href="#按位异或-">按位异或 ^</a><a class="toc-h3" href="#练习-4">练习 4</a><a class="toc-h2" href="#按位取反-">按位取反 ~</a><a class="toc-h3" href="#练习-5">练习 5</a><a class="toc-h2" href="#位移运算符">位移运算符</a><a class="toc-h2" href="#左移-">左移 &lt;&lt;</a><a class="toc-h2" href="#右移-">右移 &gt;&gt;</a><a class="toc-h2" href="#练习-6">练习 6</a></nav><a class="back-top" href="#main">↑ 回到顶部</a></aside></main><footer class="site-footer"><a href="../../../../index.html" data-linked="1" style="text-decoration:underline;text-underline-offset:3px">© 2026 Showball OI · 信息学竞赛知识手册</a><span>信息学竞赛知识手册</span><span>GESP / CSP / NOIP · 系统学习，持续积累</span></footer></div><dialog class="mobile-dialog" aria-label="导航菜单"><div class="dialog-top"><a class="brand" href="../../../index.html"><span class="brand-mark">S</span><span>Showball <b>OI</b></span><span class="brand-tag">知识手册</span></a><button class="icon-button" data-menu-close aria-label="关闭导航菜单">×</button></div><nav aria-label="移动端导航"><a class="nav-link back-to-site" href="../../../../memos.html"><span aria-hidden="true">←</span> 返回 Showball OI</a><a class="nav-link " href="../../../index.html"><span aria-hidden="true">⌂</span> 首页</a><a class="nav-link " href="../../../courses/index.html"><span aria-hidden="true">▤</span> 全部课程</a><a class="nav-link " href="../../tags/index.html"><span aria-hidden="true">#</span> 知识标签</a><p class="nav-label">学习手册</p><a class="nav-link " href="../../../courses/1/index.html">GESP 1级</a><a class="nav-link " href="../../../courses/2/index.html">GESP 2级</a><a class="nav-link " href="../../../courses/3/index.html">GESP 3级</a><a class="nav-link " href="../../../courses/4/index.html">GESP 4级</a><a class="nav-link " href="../../../courses/5/index.html">GESP 5级</a><a class="nav-link " href="../../../courses/6/index.html">GESP 6级</a><a class="nav-link " href="../../../courses/7/index.html">GESP 7级</a><a class="nav-link " href="../../../courses/8/index.html">GESP 8级</a><a class="nav-link active" href="../../../courses/9/index.html">CSP-J</a><div class="chapter-nav"><a class="nav-link " href="../chapter-01-computer-basics/index.html">第1章 计算机基础知识</a><a class="nav-link " href="../chapter-02-computer-architecture/index.html">第2章 计算机体系基本结构</a><a class="nav-link " href="../chapter-03-software-and-programming-languages/index.html">第3章 计算机软件和计算机语言</a><a class="nav-link " href="../chapter-04-number-systems-and-encoding/index.html">第4章 数制转换和信息编码</a><a class="nav-link current" href="index.html">第5章 原码反码补码和位运算</a><a class="nav-link " href="../chapter-06-computer-networks/index.html">第6章 计算机网络</a><a class="nav-link " href="../chapter-07-internet/index.html">第7章 因特网</a><a class="nav-link " href="../chapter-08-linear-data-structures/index.html">第8章 线性数据结构</a><a class="nav-link " href="../chapter-09-trees-and-graphs/index.html">第9章 树和图</a><a class="nav-link " href="../chapter-10-advanced-time-complexity/index.html">第10章 时间复杂度进阶</a><a class="nav-link " href="../chapter-11-mathematics/index.html">第11章 数学专题</a><a class="nav-link " href="../chapter-12-algorithm-topics/index.html">第12章 算法专题(排序算法、哈夫曼树)</a><a class="nav-link " href="../chapter-13-cspj-essential-codes/index.html">CSP-J 复赛必备编程模板（核心代码速查）</a></div><a class="nav-link " href="../../../courses/10/index.html">CSP-S</a><a class="nav-link " href="../../../courses/11/index.html">NOIP</a></nav></dialog><div class="toast" role="status" aria-live="polite"></div></body></html>

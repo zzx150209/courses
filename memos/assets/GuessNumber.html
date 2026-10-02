@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>二分查找 · 猜数字游戏</title>
+  <style>
+    :root {
+      --bg-1: #eef4ff;
+      --bg-2: #f8fbff;
+      --card: rgba(255, 255, 255, 0.9);
+      --text: #17233d;
+      --muted: #6b7892;
+      --primary: #4f6df5;
+      --primary-dark: #3f59d8;
+      --success: #1fa774;
+      --warning: #e28a27;
+      --danger: #e45b67;
+      --line: #dfe7f4;
+      --shadow: 0 24px 60px rgba(43, 67, 128, 0.14);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 18%, rgba(116, 139, 255, 0.18), transparent 28%),
+        radial-gradient(circle at 88% 82%, rgba(74, 211, 170, 0.16), transparent 25%),
+        linear-gradient(145deg, var(--bg-1), var(--bg-2));
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .app {
+      width: min(920px, 100%);
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 13px;
+      border-radius: 999px;
+      background: rgba(79, 109, 245, 0.1);
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    h1 {
+      margin: 14px 0 8px;
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .panel {
+      padding: clamp(24px, 5vw, 48px);
+    }
+
+    .panel[hidden] {
+      display: none;
+    }
+
+    .section-title {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+
+    .section-desc {
+      margin: 0 0 28px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    label {
+      color: #40506f;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+      font-size: 18px;
+      padding: 14px 16px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+
+    input[type="number"]:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(79, 109, 245, 0.12);
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: 0;
+      border-radius: 14px;
+      padding: 13px 20px;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary), #745cf3);
+      box-shadow: 0 12px 26px rgba(79, 109, 245, 0.24);
+    }
+
+    .primary:hover {
+      background: linear-gradient(135deg, var(--primary-dark), #634bd9);
+    }
+
+    .secondary {
+      color: var(--primary);
+      background: rgba(79, 109, 245, 0.1);
+    }
+
+    .error {
+      min-height: 22px;
+      margin-top: 14px;
+      color: var(--danger);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .game-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .range-pill {
+      flex-shrink: 0;
+      padding: 10px 14px;
+      border-radius: 14px;
+      background: #f2f5ff;
+      color: var(--primary);
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .guess-box {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+    }
+
+    #guessInput {
+      min-height: 62px;
+      font-size: 28px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    #guessButton {
+      min-width: 128px;
+    }
+
+    .feedback {
+      min-height: 122px;
+      margin: 24px 0;
+      padding: 24px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border: 1px dashed var(--line);
+      border-radius: 20px;
+      background: rgba(248, 250, 255, 0.78);
+    }
+
+    .feedback-icon {
+      font-size: 34px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .feedback-title {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .feedback-text {
+      margin: 8px 0 0;
+      color: var(--muted);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .stat {
+      padding: 16px;
+      border-radius: 16px;
+      background: #f7f9fe;
+      border: 1px solid #edf1f8;
+    }
+
+    .stat-label {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+
+    .stat-value {
+      display: block;
+      font-size: 20px;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .history-wrap {
+      margin-top: 24px;
+    }
+
+    .history-title {
+      margin: 0 0 12px;
+      font-size: 15px;
+    }
+
+    .history {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      min-height: 38px;
+    }
+
+    .history-empty {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .guess-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #f2f5fa;
+      color: #44516b;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .guess-chip.high {
+      background: rgba(226, 138, 39, 0.12);
+      color: #a65d0d;
+    }
+
+    .guess-chip.low {
+      background: rgba(79, 109, 245, 0.11);
+      color: #3f59d8;
+    }
+
+    .guess-chip.correct {
+      background: rgba(31, 167, 116, 0.13);
+      color: #12825a;
+    }
+
+    .tip {
+      margin-top: 22px;
+      padding: 16px 18px;
+      border-left: 4px solid var(--primary);
+      border-radius: 10px 16px 16px 10px;
+      background: rgba(79, 109, 245, 0.07);
+      color: #465574;
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    .success-burst {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 9px;
+      height: 16px;
+      top: -20px;
+      border-radius: 3px;
+      animation: fall 1.8s ease-in forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translate(var(--x), 720px) rotate(720deg);
+        opacity: 0.15;
+      }
+    }
+
+    @media (max-width: 680px) {
+      body {
+        padding: 14px;
+      }
+
+      .grid,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .game-top {
+        flex-direction: column;
+      }
+
+      .guess-box {
+        grid-template-columns: 1fr;
+      }
+
+      #guessButton {
+        min-height: 54px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="brand">
+      <div class="brand-badge">🔎 BINARY SEARCH</div>
+      <h1>二分查找 · 猜数字</h1>
+      <p class="subtitle">不断缩小范围，用更少的次数找到答案。</p>
+    </header>
+
+    <section class="card">
+      <div class="success-burst" id="successBurst" aria-hidden="true"></div>
+
+      <div class="panel" id="teacherPanel">
+        <h2 class="section-title">老师设置</h2>
+        <p class="section-desc">设置数字范围和正确答案。点击“开始游戏”后，答案将隐藏。</p>
+
+        <div class="grid">
+          <div class="field">
+            <label for="minInput">最小值</label>
+            <input id="minInput" type="number" value="1" />
+          </div>
+          <div class="field">
+            <label for="maxInput">最大值</label>
+            <input id="maxInput" type="number" value="100" />
+          </div>
+          <div class="field">
+            <label for="secretInput">正确答案</label>
+            <input id="secretInput" type="number" value="64" />
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="primary" id="startButton">开始游戏</button>
+          <button class="secondary" id="randomButton">随机生成答案</button>
+        </div>
+        <div class="error" id="setupError" role="alert"></div>
+      </div>
+
+      <div class="panel" id="studentPanel" hidden>
+        <div class="game-top">
+          <div>
+            <h2 class="section-title">轮到学生猜了</h2>
+            <p class="section-desc">输入一个整数，根据提示继续缩小查找范围。</p>
+          </div>
+          <div class="range-pill" id="rangePill">范围：1 ～ 100</div>
+        </div>
+
+        <div class="guess-box">
+          <input
+            id="guessInput"
+            type="number"
+            inputmode="numeric"
+            placeholder="输入猜测"
+            aria-label="输入猜测的数字"
+          />
+          <button class="primary" id="guessButton">提交猜测</button>
+        </div>
+        <div class="error" id="guessError" role="alert"></div>
+
+        <div class="feedback" id="feedback" aria-live="polite">
+          <div>
+            <div class="feedback-icon" id="feedbackIcon">🤔</div>
+            <h3 class="feedback-title" id="feedbackTitle">准备好了吗？</h3>
+            <p class="feedback-text" id="feedbackText">从当前范围的中间位置开始猜，效率更高。</p>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-label">猜测次数</span>
+            <strong class="stat-value" id="attemptCount">0</strong>
+          </div>
+          <div class="stat">
+            <span class="stat-label">当前可能范围</span>
+            <strong class="stat-value" id="possibleRange">1 ～ 100</strong>
+          </div>
+          <div class="stat">
+            <span class="stat-label">建议中间值</span>
+            <strong class="stat-value" id="midValue">50</strong>
+          </div>
+        </div>
+
+        <div class="history-wrap">
+          <h3 class="history-title">猜测记录</h3>
+          <div class="history" id="history">
+            <span class="history-empty">还没有猜过</span>
+          </div>
+        </div>
+
+        <div class="tip">
+          <strong>二分查找提示：</strong>
+          每次选择当前范围的中间值。若猜小了，就舍弃左半部分；若猜大了，就舍弃右半部分。
+        </div>
+
+        <div class="actions">
+          <button class="secondary" id="resetButton">老师重新设置</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const teacherPanel = document.getElementById("teacherPanel");
+    const studentPanel = document.getElementById("studentPanel");
+
+    const minInput = document.getElementById("minInput");
+    const maxInput = document.getElementById("maxInput");
+    const secretInput = document.getElementById("secretInput");
+    const startButton = document.getElementById("startButton");
+    const randomButton = document.getElementById("randomButton");
+    const setupError = document.getElementById("setupError");
+
+    const guessInput = document.getElementById("guessInput");
+    const guessButton = document.getElementById("guessButton");
+    const guessError = document.getElementById("guessError");
+    const resetButton = document.getElementById("resetButton");
+
+    const rangePill = document.getElementById("rangePill");
+    const attemptCount = document.getElementById("attemptCount");
+    const possibleRange = document.getElementById("possibleRange");
+    const midValue = document.getElementById("midValue");
+    const history = document.getElementById("history");
+
+    const feedbackIcon = document.getElementById("feedbackIcon");
+    const feedbackTitle = document.getElementById("feedbackTitle");
+    const feedbackText = document.getElementById("feedbackText");
+    const successBurst = document.getElementById("successBurst");
+
+    let secret = null;
+    let originalMin = 1;
+    let originalMax = 100;
+    let low = 1;
+    let high = 100;
+    let attempts = 0;
+    let finished = false;
+
+    function integerValue(input) {
+      const value = Number(input.value);
+      return Number.isInteger(value) ? value : null;
+    }
+
+    function setSetupError(message = "") {
+      setupError.textContent = message;
+    }
+
+    function setGuessError(message = "") {
+      guessError.textContent = message;
+    }
+
+    function updateStats() {
+      attemptCount.textContent = attempts;
+      possibleRange.textContent = `${low} ～ ${high}`;
+      rangePill.textContent = `范围：${originalMin} ～ ${originalMax}`;
+      midValue.textContent = low <= high ? Math.floor((low + high) / 2) : "—";
+    }
+
+    function randomizeSecret() {
+      const min = integerValue(minInput);
+      const max = integerValue(maxInput);
+
+      if (min === null || max === null || min >= max) {
+        setSetupError("请先输入有效的整数范围，且最小值必须小于最大值。");
+        return;
+      }
+
+      secretInput.value = Math.floor(Math.random() * (max - min + 1)) + min;
+      setSetupError("");
+    }
+
+    function startGame() {
+      const min = integerValue(minInput);
+      const max = integerValue(maxInput);
+      const answer = integerValue(secretInput);
+
+      if (min === null || max === null || answer === null) {
+        setSetupError("所有设置都必须是整数。");
+        return;
+      }
+
+      if (min >= max) {
+        setSetupError("最小值必须小于最大值。");
+        return;
+      }
+
+      if (answer < min || answer > max) {
+        setSetupError("正确答案必须位于设定范围内。");
+        return;
+      }
+
+      originalMin = min;
+      originalMax = max;
+      low = min;
+      high = max;
+      secret = answer;
+      attempts = 0;
+      finished = false;
+
+      guessInput.min = min;
+      guessInput.max = max;
+      guessInput.value = "";
+      guessInput.disabled = false;
+      guessButton.disabled = false;
+
+      history.innerHTML = '<span class="history-empty">还没有猜过</span>';
+      feedbackIcon.textContent = "🤔";
+      feedbackTitle.textContent = "准备好了吗？";
+      feedbackText.textContent = "从当前范围的中间位置开始猜，效率更高。";
+      setSetupError("");
+      setGuessError("");
+      updateStats();
+
+      teacherPanel.hidden = true;
+      studentPanel.hidden = false;
+      setTimeout(() => guessInput.focus(), 50);
+    }
+
+    function addHistoryChip(value, type, symbol) {
+      const empty = history.querySelector(".history-empty");
+      if (empty) empty.remove();
+
+      const chip = document.createElement("span");
+      chip.className = `guess-chip ${type}`;
+      chip.textContent = `${value} ${symbol}`;
+      history.appendChild(chip);
+    }
+
+    function celebrate() {
+      successBurst.innerHTML = "";
+      const colors = ["#4f6df5", "#1fa774", "#f0a63a", "#e45b67", "#8d65ed"];
+
+      for (let i = 0; i < 42; i++) {
+        const piece = document.createElement("span");
+        piece.className = "confetti";
+        piece.style.left = `${Math.random() * 100}%`;
+        piece.style.background = colors[i % colors.length];
+        piece.style.setProperty("--x", `${Math.random() * 180 - 90}px`);
+        piece.style.animationDelay = `${Math.random() * 0.35}s`;
+        successBurst.appendChild(piece);
+      }
+
+      setTimeout(() => {
+        successBurst.innerHTML = "";
+      }, 2400);
+    }
+
+    function submitGuess() {
+      if (finished) return;
+
+      const guess = integerValue(guessInput);
+
+      if (guess === null) {
+        setGuessError("请输入一个整数。");
+        return;
+      }
+
+      if (guess < originalMin || guess > originalMax) {
+        setGuessError(`请输入 ${originalMin} 到 ${originalMax} 之间的数字。`);
+        return;
+      }
+
+      if (guess < low || guess > high) {
+        setGuessError(`根据之前的提示，答案目前应在 ${low} 到 ${high} 之间。`);
+        return;
+      }
+
+      attempts += 1;
+      setGuessError("");
+
+      if (guess === secret) {
+        finished = true;
+        addHistoryChip(guess, "correct", "✓");
+        feedbackIcon.textContent = "🎉";
+        feedbackTitle.textContent = "恭喜，猜中了！";
+        feedbackText.textContent = `正确答案是 ${secret}，一共猜了 ${attempts} 次。`;
+        guessInput.disabled = true;
+        guessButton.disabled = true;
+        celebrate();
+      } else if (guess < secret) {
+        low = guess + 1;
+        addHistoryChip(guess, "low", "↑");
+        feedbackIcon.textContent = "⬆️";
+        feedbackTitle.textContent = "猜小了";
+        feedbackText.textContent = `答案比 ${guess} 大，请在 ${low} 到 ${high} 之间继续猜。`;
+      } else {
+        high = guess - 1;
+        addHistoryChip(guess, "high", "↓");
+        feedbackIcon.textContent = "⬇️";
+        feedbackTitle.textContent = "猜大了";
+        feedbackText.textContent = `答案比 ${guess} 小，请在 ${low} 到 ${high} 之间继续猜。`;
+      }
+
+      updateStats();
+      guessInput.value = "";
+      if (!finished) guessInput.focus();
+    }
+
+    function resetGame() {
+      studentPanel.hidden = true;
+      teacherPanel.hidden = false;
+      secretInput.value = "";
+      setGuessError("");
+      setSetupError("");
+      setTimeout(() => secretInput.focus(), 50);
+    }
+
+    startButton.addEventListener("click", startGame);
+    randomButton.addEventListener("click", randomizeSecret);
+    guessButton.addEventListener("click", submitGuess);
+    resetButton.addEventListener("click", resetGame);
+
+    guessInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") submitGuess();
+    });
+
+    secretInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") startGame();
+    });
+  </script>
+
+</body>
+</html>

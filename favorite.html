@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>好题收藏 · Showball OI</title>
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('showball-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch(e){}</script>
+  <link rel="stylesheet" href="assets/theme.css">
+  <script defer src="assets/app.js"></script>
+</head>
+<body data-page="favorites">
+<div class="sidebar-overlay" data-nav-close></div>
+<aside class="app-sidebar" aria-label="主导航">
+  <a class="brand" href="index.html"><span class="brand-mark">S</span><span class="brand-name">Showball <span>OI</span></span></a>
+  <div class="nav-label">Workspace</div>
+  <nav class="side-nav">
+    <a class="side-link" data-page="home" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10.5V20h14v-9.5M9 20v-6h6v6"/></svg><span>首页</span></a>
+    <a class="side-link" data-page="favorites" href="favorite.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2 7.5 14 3 9.6l6.2-.9L12 3Z"/></svg><span>好题收藏</span></a>
+    <a class="side-link" data-page="courses" href="memos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg><span>课程</span></a>
+    <a class="side-link" data-page="templates" href="templates.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6M14 4l-4 16"/></svg><span>代码模板</span></a>
+    <a class="side-link" data-page="tools" href="tools.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 1.55V21h-4v-.05a1.7 1.7 0 0 0-1-1.55 1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3v-4h.05A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3h4v.05a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.55 1H21v4h-.05A1.7 1.7 0 0 0 19.4 15Z"/></svg><span>小工具</span></a>
+    <a class="side-link" href="https://showball.top" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 5h16v11H4z"/><path d="M8 20h8M12 16v4"/><path d="m8.5 10 2 2 4-4"/></svg><span>Dawn OJ <small style="opacity:.62;font-weight:500">在线测评</small></span></a>
+  </nav>
+  <div class="sidebar-spacer"></div>
+  <div class="sidebar-note"><strong>Showball OI</strong>题解、课程、模板与算法工具。</div>
+</aside>
+
+<main class="app-main">
+  <header class="app-topbar">
+    <div class="topbar-left">
+      <button class="icon-btn menu-btn" data-menu-toggle aria-label="打开导航"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      <a class="mobile-brand" href="index.html"><span class="brand-mark">S</span><span>Showball OI</span></a>
+      <span class="topbar-title">好题收藏</span>
+    </div>
+    <div class="topbar-actions"><button class="icon-btn" data-theme-toggle aria-label="切换主题"></button></div>
+  </header>
+
+  <div class="page">
+    <section class="page-header">
+      <div class="eyebrow">Favorite Problems</div>
+      <h1 class="page-title">好题收藏</h1>
+      <p class="page-desc">收藏值得反复复习、课堂讲解与迁移训练的竞赛好题。支持按题号、题名和算法标签检索。</p>
+    </section>
+
+    <div class="stat-grid" aria-label="题库概览">
+      <div class="stat-card"><div class="stat-label">收藏题目</div><div class="stat-value" id="stat-total">—</div></div>
+      <div class="stat-card"><div class="stat-label">题目来源</div><div class="stat-value" id="stat-sources">—</div></div>
+      <div class="stat-card"><div class="stat-label">算法标签</div><div class="stat-value" id="stat-tags">—</div></div>
+    </div>
+
+    <section class="table-card">
+      <div class="table-toolbar">
+        <div class="toolbar-left"><h2 class="table-title">收藏列表</h2><span class="count-badge" id="count-badge">0 题</span></div>
+        <div class="search-wrap">
+          <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input class="search-input" id="search-input" type="search" placeholder="搜索题号、题名、算法标签…" autocomplete="off">
+        </div>
+      </div>
+      <div class="record-table-wrap">
+        <table class="record-table">
+          <thead><tr><th class="sortable" data-sort="id">编号</th><th class="sortable" data-sort="pid">题号 / 题名</th><th>题解</th><th class="sortable" data-sort="difficulty">难度</th><th>主要算法</th></tr></thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+      <div class="no-results" id="no-results">没有找到匹配的题目。</div>
+      <div class="pagination-wrap"><span class="page-info" id="page-info"></span><div class="page-btns" id="page-btns"></div></div>
+    </section>
+  </div>
+  <footer class="site-footer">© 2026 Showball OI · Favorite Problems</footer>
+</main>
+
+<script>
+const PAGE_SIZE=10;
+let records=[],filtered=[],currentPage=1,sortKey='id',sortDir='desc';
+const difficultyRank={'入门':0,'普及-':1,'普及/提高-':2,'普及+/提高':3,'提高+/省选-':4,'省选/NOI-':5,'NOI':6};
+const difficultyClassMap={'入门':'beginner','普及-':'basic-minus','普及/提高-':'basic-improve-minus','普及+/提高':'basic-improve','提高+/省选-':'improve-province-minus','省选/NOI-':'province-noi-minus','NOI':'noi','未评定':'unrated'};
+const tbody=document.getElementById('table-body'),noResults=document.getElementById('no-results'),countBadge=document.getElementById('count-badge'),pageInfo=document.getElementById('page-info'),pageBtns=document.getElementById('page-btns');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function getDifficultyClass(diff){return difficultyClassMap[diff]||'unrated'}
+function getProblemLink(r){
+  let problemUrl=r.problemUrl||'',sourceName=r.source;
+  if(!problemUrl&&r.source==='CF'){
+    const m=r.pid.replace('CF','').match(/^(\d+)([A-Z]\d*)$/);problemUrl=m?'https://codeforces.com/problemset/problem/'+m[1]+'/'+m[2]:'https://codeforces.com/';sourceName='Codeforces';
+  }else if(!problemUrl&&r.source==='AtCoder'){
+    const m=r.pid.match(/^([A-Z]+)(\d+)([A-Z])$/i);if(m){const contest=(m[1]+m[2]).toLowerCase();problemUrl='https://atcoder.jp/contests/'+contest+'/tasks/'+contest+'_'+m[3].toLowerCase()}else problemUrl='https://atcoder.jp/';sourceName='AtCoder';
+  }else if(!problemUrl){problemUrl='https://www.luogu.com.cn/problem/'+encodeURIComponent(r.pid);sourceName='洛谷'}else if(r.source==='CF') sourceName='Codeforces';
+  return {problemUrl,sourceName};
+}
+function buildRow(r){
+  const {problemUrl,sourceName}=getProblemLink(r);const tags=Array.isArray(r.tags)?r.tags:[];
+  return `<tr><td class="col-id">#${esc(r.id)}</td><td class="col-problem"><a href="${esc(problemUrl)}" target="_blank" rel="noopener">${esc(r.pid)}&nbsp;&nbsp;${esc(r.title)}</a><div class="problem-source">${esc(sourceName)}</div></td><td class="col-solution"><a href="${esc(r.href)}">查看题解 →</a></td><td><span class="diff-tag diff-${getDifficultyClass(r.diff)}">${esc(r.diff||'未评定')}</span></td><td><div class="algo-tags">${tags.map(t=>`<span class="algo-tag">${esc(t)}</span>`).join('')}</div></td></tr>`;
+}
+function compareRecords(a,b,key){if(key==='id')return Number(a.id)-Number(b.id);if(key==='pid')return String(a.pid).localeCompare(String(b.pid),undefined,{numeric:true,sensitivity:'base'});if(key==='difficulty'){const ar=difficultyRank[a.diff]??999,br=difficultyRank[b.diff]??999;return ar===br?String(a.pid).localeCompare(String(b.pid),undefined,{numeric:true,sensitivity:'base'}):ar-br}return 0}
+function applySort(){filtered.sort((a,b)=>{const result=compareRecords(a,b,sortKey);return sortDir==='asc'?result:-result})}
+function updateSortIndicators(){document.querySelectorAll('.record-table thead th.sortable').forEach(th=>{th.classList.remove('asc','desc');if(th.dataset.sort===sortKey)th.classList.add(sortDir)})}
+function pageRange(cur,total){if(total<=7)return Array.from({length:total},(_,i)=>i+1);if(cur<=4)return[1,2,3,4,5,'…',total];if(cur>=total-3)return[1,'…',total-4,total-3,total-2,total-1,total];return[1,'…',cur-1,cur,cur+1,'…',total]}
+function render(){
+  const total=filtered.length,totalPages=Math.max(1,Math.ceil(total/PAGE_SIZE));if(currentPage>totalPages)currentPage=totalPages;updateSortIndicators();const start=(currentPage-1)*PAGE_SIZE;
+  tbody.innerHTML=filtered.slice(start,start+PAGE_SIZE).map(buildRow).join('');countBadge.textContent=total+' 题';noResults.classList.toggle('show',total===0);
+  if(total===0){pageInfo.textContent='';pageBtns.innerHTML='';return}
+  pageInfo.textContent=`${start+1}–${Math.min(start+PAGE_SIZE,total)} / ${total}`;
+  let html=`<button class="page-btn" id="btn-prev" ${currentPage===1?'disabled':''}>‹</button>`;pageRange(currentPage,totalPages).forEach(p=>html+=p==='…'?'<span class="page-ellipsis">…</span>':`<button class="page-btn ${p===currentPage?'active':''}" data-p="${p}">${p}</button>`);html+=`<button class="page-btn" id="btn-next" ${currentPage===totalPages?'disabled':''}>›</button>`;pageBtns.innerHTML=html;
+  pageBtns.querySelectorAll('.page-btn[data-p]').forEach(b=>b.addEventListener('click',()=>{currentPage=+b.dataset.p;render()}));document.getElementById('btn-prev')?.addEventListener('click',()=>{currentPage--;render()});document.getElementById('btn-next')?.addEventListener('click',()=>{currentPage++;render()});
+}
+function updateStats(){document.getElementById('stat-total').textContent=records.length;document.getElementById('stat-sources').textContent=new Set(records.map(r=>r.source).filter(Boolean)).size;document.getElementById('stat-tags').textContent=new Set(records.flatMap(r=>Array.isArray(r.tags)?r.tags:[])).size}
+async function loadRecords(){try{const response=await fetch('solutions/records.json');if(!response.ok)throw new Error('records.json '+response.status);records=await response.json();filtered=[...records];updateStats();applySort();render()}catch(err){console.error('加载记录失败:',err);document.getElementById('stat-total').textContent='—';noResults.textContent='暂时无法加载题目数据。';noResults.classList.add('show');pageInfo.textContent='';pageBtns.innerHTML=''}}
+document.querySelectorAll('.record-table thead th.sortable').forEach(th=>th.addEventListener('click',()=>{const key=th.dataset.sort;if(sortKey===key)sortDir=sortDir==='asc'?'desc':'asc';else{sortKey=key;sortDir='asc'}currentPage=1;applySort();render()}));
+document.getElementById('search-input').addEventListener('input',function(){const q=this.value.trim().toLowerCase();filtered=q?records.filter(r=>(`${r.pid} ${r.title} ${(r.tags||[]).join(' ')}`).toLowerCase().includes(q)):[...records];currentPage=1;applySort();render()});
+loadRecords();
+</script>
+</body>
+</html>

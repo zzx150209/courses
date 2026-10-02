@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>课程 · Showball OI</title>
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('showball-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch(e){}</script>
+  <link rel="stylesheet" href="assets/theme.css">
+  <script defer src="assets/app.js"></script>
+
+  <style>
+    /* ── Courses hub — Showball OI ── */
+    .learning-hero{
+      position:relative;overflow:hidden;
+      margin-bottom:34px;padding:30px 32px;
+      border:1px solid var(--brand-100);border-radius:18px;
+      background:
+        radial-gradient(circle at 92% 18%,rgba(56,189,248,.22),transparent 26%),
+        linear-gradient(135deg,var(--surface) 0%,var(--brand-50) 100%);
+      box-shadow:var(--shadow);
+    }
+    .learning-hero::after{
+      content:"";position:absolute;width:190px;height:190px;right:-72px;bottom:-108px;
+      border:28px solid rgba(14,165,233,.075);border-radius:50%;pointer-events:none;
+    }
+    .learning-hero-badge{
+      position:relative;z-index:1;display:inline-flex;align-items:center;gap:7px;
+      min-height:26px;padding:3px 9px;margin-bottom:13px;border-radius:999px;
+      border:1px solid var(--brand-100);background:rgba(255,255,255,.72);
+      color:var(--brand-700);font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.06em;
+      backdrop-filter:blur(8px);
+    }
+    .learning-hero-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brand-400);box-shadow:0 0 0 4px rgba(56,189,248,.12)}
+    .learning-hero h1{position:relative;z-index:1;margin:0;font-size:34px;line-height:1.2;font-weight:790;letter-spacing:-.04em}
+    .learning-hero p{position:relative;z-index:1;margin:9px 0 0;max-width:700px;color:var(--text-2);font-size:14px}
+    .hub-summary{position:relative;z-index:1;display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+    .hub-summary-chip{
+      display:inline-flex;align-items:center;gap:7px;min-height:30px;padding:4px 11px;
+      border:1px solid var(--border);border-radius:999px;background:color-mix(in srgb,var(--surface) 80%,transparent);
+      color:var(--text-2);font-size:11px;font-weight:650;backdrop-filter:blur(8px)
+    }
+    .hub-summary-chip strong{font-family:var(--mono);font-size:11px;color:var(--brand-700)}
+
+    .hub-section{margin-bottom:38px}
+    .hub-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:15px}
+    .hub-section-title-wrap{display:flex;align-items:center;gap:11px}
+    .hub-section-icon{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:var(--brand-50);border:1px solid var(--brand-100);color:var(--brand-600)}
+    .hub-section-icon svg{width:16px;height:16px;stroke-width:1.9}
+    .hub-section-title{margin:0;font-size:16px;font-weight:770;letter-spacing:-.015em}
+    .hub-section-sub{margin-top:2px;font-size:10px;color:var(--text-3)}
+    .hub-section-meta{font-family:var(--mono);font-size:10px;color:var(--text-3);white-space:nowrap}
+
+    .path-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+    .path-card{
+      position:relative;overflow:hidden;min-height:214px;padding:20px;
+      border:1px solid var(--border);border-radius:15px;background:var(--surface);
+      box-shadow:0 1px 2px rgba(15,23,42,.025);
+      transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease;
+    }
+    .path-card::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--brand-300),var(--brand-600));opacity:.8}
+    .path-card::after{content:"";position:absolute;width:110px;height:110px;right:-46px;top:-46px;border:18px solid rgba(56,189,248,.055);border-radius:50%;pointer-events:none}
+    .path-card:hover{transform:translateY(-3px);border-color:var(--brand-200);box-shadow:0 14px 30px rgba(14,165,233,.09)}
+    .path-card-head{position:relative;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:20px}
+    .path-card-kicker{display:flex;align-items:center;gap:8px;color:var(--brand-600);font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+    .path-card-kicker::after{content:"";width:28px;height:1px;background:var(--brand-200)}
+    .path-card-icon{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:var(--brand-50);border:1px solid var(--brand-100);color:var(--brand-600);transition:.18s ease}
+    .path-card-icon svg{width:18px;height:18px;stroke-width:1.8}
+    .path-card:hover .path-card-icon{background:var(--brand-500);border-color:var(--brand-500);color:#fff;transform:rotate(-2deg) scale(1.04)}
+    .path-card-title{position:relative;z-index:1;margin:0 0 6px;font-size:18px;font-weight:780;letter-spacing:-.025em}
+    .path-card-desc{position:relative;z-index:1;min-height:38px;margin:0;color:var(--text-3);font-size:11px;line-height:1.7}
+    .path-route{position:relative;z-index:1;display:flex;align-items:center;margin:18px 0 16px;width:min(250px,72%)}
+    .path-route-line{height:1px;flex:1;background:linear-gradient(90deg,var(--brand-200),var(--border))}
+    .path-route-node{width:7px;height:7px;border-radius:50%;background:var(--surface);border:2px solid var(--brand-300);box-shadow:0 0 0 3px var(--brand-50)}
+    .path-card-foot{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .path-count{display:inline-flex;align-items:center;gap:6px;color:var(--text-3);font-size:10px}
+    .path-count strong{color:var(--text-2);font-family:var(--mono);font-size:10px}
+    .path-enter{display:inline-flex;align-items:center;gap:6px;color:var(--brand-600);font-size:10px;font-weight:700}
+    .path-enter span{width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:var(--brand-50);border:1px solid var(--brand-100);transition:.18s ease}
+    .path-enter svg{width:12px;height:12px;stroke-width:2}
+    .path-card:hover .path-enter span{transform:translateX(2px);background:var(--brand-500);border-color:var(--brand-500);color:#fff}
+
+    .knowledge-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+    .knowledge-card{
+      min-height:88px;padding:13px;border:1px solid var(--border);border-radius:12px;background:var(--surface);
+      display:grid;grid-template-columns:34px minmax(0,1fr) 24px;gap:10px;align-items:center;
+      transition:transform .16s ease,border-color .16s ease,background .16s ease,box-shadow .16s ease;
+    }
+    .knowledge-card:hover{transform:translateY(-2px);border-color:var(--brand-200);background:var(--surface-raised);box-shadow:0 8px 20px rgba(14,165,233,.07)}
+    .knowledge-icon{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--brand-50);border:1px solid var(--brand-100);color:var(--brand-600)}
+    .knowledge-icon svg{width:16px;height:16px;stroke-width:1.8}
+    .knowledge-main{min-width:0}
+    .knowledge-title{display:block;font-size:12px;font-weight:720;line-height:1.35}
+    .knowledge-count{display:block;margin-top:4px;color:var(--text-3);font-family:var(--mono);font-size:9px}
+    .knowledge-arrow{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;color:var(--text-3);border:1px solid transparent;transition:.16s ease}
+    .knowledge-arrow svg{width:11px;height:11px;stroke-width:2}
+    .knowledge-card:hover .knowledge-arrow{color:var(--brand-600);border-color:var(--brand-100);background:var(--brand-50);transform:translateX(1px)}
+
+    /* 知识手册：入口卡片下方的快捷入口 */
+    .handbook-tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
+    .handbook-tools a{
+      display:inline-flex;align-items:center;min-height:30px;padding:4px 12px;
+      border:1px solid var(--border);border-radius:999px;background:var(--surface);
+      color:var(--text-2);font-size:11px;font-weight:650;transition:.16s ease;
+    }
+    .handbook-tools a:hover{border-color:var(--brand-200);background:var(--brand-50);color:var(--brand-700)}
+    html[data-theme="dark"] .handbook-tools a:hover{background:rgba(14,165,233,.10);border-color:rgba(56,189,248,.18);color:var(--brand-300)}
+
+    html[data-theme="dark"] .learning-hero{background:radial-gradient(circle at 92% 18%,rgba(14,165,233,.16),transparent 28%),linear-gradient(135deg,var(--surface) 0%,rgba(14,165,233,.055) 100%);border-color:rgba(56,189,248,.16)}
+    html[data-theme="dark"] .learning-hero-badge{background:rgba(15,23,42,.58);border-color:rgba(56,189,248,.18);color:var(--brand-300)}
+    html[data-theme="dark"] .hub-summary-chip{background:rgba(15,23,42,.58)}
+    html[data-theme="dark"] .hub-summary-chip strong{color:var(--brand-300)}
+    html[data-theme="dark"] .path-card:hover,html[data-theme="dark"] .knowledge-card:hover{box-shadow:0 12px 26px rgba(0,0,0,.20),0 0 0 1px rgba(56,189,248,.035)}
+    html[data-theme="dark"] .path-card-kicker,html[data-theme="dark"] .path-enter{color:var(--brand-300)}
+
+    @media(max-width:980px){.knowledge-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:760px){
+      .learning-hero{padding:24px 22px;border-radius:15px}.learning-hero h1{font-size:29px}
+      .path-grid{grid-template-columns:1fr}.path-card{min-height:0}.path-card-desc{min-height:0}
+      .hub-section-head{align-items:center}.hub-section-sub{display:none}
+    }
+    @media(max-width:520px){.knowledge-grid{grid-template-columns:1fr}.learning-hero{padding:21px 18px}.learning-hero h1{font-size:27px}.hub-summary-chip{font-size:10px}}
+  </style>
+</head>
+<body data-page="courses">
+<div class="sidebar-overlay" data-nav-close></div>
+<aside class="app-sidebar" aria-label="主导航">
+  <a class="brand" href="index.html"><span class="brand-mark">S</span><span class="brand-name">Showball <span>OI</span></span></a>
+  <div class="nav-label">Workspace</div>
+  <nav class="side-nav">
+    <a class="side-link" data-page="home" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10.5V20h14v-9.5M9 20v-6h6v6"/></svg><span>首页</span></a>
+    <a class="side-link" data-page="favorites" href="favorite.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2 7.5 14 3 9.6l6.2-.9L12 3Z"/></svg><span>好题收藏</span></a>
+    <a class="side-link" data-page="courses" href="memos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg><span>课程</span></a>
+    <a class="side-link" data-page="templates" href="templates.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6M14 4l-4 16"/></svg><span>代码模板</span></a>
+    <a class="side-link" data-page="tools" href="tools.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 1.55V21h-4v-.05a1.7 1.7 0 0 0-1-1.55 1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3v-4h.05A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3h4v.05a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.55 1H21v4h-.05A1.7 1.7 0 0 0 19.4 15Z"/></svg><span>小工具</span></a>
+  </nav>
+  <div class="sidebar-spacer"></div>
+  <div class="sidebar-note"><strong>Showball OI</strong>好题、课程、模板与算法工具。</div>
+</aside>
+
+<main class="app-main">
+  <header class="app-topbar">
+    <div class="topbar-left">
+      <button class="icon-btn menu-btn" data-menu-toggle aria-label="打开导航"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      <a class="mobile-brand" href="index.html"><span class="brand-mark">S</span><span>Showball OI</span></a>
+      <span class="topbar-title">课程 / 知识库</span>
+    </div>
+    <div class="topbar-actions"><button class="icon-btn" data-theme-toggle aria-label="切换主题"></button></div>
+  </header>
+
+  <div class="page page-narrow">
+    <section class="learning-hero">
+      <div class="learning-hero-badge">SHOWBALL OI · LEARNING HUB</div>
+      <h1>课程与知识库</h1>
+      <p>沿课程路径系统学习，也可以按算法主题快速查阅。让讲义从零散页面变成一套清晰、可持续维护的 OI 知识体系。</p>
+      <div class="hub-summary">
+        <span class="hub-summary-chip"><strong id="hero-course-count">--</strong> 条课程路径</span>
+        <span class="hub-summary-chip"><strong id="hero-lecture-count">--</strong> 篇课程讲义</span>
+        <span class="hub-summary-chip"><strong id="hero-topic-count">--</strong> 个算法主题</span>
+        <span class="hub-summary-chip"><strong id="hero-handbook-count">--</strong> 本知识手册</span>
+      </div>
+    </section>
+
+    <section class="hub-section">
+      <div class="hub-section-head">
+        <div class="hub-section-title-wrap">
+          <span class="hub-section-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M8 7h7M8 11h5"/></svg></span>
+          <div><h2 class="hub-section-title">课程路径</h2><div class="hub-section-sub">按教学阶段组织的系统学习路线</div></div>
+        </div>
+        <span class="hub-section-meta" id="course-meta">加载中…</span>
+      </div>
+      <div class="path-grid" id="courses-grid"><div class="empty-state">正在加载课程…</div></div>
+    </section>
+
+    <section class="hub-section">
+      <div class="hub-section-head">
+        <div class="hub-section-title-wrap">
+          <span class="hub-section-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M8 7h7M8 11h5"/></svg></span>
+          <div><h2 class="hub-section-title">知识手册</h2><div class="hub-section-sub">GESP / CSP / NOIP 系统手册，支持全文检索与标签索引</div></div>
+        </div>
+        <span class="hub-section-meta" id="handbook-meta">加载中…</span>
+      </div>
+      <div class="knowledge-grid" id="handbook-grid"><div class="empty-state">正在加载手册…</div></div>
+      <div class="handbook-tools">
+        <a href="handbook/search/index.html">全文检索</a>
+        <a href="handbook/docs/tags/index.html">知识标签</a>
+        <a href="handbook/index.html">手册总览</a>
+      </div>
+    </section>
+
+    <section class="hub-section">
+      <div class="hub-section-head">
+        <div class="hub-section-title-wrap">
+          <span class="hub-section-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="18" cy="18" r="3"/></svg></span>
+          <div><h2 class="hub-section-title">知识点索引</h2><div class="hub-section-sub">按算法主题快速定位相关讲义</div></div>
+        </div>
+        <span class="hub-section-meta" id="topic-meta"></span>
+      </div>
+      <div class="knowledge-grid" id="topics-grid"><div class="empty-state">正在加载知识点…</div></div>
+    </section>
+  </div>
+  <footer class="site-footer">© 2026 Showball OI · Learn · Solve · Review</footer>
+</main>
+
+<script>
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const LOCAL_COURSES={"courses":[{"id":"syntax-basics","title":"语法基础课程","color":"green","contents":[{"id":"content-001","title":"程序设计介绍及环境配置","lectures":["lec-003"],"problems":[]},{"id":"content-002","title":"顺序结构","lectures":["lec-004","lec-005"],"problems":[{"pid":"B2002","platform":"luogu","title":"Hello,World!"},{"pid":"B2003","platform":"luogu","title":"输出第二个整数"},{"pid":"B2005","platform":"luogu","title":"字符三角形"},{"pid":"P1001","platform":"luogu","title":"A+B Problem"},{"pid":"B2008","platform":"luogu","title":"计算 (a+b)×c 的值"},{"pid":"B2009","platform":"luogu","title":"计算 (a+b)/c 的值"},{"pid":"B2010","platform":"luogu","title":"带余除法"},{"pid":"B2011","platform":"luogu","title":"计算分数的浮点数值"},{"pid":"B2013","platform":"luogu","title":"温度表达转化"},{"pid":"B2017","platform":"luogu","title":"打印ASCII码"},{"pid":"B2018","platform":"luogu","title":"打印字符"},{"pid":"B2028","platform":"luogu","title":"反向输出一个三位数"},{"pid":"P5708","platform":"luogu","title":"【深基2.习2】三角形面积"}]},{"id":"content-003","title":"分支结构","lectures":["lec-006"],"problems":[{"pid":"B2036","platform":"luogu","title":"输出绝对值"},{"pid":"B2037","platform":"luogu","title":"奇偶数判断"},{"pid":"B2047","platform":"luogu","title":"分段函数"},{"pid":"B2052","platform":"luogu","title":"简单计算器"},{"pid":"P5711","platform":"luogu","title":"【深基3.例3】闰年判断"},{"pid":"P5710","platform":"luogu","title":"【深基3.例2】数的性质"},{"pid":"B2043","platform":"luogu","title":"判断能否被 3，5，7 整除"},{"pid":"P5716","platform":"luogu","title":"【深基3.例9】月份天数"},{"pid":"P5715","platform":"luogu","title":"【深基3.例8】三位数排序"},{"pid":"B2044","platform":"luogu","title":"有一门课不及格的学生"}]},{"id":"content-004","title":"循环结构","lectures":["lec-007","lec-008","lec-009"],"problems":[{"type":"divider","lecture":"lec-007"},{"pid":"P5722","platform":"luogu","title":"【深基4.例11】数列求和"},{"pid":"P5718","platform":"luogu","title":"【深基4.例2】找最小值"},{"pid":"B2054","platform":"luogu","title":"求平均年龄"},{"pid":"P5719","platform":"luogu","title":"【深基4.例3】分类平均"},{"pid":"P5724","platform":"luogu","title":"【深基4.习5】求极差 / 最大跨度值 / 最大值和最小值的差"},{"pid":"B2068","platform":"luogu","title":"统计满足条件的 4 位数"},{"pid":"P5720","platform":"luogu","title":"【深基4.例4】一尺之棰"},{"pid":"B2077","platform":"luogu","title":"角谷猜想"},{"type":"divider","lecture":"lec-008"},{"pid":"P1307","platform":"luogu","title":"[NOIP 2011 普及组] 数字反转"},{"pid":"B2078","platform":"luogu","title":"含 k 个 3 的数"},{"pid":"B2081","platform":"luogu","title":"与 7 无关的数"},{"pid":"P1980","platform":"luogu","title":"[NOIP 2013 普及组] 计数问题"},{"pid":"B2082","platform":"luogu","title":"数字统计"},{"pid":"B4036","platform":"luogu","title":"[GESP202409 二级] 数位之和"},{"pid":"B3841","platform":"luogu","title":"[GESP202306 二级] 自幂数判断"},{"type":"divider","lecture":"lec-009"},{"pid":"P5721","platform":"luogu","title":"【深基4.例6】数字直角三角形"},{"pid":"B3844","platform":"luogu","title":"[GESP样题 二级] 画正方形"},{"pid":"B3924","platform":"luogu","title":"[GESP202312 二级] 小杨的 H 字矩阵"},{"pid":"B3955","platform":"luogu","title":"[GESP202403 二级] 小杨的日字矩阵"},{"pid":"B2086","platform":"luogu","title":"不定方程求解"},{"pid":"B4002","platform":"luogu","title":"[GESP202406 二级] 平方之和"}]},{"id":"content-005","title":"数组","lectures":["lec-010","lec-011","lec-012"],"problems":[{"type":"divider","lecture":"lec-010"},{"pid":"B2089","platform":"luogu","title":"数组逆序重存放"},{"pid":"B2087","platform":"luogu","title":"与指定数字相同的数的个数"},{"pid":"P1428","platform":"luogu","title":"小鱼比可爱"},{"pid":"P5727","platform":"luogu","title":"【深基5.例3】冰雹猜想"},{"pid":"B2091","platform":"luogu","title":"向量点积计算"},{"pid":"B2094","platform":"luogu","title":"不与最大数相同的数字之和"},{"pid":"P1177","platform":"luogu","title":"【模板】排序"}]},{"id":"content-006","title":"字符串","lectures":["lec-015"],"problems":[]},{"id":"content-007","title":"函数","lectures":["lec-016"],"problems":[]},{"id":"content-008","title":"结构体、指针与引用","lectures":["lec-017","lec-018"],"problems":[]}]},{"id":"algo-basics","title":"算法基础课程","color":"blue","contents":[{"id":"content-001","title":"进制与编码","lectures":["lec-019","lec-020"],"problems":[]},{"id":"content-002","title":"枚举法","lectures":["lec-013","lec-014"],"problems":[]},{"id":"content-003","title":"模拟法","lectures":["lec-022"],"problems":[]},{"id":"content-004","title":"递归与递推","lectures":["lec-023"],"problems":[]},{"id":"content-005","title":"排序及常用STL","lectures":["lec-024","lec-030"],"problems":[]},{"id":"content-006","title":"前缀和与差分","lectures":["lec-025","lec-026","lec-027","lec-028"],"problems":[]},{"id":"content-007","title":"双指针算法(尺取法)","lectures":["lec-029"],"problems":[]},{"id":"content-008","title":"基础数论","lectures":["lec-031","lec-032"],"problems":[]},{"id":"content-009","title":"贪心策略","lectures":["lec-033"],"problems":[]},{"id":"content-010","title":"高精度","lectures":[],"problems":[]},{"id":"content-011","title":"高精度","lectures":[],"problems":[]},{"id":"content-012","title":"二分","lectures":["lec-034","lec-035"],"problems":[]},{"id":"content-013","title":"数据结构","lectures":[],"problems":[]},{"id":"content-014","title":"搜索","lectures":[],"problems":[]},{"id":"content-015","title":"动态规划","lectures":[],"problems":[]},{"id":"content-016","title":"图论","lectures":[],"problems":[]}]},{"id":"basics-to-improve","title":"基础提高衔接课程","color":"orange","contents":[{"id":"content-001","title":"并查集","lectures":[],"problems":[]},{"id":"content-002","title":"最短路","lectures":[],"problems":[]},{"id":"content-003","title":"最小生成树","lectures":[],"problems":[]},{"id":"content-004","title":"常见优化技巧","lectures":[],"problems":[]},{"id":"content-005","title":"动态规划进阶","lectures":[],"problems":[]},{"id":"content-006","title":"数学","lectures":[],"problems":[]}]},{"id":"algo-improve","title":"提高算法课程","color":"purple","contents":[{"id":"content-001","title":"AC自动机专题","lectures":["lec-001"],"problems":[{"pid":"P3808","platform":"luogu","title":"AC 自动机（简单版）"},{"pid":"163E","platform":"codeforces","title":"e-Government"},{"pid":"abc455_c","platform":"atcoder","title":"Vanish"},{"pid":"abc205_d","platform":"atcoder","title":"D - Kth Excluded"}]},{"id":"content-002","title":"SAM(后缀自动机)","lectures":["lec-002"],"problems":[{"pid":"P3804","platform":"luogu","title":"【模板】后缀自动机（SAM）"}]},{"id":"content-003","title":"数据结构","lectures":[],"problems":[]},{"id":"content-004","title":"字符串算法","lectures":[],"problems":[]},{"id":"content-005","title":"搜索","lectures":[],"problems":[]},{"id":"content-006","title":"图论","lectures":[],"problems":[]},{"id":"content-007","title":"动态规划","lectures":[],"problems":[]},{"id":"content-008","title":"数论与组合数学","lectures":[],"problems":[]}]},{"id":"contest-prep","title":"竞赛备赛专项课程","color":"green","contents":[{"id":"written-001","type":"written","contest":"CSP-J","title":"CSP 2024 入门级第一轮","lectures":[],"problems":[]},{"id":"mock-001","type":"mock","contest":"粤港澳大湾区信息学","title":"粤港澳模拟赛 #1","problems":[{"pid":"abc458_b","platform":"atcoder","title":"Count Adjacent Cells","full_score":100},{"pid":"abc084_d","platform":"atcoder","title":"2017-like Number","full_score":100},{"pid":"abc130_d","platform":"atcoder","title":"Enough Array","full_score":100},{"pid":"abc280_d","platform":"atcoder","title":"Factorial and Multiple","full_score":100}],"scores":{"stu-005":{"abc458_b":100,"abc084_d":30,"abc130_d":60,"abc280_d":15},"stu-003":{"abc458_b":100,"abc084_d":60,"abc130_d":60,"abc280_d":17},"stu-004":{"abc458_b":100,"abc084_d":60,"abc130_d":83,"abc280_d":17}},"participants":["stu-003","stu-004","stu-005"]}]}],"topics":[{"id":"dp","title":"动态规划","color":"blue"},{"id":"basic-algo","title":"基础算法","color":"green"},{"id":"ds","title":"数据结构","color":"orange"},{"id":"math","title":"数学","color":"purple"},{"id":"graph","title":"图论","color":"blue"},{"id":"misc","title":"杂项","color":"green"},{"id":"string","title":"字符串","color":"orange"}]};
+const LOCAL_LECTURES=[{"id":"lec-001","slug":"lec-001","title":"AC自动机","tags":["ACAM"],"courses":["algo-improve"],"topics":["string"],"href":"memos/lec-001.html","created":"2026-05-13"},{"id":"lec-002","slug":"lec-002","title":"SAM(后缀自动机)","tags":["SAM"],"courses":["algo-improve"],"topics":["string"],"href":"memos/lec-002.html","created":"2026-05-13"},{"id":"lec-003","slug":"lec-003","title":"程序设计介绍及环境配置","tags":["入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/lec-003.html","created":"2026-05-13"},{"id":"lec-004","slug":"lec-004","title":"简单写程序","tags":["入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-basic-programming.html","created":"2026-05-13"},{"id":"lec-005","slug":"lec-005","title":"顺序结构程序设计","tags":["入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-sequential-programming.html","created":"2026-05-13"},{"id":"lec-006","slug":"lec-006","title":"分支结构程序设计","tags":["入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-conditional-programming.html","created":"2026-05-14"},{"id":"lec-007","slug":"lec-007","title":"循环结构程序设计","tags":["入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-loop-programming.html","created":"2026-05-15"},{"id":"lec-008","slug":"lec-008","title":"数字拆分技巧","tags":["入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-digit-decomposition.html","created":"2026-05-15"},{"id":"lec-009","slug":"lec-009","title":"循环嵌套与复杂循环","tags":["入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-nested-and-complex-loops.html","created":"2026-05-15"},{"id":"lec-010","slug":"lec-010","title":"数组的基本概念","tags":["入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-array-basics.html","created":"2026-05-21"},{"id":"lec-011","slug":"lec-011","title":"多维数组及应用","tags":["入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-multidimensional-arrays.html","created":"2026-05-21"},{"id":"lec-012","slug":"lec-012","title":"数组拓展(数组计数与打标记思想)","tags":["入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-array-techniques-index-counting-and-marking.html","created":"2026-05-21"},{"id":"lec-013","slug":"lec-013","title":"时间复杂度","tags":["算法基础课"],"courses":["algo-basics"],"topics":["misc"],"href":"memos/Lec-time-complexity.html","created":"2026-06-17"},{"id":"lec-014","slug":"lec-014","title":"枚举法","tags":["算法基础课程"],"courses":["algo-basics"],"topics":[],"href":"memos/Lec-enumeration.html","created":"2026-06-19"},{"id":"lec-015","slug":"lec-015","title":"字符串的基本概念","tags":["语法基础课程"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-string-basics.html","created":"2026-06-25"},{"id":"lec-016","slug":"lec-016","title":"函数的基本概念","tags":["语法基础课程"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-function-basics.html","created":"2026-06-25"},{"id":"lec-017","slug":"lec-017","title":"结构体","tags":["语法基础课程"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-structs.html","created":"2026-06-25"},{"id":"lec-018","slug":"lec-018","title":"指针与引用","tags":["语法入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-pointers-and-references.html","created":"2026-06-25"},{"id":"lec-019","slug":"lec-019","title":"进制转换","tags":["算法基础课程"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-base-conversion.html","created":"2026-06-25"},{"id":"lec-020","slug":"lec-020","title":"编码与位运算","tags":["基础算法课程"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-encoding-and-bitwise-operations.html","created":"2026-06-25"},{"id":"lec-021","slug":"lec-021","title":"信息学述职","tags":["笔记"],"courses":[],"topics":[],"href":"memos/lec-021.html","created":"2026-07-01"},{"id":"lec-022","slug":"lec-022","title":"模拟法","tags":["算法基础"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-simulation.html","created":"2026-07-04"},{"id":"lec-023","slug":"lec-023","title":"递推与递归","tags":["基础算法课程"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-recursion-and-recurrence.html","created":"2026-07-08"},{"id":"lec-024","slug":"lec-024","title":"排序算法","tags":["基础算法课程"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-sorting-algorithms.html","created":"2026-07-10"},{"id":"lec-025","slug":"lec-025","title":"一维前缀和与差分","tags":["基础算法"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-1d-prefix-sums-and-difference-arrays.html","created":"2026-07-13"},{"id":"lec-026","slug":"lec-026","title":"二维前缀和与差分","tags":["基础算法"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-2d-prefix-sums-and-difference-arrays.html","created":"2026-07-13"},{"id":"lec-027","slug":"lec-027","title":"前缀和与差分的拓展应用","tags":["基础算法"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-advanced-prefix-sums-and-difference-arrays.html","created":"2026-07-13"},{"id":"lec-028","slug":"lec-028","title":"“好区间”问题","tags":["基础算法"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-good-interval-problems.html","created":"2026-07-13"},{"id":"lec-029","slug":"lec-029","title":"双指针算法(尺取法)","tags":["基础算法"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-two-pointers.html","created":"2026-07-14"},{"id":"lec-030","slug":"lec-030","title":"常用STL","tags":["基础算法"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-common-stl.html","created":"2026-07-14"},{"id":"lec-031","slug":"lec-031","title":"数学符号与基本知识","tags":[],"courses":["algo-basics"],"topics":["math"],"href":"memos/Lec-mathematical-notation-and-basics.html","created":"2026-07-26"},{"id":"lec-032","slug":"lec-032","title":"素数筛法","tags":["基础算法"],"courses":["algo-basics"],"topics":["math"],"href":"memos/Lec-prime-sieve.html","created":"2026-07-29"},{"id":"lec-033","slug":"lec-033","title":"贪心策略","tags":["基础算法课程"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-greedy-strategies.html","created":"2026-08-01"},{"id":"lec-034","slug":"lec-034","title":"二分查找","tags":["基础算法"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-binary-search.html","created":"2026-08-03"},{"id":"lec-035","slug":"lec-035","title":"二分答案","tags":["基础算法"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-binary-search-on-answer.html","created":"2026-08-06"}];
+/* 知识手册（源自 zzx150209/handbook，已整合进 handbook/ 子目录）
+   n = handbook/courses/N/index.html 的目录编号，与手册内部导航一一对应。
+   正文统一维护在 CSP-S 一份，NOIP 仅保留别名入口（alias:true），故不计入篇数。
+   n=12「信息学英语」已按需整体剔除（课程页、docs/EngWord、英语闪卡、检索索引一并清理）。 */
+const HANDBOOKS=[
+  {n:1, title:'GESP 1 级',  chapters:9,  group:'GESP'},
+  {n:2, title:'GESP 2 级',  chapters:12, group:'GESP'},
+  {n:3, title:'GESP 3 级',  chapters:10, group:'GESP'},
+  {n:4, title:'GESP 4 级',  chapters:12, group:'GESP'},
+  {n:5, title:'GESP 5 级',  chapters:10, group:'GESP'},
+  {n:6, title:'GESP 6 级',  chapters:9,  group:'GESP'},
+  {n:7, title:'GESP 7 级',  chapters:5,  group:'GESP'},
+  {n:8, title:'GESP 8 级',  chapters:8,  group:'GESP'},
+  {n:9, title:'CSP-J',      chapters:13, group:'CSP'},
+  {n:10,title:'CSP-S',      chapters:13, group:'CSP'},
+  {n:11,title:'NOIP',       chapters:13, group:'CSP', alias:true}
+];
+const handbookIcon=g=>({
+  'GESP':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M8 7h7M8 11h5"/></svg>',
+  'CSP':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="9" r="5"/><path d="m8.5 13-2 8 5.5-3 5.5 3-2-8"/></svg>'
+}[g]||'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>');
+const courseIcon=id=>({
+  'syntax-basics':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h5M8 16h7"/></svg>',
+  'algo-basics':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M14 5l-4 14"/></svg>',
+  'basics-to-improve':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 18 9 13l3 3 8-9"/><path d="M15 7h5v5"/></svg>',
+  'algo-improve':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>',
+  'contest-prep':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M8 4h8v4a4 4 0 0 1-8 0z"/><path d="M10 12v3M14 12v3M8 20h8M10 15h4v5"/><path d="M8 6H5v1a3 3 0 0 0 3 3M16 6h3v1a3 3 0 0 1-3 3"/></svg>',
+  'gesp':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="9" r="5"/><path d="m8.5 13-2 8 5.5-3 5.5 3-2-8"/><path d="m10 9 1.3 1.3L14 7.7"/></svg>'
+}[id]||'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>');
+const topicIcon=id=>({
+  'dp':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M8 3h8v6H8zM4 15h6v6H4zM14 15h6v6h-6z"/><path d="M12 9v3M7 15v-3h10v3"/></svg>',
+  'basic-algo':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4M8 11h6M11 8v6"/></svg>',
+  'ds':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><path d="M12 7v4M12 11 6 16M12 11l6 5"/></svg>',
+  'math':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 4h14L9 20H5l10-12H5z"/></svg>',
+  'graph':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="12" cy="19" r="2"/><path d="m6.5 10.5 4-4M13.5 6.5l4 4M17.5 13.5l-4 4M10.5 17.5l-4-4"/></svg>',
+  'string':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 7h16M4 12h11M4 17h14"/><circle cx="18" cy="12" r="2"/></svg>',
+  'misc':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/><circle cx="12" cy="12" r="3"/></svg>'
+}[id]||'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 6h16M4 12h16M4 18h10"/></svg>');
+async function init(){
+  let coursesData,lectures,usingSnapshot=false;
+  try{
+    if(location.protocol==='file:') throw new Error('file protocol');
+    const fetchJson=async(paths)=>{
+      let lastError;
+      for(const path of paths){
+        try{const res=await fetch(path,{cache:'no-store'});if(res.ok)return await res.json();lastError=new Error(path+' '+res.status)}catch(err){lastError=err}
+      }
+      throw lastError||new Error('数据加载失败');
+    };
+    [coursesData,lectures]=await Promise.all([
+      fetchJson(['memos/courses.json','momos/courses.json']),
+      fetchJson(['memos/lectures.json'])
+    ]);
+  }catch(e){
+    console.warn('课程 JSON 无法通过 fetch 读取，已使用页面内置数据快照。',e);
+    coursesData=LOCAL_COURSES;lectures=LOCAL_LECTURES;usingSnapshot=true;
+  }
+  const{courses=[],topics=[]}=coursesData||{};
+  const allCourseLectureIds=new Set();
+  courses.forEach(c=>{
+    (c.contents||[]).forEach(ct=>(ct.lectures||[]).forEach(id=>allCourseLectureIds.add(id)));
+    lectures.forEach(l=>{if((l.courses||[]).includes(c.id)) allCourseLectureIds.add(l.id)});
+  });
+  document.getElementById('course-meta').textContent=`${courses.length} 条学习路径${usingSnapshot?' · 本地预览':''}`;
+  document.getElementById('topic-meta').textContent=`${topics.length} 个算法主题`;
+  document.getElementById('hero-course-count').textContent=courses.length;
+  document.getElementById('hero-lecture-count').textContent=allCourseLectureIds.size;
+  document.getElementById('hero-topic-count').textContent=topics.length;
+  document.getElementById('courses-grid').innerHTML=courses.map((c,i)=>{
+    const lectureIds=new Set((c.contents||[]).flatMap(ct=>ct.lectures||[]));
+    lectures.forEach(l=>{if((l.courses||[]).includes(c.id)) lectureIds.add(l.id)});
+    const lecCount=lectureIds.size;
+    const description=c.description||c.desc||({
+      'syntax-basics':'从语法、程序结构到基础编程能力，建立稳定的代码基本功。',
+      'algo-basics':'掌握枚举、递推、前缀和、二分等竞赛中最常用的基础算法。',
+      'basics-to-improve':'从基础算法过渡到更完整的数据结构、图论与动态规划体系。',
+      'algo-improve':'面向提高阶段，深入学习复杂数据结构、字符串与高级算法。',
+      'contest-prep':'围绕正式竞赛进行知识梳理、专项训练与赛前准备。',
+      'gesp':'围绕 GESP 等级考试按级别组织知识点与配套讲义。'
+    }[c.id]||'系统课程与配套讲义，按学习阶段持续整理与更新。');
+    return `<a href="memos/detail.html?type=course&id=${encodeURIComponent(c.id)}" class="path-card">
+      <div class="path-card-head"><span class="path-card-kicker">Path ${String(i+1).padStart(2,'0')}</span><span class="path-card-icon" aria-hidden="true">${courseIcon(c.id)}</span></div>
+      <h3 class="path-card-title">${esc(c.title)}</h3>
+      <p class="path-card-desc">${esc(description)}</p>
+      <div class="path-route" aria-hidden="true"><span class="path-route-node"></span><span class="path-route-line"></span><span class="path-route-node"></span><span class="path-route-line"></span><span class="path-route-node"></span></div>
+      <div class="path-card-foot"><span class="path-count"><strong>${lecCount}</strong> 篇讲义</span><span class="path-enter">进入课程 <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></div>
+    </a>`;
+  }).join('')||'<div class="empty-state">暂无课程</div>';
+  document.getElementById('topics-grid').innerHTML=topics.map(t=>{
+    const count=lectures.filter(l=>l.topics&&l.topics.includes(t.id)).length;
+    return `<a href="memos/detail.html?type=topic&id=${encodeURIComponent(t.id)}" class="knowledge-card">
+      <span class="knowledge-icon" aria-hidden="true">${topicIcon(t.id)}</span>
+      <span class="knowledge-main"><span class="knowledge-title">${esc(t.title)}</span><span class="knowledge-count">${count} 篇讲义</span></span>
+      <span class="knowledge-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>`;
+  }).join('')||'<div class="empty-state">暂无知识点</div>';
+
+  // 知识手册区块：静态清单，不依赖网络请求，离线打开也能正常渲染
+  const hbChapters=HANDBOOKS.filter(h=>!h.alias).reduce((sum,h)=>sum+h.chapters,0);
+  const hbMeta=document.getElementById('handbook-meta');
+  if(hbMeta) hbMeta.textContent=`${HANDBOOKS.length} 本手册 · ${hbChapters} 篇正文`;
+  const hbHero=document.getElementById('hero-handbook-count');
+  if(hbHero) hbHero.textContent=HANDBOOKS.length;
+  const hbGrid=document.getElementById('handbook-grid');
+  if(hbGrid) hbGrid.innerHTML=HANDBOOKS.map(h=>`<a href="handbook/courses/${h.n}/index.html" class="knowledge-card">
+      <span class="knowledge-icon" aria-hidden="true">${handbookIcon(h.group)}</span>
+      <span class="knowledge-main"><span class="knowledge-title">${esc(h.title)}</span><span class="knowledge-count">${h.chapters} 篇${h.alias?' · 别名':''}</span></span>
+      <span class="knowledge-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>`).join('')||'<div class="empty-state">暂无手册</div>';
+}
+init();
+</script>
+
+</body>
+</html>

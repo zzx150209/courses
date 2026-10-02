@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>汉诺塔 · Tower of Hanoi</title>
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:rgba(255,255,255,.88);
+      --text:#1f2937;
+      --muted:#6b7280;
+      --line:#d9dee8;
+      --accent:#4f46e5;
+      --accent-2:#7c3aed;
+      --good:#16a34a;
+      --warn:#d97706;
+      --shadow:0 16px 40px rgba(31,41,55,.10);
+      --radius:22px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(99,102,241,.11), transparent 30%),
+        radial-gradient(circle at 90% 15%, rgba(168,85,247,.10), transparent 28%),
+        linear-gradient(180deg,#fafbff 0%,var(--bg) 100%);
+    }
+
+    button, select{font:inherit}
+    button{cursor:pointer}
+
+    .app{
+      width:min(1120px, calc(100% - 28px));
+      margin:0 auto;
+      padding:28px 0 40px;
+    }
+
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      margin-bottom:18px;
+    }
+
+    .brand h1{
+      margin:0;
+      font-size:clamp(26px,4vw,40px);
+      letter-spacing:-.03em;
+    }
+
+    .brand p{
+      margin:7px 0 0;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .panel{
+      background:var(--card);
+      backdrop-filter:blur(16px);
+      border:1px solid rgba(255,255,255,.8);
+      box-shadow:var(--shadow);
+      border-radius:var(--radius);
+    }
+
+    .controls{
+      display:flex;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:10px;
+      padding:14px;
+      margin-bottom:14px;
+    }
+
+    .control-group{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:14px;
+      background:#f8fafc;
+      border:1px solid #e5e7eb;
+    }
+
+    .control-group label{
+      color:var(--muted);
+      font-size:13px;
+      white-space:nowrap;
+    }
+
+    select{
+      border:0;
+      outline:0;
+      color:var(--text);
+      font-weight:700;
+      background:transparent;
+    }
+
+    .btn{
+      border:0;
+      border-radius:13px;
+      padding:10px 14px;
+      color:var(--text);
+      background:#eef1f7;
+      transition:.18s ease;
+      font-weight:700;
+    }
+    .btn:hover{transform:translateY(-1px);filter:brightness(.98)}
+    .btn:active{transform:translateY(0)}
+    .btn.primary{
+      color:white;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      box-shadow:0 8px 18px rgba(79,70,229,.22);
+    }
+    .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    .stat{
+      padding:16px 18px;
+    }
+
+    .stat .label{
+      color:var(--muted);
+      font-size:12px;
+      margin-bottom:5px;
+    }
+
+    .stat .value{
+      font-size:24px;
+      font-weight:800;
+      letter-spacing:-.02em;
+    }
+
+    .game{
+      padding:20px 18px 16px;
+    }
+
+    .message{
+      min-height:38px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      color:var(--muted);
+      font-size:14px;
+      margin-bottom:6px;
+    }
+    .message.good{color:var(--good);font-weight:700}
+    .message.warn{color:var(--warn);font-weight:700}
+
+    .board{
+      position:relative;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+      min-height:430px;
+      align-items:end;
+      padding:12px 10px 10px;
+      user-select:none;
+    }
+
+    .peg-wrap{
+      position:relative;
+      height:380px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      align-items:center;
+      border-radius:18px;
+      transition:.18s ease;
+    }
+
+    .peg-wrap.active{
+      background:linear-gradient(180deg,rgba(79,70,229,.025),rgba(79,70,229,.08));
+      outline:2px solid rgba(79,70,229,.22);
+    }
+
+    .peg-wrap.drop-target{
+      background:linear-gradient(180deg,rgba(34,197,94,.03),rgba(34,197,94,.10));
+      outline:2px solid rgba(34,197,94,.30);
+    }
+
+    .peg{
+      position:absolute;
+      bottom:34px;
+      width:12px;
+      height:250px;
+      border-radius:8px 8px 3px 3px;
+      background:linear-gradient(180deg,#bac2cf,#8b96a7);
+      box-shadow:inset 2px 0 4px rgba(255,255,255,.45);
+      z-index:0;
+    }
+
+    .base{
+      position:absolute;
+      bottom:26px;
+      width:86%;
+      height:16px;
+      border-radius:10px;
+      background:linear-gradient(180deg,#9aa4b3,#7c8798);
+      box-shadow:0 5px 10px rgba(31,41,55,.16);
+      z-index:0;
+    }
+
+    .disks{
+      position:absolute;
+      bottom:42px;
+      width:100%;
+      display:flex;
+      flex-direction:column-reverse;
+      align-items:center;
+      z-index:2;
+      pointer-events:none;
+    }
+
+    .disk{
+      height:34px;
+      margin-top:2px;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:rgba(71,85,105,.88);
+      font-size:12px;
+      font-weight:800;
+      box-shadow:
+        0 6px 12px rgba(100,116,139,.12),
+        inset 0 1px 0 rgba(255,255,255,.55);
+      transition:transform .18s ease, filter .18s ease, box-shadow .18s ease;
+      pointer-events:auto;
+      cursor:grab;
+    }
+
+    .disk.top:hover{transform:translateY(-3px);filter:brightness(1.04)}
+    .disk.selected{
+      transform:translateY(-10px);
+      box-shadow:0 11px 20px rgba(79,70,229,.24), inset 0 1px 0 rgba(255,255,255,.35);
+    }
+    .disk.dragging{opacity:.65;cursor:grabbing}
+
+    .peg-name{
+      position:absolute;
+      bottom:0;
+      font-weight:800;
+      font-size:13px;
+      color:var(--muted);
+      letter-spacing:.08em;
+    }
+
+    .footer-note{
+      margin-top:14px;
+      color:var(--muted);
+      text-align:center;
+      font-size:12px;
+      line-height:1.7;
+    }
+
+    .kbd{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:24px;
+      padding:1px 6px;
+      border:1px solid #d1d5db;
+      background:white;
+      border-bottom-width:2px;
+      border-radius:6px;
+      color:#4b5563;
+      font-size:11px;
+      font-weight:700;
+    }
+
+    @media (max-width:760px){
+      .app{width:min(100% - 16px,1120px);padding-top:16px}
+      .topbar{align-items:flex-start}
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .board{gap:4px;min-height:380px;padding-left:2px;padding-right:2px}
+      .peg-wrap{height:340px}
+      .peg{height:220px}
+      .disk{height:30px}
+      .game{padding-left:8px;padding-right:8px}
+    }
+
+    @media (max-width:480px){
+      .brand p{display:none}
+      .controls{gap:8px}
+      .btn{padding:9px 11px}
+      .stat{padding:13px 14px}
+      .stat .value{font-size:21px}
+      .board{min-height:350px}
+      .peg-wrap{height:315px}
+      .peg{height:200px}
+    }
+  </style>
+</head>
+
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <h1>汉诺塔</h1>
+        <p>Tower of Hanoi · 用最少的移动完成挑战</p>
+      </div>
+    </header>
+
+    <section class="panel controls">
+      <div class="control-group">
+        <label for="diskCount">阶数</label>
+        <select id="diskCount">
+          <option value="3">3 阶</option>
+          <option value="4">4 阶</option>
+          <option value="5">5 阶</option>
+          <option value="6">6 阶</option>
+          <option value="7">7 阶</option>
+        </select>
+      </div>
+      <button class="btn primary" id="newGameBtn">新游戏</button>
+      <button class="btn" id="undoBtn">撤销</button>
+      <button class="btn" id="hintBtn">提示一步</button>
+      <button class="btn" id="resetBtn">重置</button>
+    </section>
+
+    <section class="stats">
+      <div class="panel stat">
+        <div class="label">已移动</div>
+        <div class="value" id="moveCount">0</div>
+      </div>
+      <div class="panel stat">
+        <div class="label">理论最少</div>
+        <div class="value" id="minMoves">7</div>
+      </div>
+      <div class="panel stat">
+        <div class="label">当前最少剩余</div>
+        <div class="value" id="remainingMoves">7</div>
+      </div>
+      <div class="panel stat">
+        <div class="label">历史最佳</div>
+        <div class="value" id="bestMoves">—</div>
+      </div>
+    </section>
+
+    <section class="panel game">
+      <div class="message" id="message">点击一个柱子选中顶部圆盘，再点击目标柱子；也支持拖拽。</div>
+
+      <div class="board" id="board">
+        <div class="peg-wrap" data-peg="0">
+          <div class="peg"></div>
+          <div class="base"></div>
+          <div class="disks"></div>
+          <div class="peg-name">A</div>
+        </div>
+        <div class="peg-wrap" data-peg="1">
+          <div class="peg"></div>
+          <div class="base"></div>
+          <div class="disks"></div>
+          <div class="peg-name">B</div>
+        </div>
+        <div class="peg-wrap" data-peg="2">
+          <div class="peg"></div>
+          <div class="base"></div>
+          <div class="disks"></div>
+          <div class="peg-name">C</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-note">
+      规则：每次只能移动一个顶部圆盘，且大圆盘不能放在小圆盘上。<br>
+      键盘快捷键：<span class="kbd">H</span> 提示，
+      <span class="kbd">U</span> 撤销，
+      <span class="kbd">R</span> 重置。
+    </div>
+  </main>
+
+<script>
+(() => {
+  const diskSelect = document.getElementById('diskCount');
+  const moveCountEl = document.getElementById('moveCount');
+  const minMovesEl = document.getElementById('minMoves');
+  const remainingMovesEl = document.getElementById('remainingMoves');
+  const bestMovesEl = document.getElementById('bestMoves');
+  const messageEl = document.getElementById('message');
+  const undoBtn = document.getElementById('undoBtn');
+  const hintBtn = document.getElementById('hintBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const newGameBtn = document.getElementById('newGameBtn');
+  const pegEls = [...document.querySelectorAll('.peg-wrap')];
+
+  const diskColors = [
+    'linear-gradient(135deg,#C7D2FE,#A5B4FC)',  // 浅薰衣草蓝
+    'linear-gradient(135deg,#DDD6FE,#C4B5FD)',  // 浅紫
+    'linear-gradient(135deg,#FBCFE8,#F9A8D4)',  // 樱花粉
+    'linear-gradient(135deg,#FED7AA,#FDBA74)',  // 蜜桃橙
+    'linear-gradient(135deg,#FDE68A,#FCD34D)',  // 奶油黄
+    'linear-gradient(135deg,#A7F3D0,#6EE7B7)',  // 薄荷绿
+    'linear-gradient(135deg,#BAE6FD,#7DD3FC)'   // 天空蓝
+  ];
+
+  let n = 3;
+  let pegs = [];
+  let moveCount = 0;
+  let history = [];
+  let selectedPeg = null;
+  let draggingFrom = null;
+  let hintMove = null;
+
+  // state[i] = 第 i+1 号圆盘当前所在柱子 (0/1/2)
+  function getState() {
+    const state = Array(n).fill(0);
+    pegs.forEach((peg, pegIndex) => {
+      peg.forEach(disk => state[disk - 1] = pegIndex);
+    });
+    return state;
+  }
+
+  function stateKey(state) {
+    return state.join('');
+  }
+
+  function getBestKey() {
+    return `hanoi-best-${n}`;
+  }
+
+  function updateBestDisplay() {
+    const best = localStorage.getItem(getBestKey());
+    bestMovesEl.textContent = best ? best : '—';
+  }
+
+  function setMessage(text, type='') {
+    messageEl.textContent = text;
+    messageEl.className = 'message' + (type ? ' ' + type : '');
+  }
+
+  function resetSelection() {
+    selectedPeg = null;
+    hintMove = null;
+    pegEls.forEach(el => el.classList.remove('active', 'drop-target'));
+  }
+
+  function initGame() {
+    n = Number(diskSelect.value);
+    pegs = [[], [], []];
+    for (let disk = n; disk >= 1; disk--) pegs[0].push(disk);
+
+    moveCount = 0;
+    history = [];
+    draggingFrom = null;
+    resetSelection();
+
+    moveCountEl.textContent = '0';
+    minMovesEl.textContent = String(2 ** n - 1);
+    remainingMovesEl.textContent = String(2 ** n - 1);
+    updateBestDisplay();
+
+    setMessage('点击一个柱子选中顶部圆盘，再点击目标柱子；也支持拖拽。');
+    render();
+    updateButtons();
+  }
+
+  function render() {
+    pegEls.forEach((pegEl, pegIndex) => {
+      const stack = pegEl.querySelector('.disks');
+      stack.innerHTML = '';
+
+      pegs[pegIndex].forEach((disk, index) => {
+        const d = document.createElement('div');
+        d.className = 'disk';
+        if (index === pegs[pegIndex].length - 1) d.classList.add('top');
+        if (selectedPeg === pegIndex && index === pegs[pegIndex].length - 1) d.classList.add('selected');
+
+        const minWidth = 42;
+        const maxWidth = Math.min(280, pegEl.clientWidth * 0.84);
+        const width = minWidth + (maxWidth - minWidth) * (disk / n);
+        d.style.width = `${width}px`;
+        d.style.background = diskColors[(disk - 1) % diskColors.length];
+        d.dataset.disk = String(disk);
+        d.dataset.peg = String(pegIndex);
+        d.title = `圆盘 ${disk}`;
+
+        if (index === pegs[pegIndex].length - 1) {
+          d.draggable = true;
+          d.addEventListener('dragstart', onDragStart);
+          d.addEventListener('dragend', onDragEnd);
+        }
+
+        stack.appendChild(d);
+      });
+    });
+
+    pegEls.forEach((el, i) => el.classList.toggle('active', selectedPeg === i));
+  }
+
+  function canMove(from, to) {
+    if (from === to || pegs[from].length === 0) return false;
+    const disk = pegs[from][pegs[from].length - 1];
+    const targetTop = pegs[to][pegs[to].length - 1];
+    return targetTop === undefined || disk < targetTop;
+  }
+
+  function moveDisk(from, to, {record=true, announce=true} = {}) {
+    if (!canMove(from, to)) {
+      if (announce) setMessage('这个移动不符合规则：大圆盘不能放在小圆盘上。', 'warn');
+      resetSelection();
+      render();
+      return false;
+    }
+
+    const disk = pegs[from].pop();
+    pegs[to].push(disk);
+
+    if (record) {
+      history.push({from, to, disk});
+      moveCount++;
+      moveCountEl.textContent = String(moveCount);
+    }
+
+    resetSelection();
+    render();
+    updateButtons();
+
+    if (isSolved()) {
+      const optimal = 2 ** n - 1;
+      const oldBest = Number(localStorage.getItem(getBestKey())) || Infinity;
+      if (moveCount < oldBest) localStorage.setItem(getBestKey(), String(moveCount));
+      updateBestDisplay();
+
+      if (moveCount === optimal) {
+        setMessage(`完成！你用了 ${moveCount} 步，正好达到理论最少步数！`, 'good');
+      } else {
+        setMessage(`完成！共 ${moveCount} 步。理论最少是 ${optimal} 步。`, 'good');
+      }
+      remainingMovesEl.textContent = '0';
+      return true;
+    }
+
+    const remain = shortestPathFromCurrent().length;
+    remainingMovesEl.textContent = String(remain);
+
+    if (announce) {
+      setMessage(`已将圆盘 ${disk} 从 ${'ABC'[from]} 移到 ${'ABC'[to]}。`);
+    }
+    return true;
+  }
+
+  function isSolved() {
+    return pegs[2].length === n;
+  }
+
+  function onPegClick(e) {
+    if (isSolved()) return;
+    const pegIndex = Number(e.currentTarget.dataset.peg);
+
+    if (selectedPeg === null) {
+      if (pegs[pegIndex].length === 0) {
+        setMessage('这个柱子上没有圆盘可移动。', 'warn');
+        return;
+      }
+      selectedPeg = pegIndex;
+      render();
+      setMessage(`已选中 ${'ABC'[pegIndex]} 柱顶部圆盘，请选择目标柱。`);
+      return;
+    }
+
+    if (selectedPeg === pegIndex) {
+      resetSelection();
+      render();
+      setMessage('已取消选择。');
+      return;
+    }
+
+    moveDisk(selectedPeg, pegIndex);
+  }
+
+  function onDragStart(e) {
+    if (isSolved()) {
+      e.preventDefault();
+      return;
+    }
+    draggingFrom = Number(e.currentTarget.dataset.peg);
+    e.currentTarget.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', String(draggingFrom));
+  }
+
+  function onDragEnd(e) {
+    e.currentTarget.classList.remove('dragging');
+    draggingFrom = null;
+    pegEls.forEach(el => el.classList.remove('drop-target'));
+  }
+
+  pegEls.forEach(pegEl => {
+    pegEl.addEventListener('click', onPegClick);
+
+    pegEl.addEventListener('dragover', e => {
+      e.preventDefault();
+      const to = Number(pegEl.dataset.peg);
+      if (draggingFrom !== null && canMove(draggingFrom, to)) {
+        pegEl.classList.add('drop-target');
+        e.dataTransfer.dropEffect = 'move';
+      }
+    });
+
+    pegEl.addEventListener('dragleave', () => {
+      pegEl.classList.remove('drop-target');
+    });
+
+    pegEl.addEventListener('drop', e => {
+      e.preventDefault();
+      pegEl.classList.remove('drop-target');
+      const from = Number(e.dataTransfer.getData('text/plain'));
+      const to = Number(pegEl.dataset.peg);
+      moveDisk(from, to);
+    });
+  });
+
+  function undo() {
+    if (!history.length || isSolved()) return;
+    const last = history.pop();
+    const disk = pegs[last.to].pop();
+    pegs[last.from].push(disk);
+    moveCount = Math.max(0, moveCount - 1);
+    moveCountEl.textContent = String(moveCount);
+    resetSelection();
+    render();
+
+    const remain = shortestPathFromCurrent().length;
+    remainingMovesEl.textContent = String(remain);
+    updateButtons();
+    setMessage(`已撤销：圆盘 ${last.disk} 返回 ${'ABC'[last.from]} 柱。`);
+  }
+
+  // 精确求“当前局面 -> 目标局面”的最短路径。
+  // 7 阶只有 3^7 = 2187 个合法状态编码，BFS 足够快。
+  function shortestPathFromCurrent() {
+    const start = getState();
+    const goal = Array(n).fill(2);
+    const startKey = stateKey(start);
+    const goalKey = stateKey(goal);
+
+    if (startKey === goalKey) return [];
+
+    const queue = [start];
+    let head = 0;
+    const prev = new Map();
+    prev.set(startKey, null);
+
+    while (head < queue.length) {
+      const state = queue[head++];
+      const key = stateKey(state);
+
+      // 找出每根柱子的顶部圆盘（编号越小，圆盘越小）
+      const top = [null, null, null];
+      for (let disk = 1; disk <= n; disk++) {
+        const peg = state[disk - 1];
+        if (top[peg] === null) top[peg] = disk;
+      }
+
+      for (let from = 0; from < 3; from++) {
+        const disk = top[from];
+        if (disk === null) continue;
+
+        for (let to = 0; to < 3; to++) {
+          if (to === from) continue;
+          const target = top[to];
+          if (target !== null && disk > target) continue;
+
+          const next = state.slice();
+          next[disk - 1] = to;
+          const nextKey = stateKey(next);
+          if (prev.has(nextKey)) continue;
+
+          prev.set(nextKey, { key, move: {from, to, disk} });
+
+          if (nextKey === goalKey) {
+            const path = [];
+            let cursor = nextKey;
+            while (cursor !== startKey) {
+              const node = prev.get(cursor);
+              path.push(node.move);
+              cursor = node.key;
+            }
+            return path.reverse();
+          }
+
+          queue.push(next);
+        }
+      }
+    }
+    return [];
+  }
+
+  function showHint() {
+    if (isSolved()) {
+      setMessage('已经完成啦！', 'good');
+      return;
+    }
+
+    const path = shortestPathFromCurrent();
+    if (!path.length) return;
+
+    const m = path[0];
+    hintMove = m;
+    selectedPeg = m.from;
+    render();
+
+    pegEls[m.to].classList.add('drop-target');
+    remainingMovesEl.textContent = String(path.length);
+    setMessage(
+      `最短路径提示：将圆盘 ${m.disk} 从 ${'ABC'[m.from]} 移到 ${'ABC'[m.to]}。当前最少还需 ${path.length} 步。`,
+      'good'
+    );
+
+    setTimeout(() => {
+      if (hintMove === m) {
+        pegEls[m.to].classList.remove('drop-target');
+      }
+    }, 2200);
+  }
+
+  function updateButtons() {
+    undoBtn.disabled = history.length === 0 || isSolved();
+    hintBtn.disabled = isSolved();
+  }
+
+  diskSelect.addEventListener('change', initGame);
+  newGameBtn.addEventListener('click', initGame);
+  resetBtn.addEventListener('click', initGame);
+  undoBtn.addEventListener('click', undo);
+  hintBtn.addEventListener('click', showHint);
+
+  window.addEventListener('resize', render);
+
+  window.addEventListener('keydown', e => {
+    const key = e.key.toLowerCase();
+    if (key === 'h') showHint();
+    if (key === 'u') undo();
+    if (key === 'r') initGame();
+  });
+
+  initGame();
+})();
+</script>
+
+</body>
+</html>

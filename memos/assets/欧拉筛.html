@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>欧拉筛可视化</title>
+  <style>
+
+:root {
+  --bg: #f7f9fc;
+  --card: rgba(255,255,255,.96);
+  --text: #18212f;
+  --muted: #6b7280;
+  --border: #e4eaf2;
+  --normal-bg: #fff;
+  --normal-border: #d9e2ef;
+  --prime-bg: #dff7e7;
+  --prime-border: #72c58c;
+  --prime-text: #24633a;
+  --composite-bg: #fde7e7;
+  --composite-border: #e58d8d;
+  --composite-text: #8f2f2f;
+  --current-bg: #fff0bf;
+  --current-border: #dda83d;
+  --active-bg: #e8f0ff;
+  --active-border: #6f98ef;
+  --repeat-bg: #f1e8ff;
+  --repeat-border: #9a6be4;
+  --success: #2f8f57;
+  --shadow: 0 10px 28px rgba(31,41,55,.08);
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(111,152,239,.09), transparent 24rem),
+    radial-gradient(circle at 100% 20%, rgba(114,197,140,.09), transparent 22rem),
+    var(--bg);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+}
+body { padding: 7px; }
+button, select, input { font: inherit; }
+.app {
+  width: min(780px, 100%);
+  height: 60vh;
+  min-height: 350px;
+  max-height: 470px;
+  margin: 0 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 2px;
+  scrollbar-width: thin;
+  scrollbar-color: #cdd5e1 transparent;
+}
+.app::-webkit-scrollbar { width: 5px; }
+.app::-webkit-scrollbar-thumb { background: #cdd5e1; border-radius: 999px; }
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.title-block h1 {
+  margin: 0;
+  font-size: clamp(17px, 2vw, 22px);
+  line-height: 1.1;
+  letter-spacing: -.03em;
+}
+.title-block p {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.3;
+}
+.algorithm-badge {
+  flex: 0 0 auto;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text);
+  font-size: 10px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(31,41,55,.05);
+}
+.main-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 8px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+}
+.number-grid {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(30px, 1fr));
+  gap: 4px;
+}
+.cell {
+  position: relative;
+  min-width: 0;
+  height: 34px;
+  border-radius: 7px;
+  border: 1px solid var(--normal-border);
+  background: var(--normal-bg);
+  display: grid;
+  place-items: center;
+  color: var(--text);
+  font-size: clamp(11px, 1.5vw, 15px);
+  font-weight: 680;
+  line-height: 1;
+  user-select: none;
+  transition: transform 160ms ease, background-color 180ms ease,
+    border-color 180ms ease, box-shadow 180ms ease, color 180ms ease;
+}
+.cell.one {
+  color: #9aa2af;
+  background: #f3f4f6;
+  border-color: #d9dde4;
+}
+.cell.prime {
+  background: var(--prime-bg);
+  border-color: var(--prime-border);
+  color: var(--prime-text);
+}
+.cell.composite {
+  background: var(--composite-bg);
+  border-color: var(--composite-border);
+  color: var(--composite-text);
+}
+.cell.current-i {
+  background: var(--current-bg);
+  border-color: var(--current-border);
+  color: #6f4d00;
+  box-shadow: 0 0 0 2px rgba(221,168,61,.15);
+}
+.cell.active-product {
+  background: var(--active-bg);
+  border-color: var(--active-border);
+  color: #2a4d97;
+  transform: scale(1.05);
+  box-shadow: 0 5px 10px rgba(111,152,239,.2);
+  z-index: 2;
+}
+.cell.repeat-hit {
+  background: var(--repeat-bg);
+  border-color: var(--repeat-border);
+  color: #5f2ba8;
+  transform: scale(1.05);
+  box-shadow: 0 5px 10px rgba(154,107,228,.2);
+  z-index: 2;
+}
+.hit-badge {
+  position: absolute;
+  top: -5px;
+  right: -4px;
+  min-width: 18px;
+  height: 15px;
+  padding: 0 3px;
+  border-radius: 999px;
+  background: #8756d7;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 7px;
+  font-weight: 760;
+  box-shadow: 0 3px 7px rgba(97,51,170,.25);
+}
+.dashboard {
+  margin-top: 6px;
+  display: grid;
+  grid-template-columns: minmax(0,1.8fr) minmax(175px,1fr);
+  gap: 6px;
+}
+.info-panel, .prime-panel {
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.84);
+  border-radius: 9px;
+  padding: 7px;
+}
+.info-row {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 5px;
+}
+.metric {
+  min-height: 47px;
+  padding: 6px 7px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: #fbfcfe;
+}
+.metric-label {
+  margin-bottom: 3px;
+  color: var(--muted);
+  font-size: 8px;
+  line-height: 1;
+}
+.metric-value {
+  font-size: clamp(12px,1.7vw,17px);
+  font-weight: 760;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+.status-line {
+  min-height: 16px;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.2;
+}
+.status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #a9b1bd;
+  flex: 0 0 auto;
+}
+.status-dot.running {
+  background: #5b8def;
+  box-shadow: 0 0 0 3px rgba(91,141,239,.12);
+}
+.status-dot.break {
+  background: #e29a2f;
+  box-shadow: 0 0 0 3px rgba(226,154,47,.12);
+}
+.status-dot.done {
+  background: var(--success);
+  box-shadow: 0 0 0 3px rgba(47,143,87,.12);
+}
+.prime-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  color: var(--muted);
+  font-size: 9px;
+}
+.prime-count { font-variant-numeric: tabular-nums; }
+.prime-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 4px;
+  min-height: 37px;
+}
+.prime-chip {
+  min-width: 27px;
+  height: 22px;
+  padding: 0 5px;
+  border-radius: 6px;
+  border: 1px solid var(--prime-border);
+  background: var(--prime-bg);
+  color: var(--prime-text);
+  display: grid;
+  place-items: center;
+  font-size: 9px;
+  font-weight: 720;
+  animation: chip-in 180ms ease both;
+}
+@keyframes chip-in {
+  from { opacity: 0; transform: translateY(3px) scale(.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.controls {
+  margin-top: 6px;
+  padding: 5px 6px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.88);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+}
+.btn {
+  height: 27px;
+  padding: 0 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-size: 9px;
+  line-height: 1;
+  white-space: nowrap;
+  transition: 140ms ease;
+}
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: #cbd5e3;
+  box-shadow: 0 4px 8px rgba(31,41,55,.07);
+}
+.btn:disabled { opacity: .42; cursor: not-allowed; }
+.btn.primary {
+  min-width: 64px;
+  border-color: #557ed2;
+  background: #5d88df;
+  color: #fff;
+}
+.btn.danger { color: #a23838; }
+.speed-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 9px;
+}
+.speed-select {
+  height: 27px;
+  min-width: 61px;
+  padding: 0 5px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  outline: none;
+  background: #fff;
+  color: var(--text);
+  font-size: 9px;
+}
+.progress-wrap {
+  min-width: 120px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.progress {
+  position: relative;
+  height: 4px;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e9edf3;
+}
+.progress-bar {
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg,#6f98ef,#72c58c);
+  transition: width 150ms ease;
+}
+.progress-text {
+  min-width: 48px;
+  color: var(--muted);
+  text-align: right;
+  font-size: 8px;
+  font-variant-numeric: tabular-nums;
+}
+.hint {
+  margin: 5px 2px 0;
+  color: #7a8492;
+  font-size: 7px;
+  line-height: 1.35;
+}
+@media (max-width: 700px) {
+  .app { height: 60vh; min-height: 330px; }
+  .number-grid { gap: 3px; }
+  .cell { height: 31px; }
+  .dashboard { grid-template-columns: 1fr; }
+  .controls { flex-wrap: wrap; }
+  .progress-wrap { flex-basis: 140px; }
+}
+@media (max-width: 520px) {
+  body { padding: 5px; }
+  .app { min-height: 310px; }
+  .topbar { align-items: flex-start; }
+  .main-card { padding: 6px; }
+  .number-grid {
+    grid-template-columns: repeat(5,minmax(35px,1fr));
+    gap: 4px;
+  }
+  .cell { height: 30px; font-size: 12px; }
+  .info-row { gap: 4px; }
+  .metric { min-height: 42px; padding: 5px; }
+  .metric-value { font-size: 12px; }
+  .control-group { width: 100%; }
+  .btn { flex: 1; padding: 0 4px; }
+  .progress-wrap { min-width: 110px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="title-block">
+        <h1>欧拉筛可视化</h1>
+        <p>独立版本 · 播放、暂停、单步与调速</p>
+      </div>
+      <div class="algorithm-badge">欧拉筛</div>
+    </header>
+
+    <section class="main-card">
+      <div id="numberGrid" class="number-grid" aria-label="数字状态网格"></div>
+
+      <div class="dashboard">
+        <section class="info-panel">
+          <div class="info-row">
+            <article class="metric">
+              <div class="metric-label">当前 i</div>
+              <div id="currentI" class="metric-value">—</div>
+            </article>
+            <article class="metric">
+              <div class="metric-label">当前质数 p</div>
+              <div id="currentP" class="metric-value">—</div>
+            </article>
+            <article class="metric">
+              <div class="metric-label">当前操作</div>
+              <div id="expression" class="metric-value">—</div>
+            </article>
+          </div>
+          <div class="status-line">
+            <span id="statusDot" class="status-dot"></span>
+            <span id="statusText">准备开始</span>
+          </div>
+        </section>
+
+        <aside class="prime-panel">
+          <div class="prime-title">
+            <span>Prime</span>
+            <span id="primeCount" class="prime-count">0 个</span>
+          </div>
+          <div id="primeList" class="prime-list"></div>
+        </aside>
+      </div>
+
+      <div class="controls">
+        <div class="control-group">
+          <button id="resetBtn" class="btn danger" type="button">↺ 重置</button>
+          <button id="prevBtn" class="btn" type="button">← 上一步</button>
+          <button id="playBtn" class="btn primary" type="button">▶ 播放</button>
+          <button id="nextBtn" class="btn" type="button">下一步 →</button>
+        </div>
+
+        <div class="speed-wrap">
+          <label for="speedSelect">速度</label>
+          <select id="speedSelect" class="speed-select">
+            <option value="0.5">0.5×</option>
+            <option value="0.75">0.75×</option>
+            <option value="1" selected>1×</option>
+            <option value="1.5">1.5×</option>
+            <option value="2">2×</option>
+          </select>
+        </div>
+
+        <div class="progress-wrap">
+          <div class="progress" aria-hidden="true">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+          <div id="progressText" class="progress-text">0 / 0</div>
+        </div>
+      </div>
+
+      <p class="hint">欧拉筛保证每个合数只由其最小质因子筛除一次。</p>
+    </section>
+  </main>
+
+  <script>
+
+(() => {
+  "use strict";
+
+  const LIMIT = 40;
+  const grid = document.getElementById("numberGrid");
+  const currentIEl = document.getElementById("currentI");
+  const currentPEl = document.getElementById("currentP");
+  const expressionEl = document.getElementById("expression");
+  const statusTextEl = document.getElementById("statusText");
+  const statusDotEl = document.getElementById("statusDot");
+  const primeListEl = document.getElementById("primeList");
+  const primeCountEl = document.getElementById("primeCount");
+  const playBtn = document.getElementById("playBtn");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const resetBtn = document.getElementById("resetBtn");
+  const speedSelect = document.getElementById("speedSelect");
+  const progressBar = document.getElementById("progressBar");
+  const progressText = document.getElementById("progressText");
+
+  const cells = new Map();
+  let steps = [];
+  let stepIndex = 0;
+  let isPlaying = false;
+  let timerId = null;
+  let speed = 1;
+
+  function createGrid() {
+    const fragment = document.createDocumentFragment();
+
+    for (let n = 1; n <= LIMIT; n += 1) {
+      const cell = document.createElement("div");
+      cell.className = "cell";
+      cell.dataset.number = String(n);
+      cell.textContent = String(n);
+
+      if (n === 1) cell.classList.add("one");
+
+      cells.set(n, cell);
+      fragment.appendChild(cell);
+    }
+
+    grid.replaceChildren(fragment);
+  }
+
+  function blankState() {
+    return {
+      primes: [],
+      composite: Array(LIMIT + 1).fill(false),
+      hitCount: Array(LIMIT + 1).fill(0),
+      currentI: null,
+      currentP: null,
+      currentProduct: null,
+      expression: "—",
+      status: "准备开始",
+      statusKind: "idle",
+      repeated: false,
+      duration: 700
+    };
+  }
+
+  function cloneState(state, patch = {}) {
+    return {
+      ...state,
+      primes: [...state.primes],
+      composite: [...state.composite],
+      hitCount: [...state.hitCount],
+      ...patch
+    };
+  }
+
+  function pushStep(list, state, patch = {}) {
+    const next = cloneState(state, patch);
+    list.push(next);
+    return next;
+  }
+
+  function buildSteps() {
+    const list = [];
+    let state = blankState();
+
+    state = pushStep(list, state, {
+      status: "从 2 开始线性扫描",
+      duration: 900
+    });
+
+    for (let i = 2; i <= LIMIT; i += 1) {
+      if (!state.composite[i]) {
+        state.primes.push(i);
+
+        state = pushStep(list, state, {
+          currentI: i,
+          currentP: null,
+          currentProduct: null,
+          expression: `${i} 是质数`,
+          status: `将 ${i} 加入质数表`,
+          statusKind: "running",
+          repeated: false,
+          duration: 760
+        });
+      } else {
+        state = pushStep(list, state, {
+          currentI: i,
+          currentP: null,
+          currentProduct: null,
+          expression: `${i} 是合数`,
+          status: "继续枚举质数 p",
+          statusKind: "idle",
+          repeated: false,
+          duration: 420
+        });
+      }
+
+      for (const p of state.primes) {
+        const product = i * p;
+
+        if (product > LIMIT) {
+          state = pushStep(list, state, {
+            currentI: i,
+            currentP: p,
+            currentProduct: null,
+            expression: `${i} × ${p} > ${LIMIT}`,
+            status: "乘积超出范围，结束当前轮",
+            statusKind: "idle",
+            repeated: false,
+            duration: 550
+          });
+          break;
+        }
+
+        state.hitCount[product] += 1;
+
+        state = pushStep(list, state, {
+          currentI: i,
+          currentP: p,
+          currentProduct: product,
+          expression: `${i} × ${p} = ${product}`,
+          status: `用质数 ${p} 标记 ${product}`,
+          statusKind: "running",
+          repeated: false,
+          duration: 680
+        });
+
+        state.composite[product] = true;
+
+        state = pushStep(list, state, {
+          currentI: i,
+          currentP: p,
+          currentProduct: null,
+          expression: `${i} × ${p} = ${product}`,
+          status: `${product} 已标记为合数`,
+          statusKind: "running",
+          repeated: false,
+          duration: 430
+        });
+
+        if (i % p === 0) {
+          state = pushStep(list, state, {
+            currentI: i,
+            currentP: p,
+            currentProduct: null,
+            expression: `${i} mod ${p} = 0`,
+            status: `break：${p} 是 ${i} 的最小质因子`,
+            statusKind: "break",
+            repeated: false,
+            duration: 1050
+          });
+          break;
+        }
+      }
+    }
+
+    pushStep(list, state, {
+      currentI: null,
+      currentP: null,
+      currentProduct: null,
+      expression: "完成",
+      status: "筛选完成 · O(n)",
+      statusKind: "done",
+      repeated: false,
+      duration: 2200
+    });
+
+    return list;
+  }
+
+  function clearCellVisuals(cell) {
+    cell.classList.remove(
+      "prime",
+      "composite",
+      "current-i",
+      "active-product",
+      "repeat-hit"
+    );
+
+    const badge = cell.querySelector(".hit-badge");
+    if (badge) badge.remove();
+  }
+
+  function render() {
+    const state = steps[stepIndex] ?? blankState();
+
+    for (let n = 1; n <= LIMIT; n += 1) {
+      const cell = cells.get(n);
+      clearCellVisuals(cell);
+
+      if (n === 1) {
+        cell.classList.add("one");
+        continue;
+      }
+
+      if (state.composite[n]) {
+        cell.classList.add("composite");
+      } else if (state.primes.includes(n)) {
+        cell.classList.add("prime");
+      }
+
+      if (n === state.currentI) {
+        cell.classList.add("current-i");
+      }
+
+      if (n === state.currentProduct) {
+        cell.classList.add(
+          state.repeated ? "repeat-hit" : "active-product"
+        );
+      }
+
+    }
+
+    currentIEl.textContent =
+      state.currentI == null ? "—" : String(state.currentI);
+
+    currentPEl.textContent =
+      state.currentP == null ? "—" : String(state.currentP);
+
+    expressionEl.textContent = state.expression ?? "—";
+    statusTextEl.textContent = state.status ?? "";
+
+    statusDotEl.className = "status-dot";
+
+    if (state.statusKind === "running" || state.statusKind === "repeat") {
+      statusDotEl.classList.add("running");
+    } else if (state.statusKind === "break") {
+      statusDotEl.classList.add("break");
+    } else if (state.statusKind === "done") {
+      statusDotEl.classList.add("done");
+    }
+
+    primeListEl.replaceChildren(
+      ...state.primes.map((prime) => {
+        const chip = document.createElement("span");
+        chip.className = "prime-chip";
+        chip.textContent = String(prime);
+        return chip;
+      })
+    );
+
+    primeCountEl.textContent = `${state.primes.length} 个`;
+
+    const denominator = Math.max(steps.length - 1, 1);
+    const progress = (stepIndex / denominator) * 100;
+
+    progressBar.style.width = `${progress}%`;
+    progressText.textContent = `${stepIndex + 1} / ${steps.length}`;
+
+    prevBtn.disabled = stepIndex <= 0;
+    nextBtn.disabled = stepIndex >= steps.length - 1;
+    playBtn.textContent = isPlaying ? "❚❚ 暂停" : "▶ 播放";
+  }
+
+  function stopPlayback() {
+    isPlaying = false;
+
+    if (timerId !== null) {
+      window.clearTimeout(timerId);
+      timerId = null;
+    }
+
+    render();
+  }
+
+  function scheduleNext() {
+    if (!isPlaying) return;
+
+    if (stepIndex >= steps.length - 1) {
+      stopPlayback();
+      return;
+    }
+
+    const state = steps[stepIndex];
+    const delay = Math.max(80, state.duration / speed);
+
+    timerId = window.setTimeout(() => {
+      stepIndex += 1;
+      render();
+      scheduleNext();
+    }, delay);
+  }
+
+  function togglePlayback() {
+    if (isPlaying) {
+      stopPlayback();
+      return;
+    }
+
+    if (stepIndex >= steps.length - 1) {
+      stepIndex = 0;
+    }
+
+    isPlaying = true;
+    render();
+    scheduleNext();
+  }
+
+  function goToStep(nextIndex) {
+    stopPlayback();
+    stepIndex = Math.max(0, Math.min(nextIndex, steps.length - 1));
+    render();
+  }
+
+  playBtn.addEventListener("click", togglePlayback);
+  prevBtn.addEventListener("click", () => goToStep(stepIndex - 1));
+  nextBtn.addEventListener("click", () => goToStep(stepIndex + 1));
+  resetBtn.addEventListener("click", () => goToStep(0));
+
+  speedSelect.addEventListener("change", () => {
+    speed = Number(speedSelect.value) || 1;
+
+    if (isPlaying) {
+      if (timerId !== null) window.clearTimeout(timerId);
+      scheduleNext();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    const target = event.target;
+    const isFormControl =
+      target instanceof HTMLInputElement ||
+      target instanceof HTMLSelectElement ||
+      target instanceof HTMLTextAreaElement;
+
+    if (isFormControl) return;
+
+    if (event.code === "Space") {
+      event.preventDefault();
+      togglePlayback();
+    } else if (event.code === "ArrowLeft") {
+      goToStep(stepIndex - 1);
+    } else if (event.code === "ArrowRight") {
+      goToStep(stepIndex + 1);
+    } else if (event.key.toLowerCase() === "r") {
+      goToStep(0);
+    }
+  });
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden && isPlaying) stopPlayback();
+  });
+
+  createGrid();
+  steps = buildSteps();
+  render();
+})();
+
+  </script>
+
+</body>
+</html>

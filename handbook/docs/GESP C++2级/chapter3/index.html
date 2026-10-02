@@ -1,0 +1,120 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="信息学竞赛知识手册：GESP、CSP、NOIP 知识手册，按章节阅读与全文检索。"><title>第11章 计算机语言 · 信息学知识手册</title><script>try{document.documentElement.dataset.theme=localStorage.getItem('showball-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light')}catch(e){}</script><link rel="stylesheet" href="../../../assets/source/971002830b8a88c44f98.css"><link rel="stylesheet" href="../../../assets/theme.css"><script defer src="../../../assets/app.js"></script></head><body data-root="../../../" class="document"><a class="skip" href="#main">跳到正文</a><aside class="sidebar"><a class="brand" href="../../../index.html"><span class="brand-mark">S</span><span>Showball <b>OI</b></span><span class="brand-tag">知识手册</span></a><div class="nav-scroll"><nav aria-label="主导航"><a class="nav-link back-to-site" href="../../../../memos.html"><span aria-hidden="true">←</span> 返回 Showball OI</a><a class="nav-link " href="../../../index.html"><span aria-hidden="true">⌂</span> 首页</a><a class="nav-link " href="../../../courses/index.html"><span aria-hidden="true">▤</span> 全部课程</a><a class="nav-link " href="../../tags/index.html"><span aria-hidden="true">#</span> 知识标签</a><p class="nav-label">学习手册</p><a class="nav-link " href="../../../courses/1/index.html">GESP 1级</a><a class="nav-link active" href="../../../courses/2/index.html">GESP 2级</a><div class="chapter-nav"><a class="nav-link " href="../chapter1/index.html">第9章 计算机的架构体系</a><a class="nav-link " href="../chapter2/index.html">第10章 计算机网络知识</a><a class="nav-link current" href="index.html">第11章 计算机语言</a><a class="nav-link " href="../chapter4/index.html">第12章 流程图的概念与描述</a><a class="nav-link " href="../chapter5/index.html">第13章 数据类型的转换</a><a class="nav-link " href="../chapter6/index.html">第14章 ASCII 编码</a><a class="nav-link " href="../chapter7/index.html">第15章 循环、分支的嵌套</a><a class="nav-link " href="../chapter8/index.html">第18章 字符图形</a><a class="nav-link " href="../chapter9/index.html">第16章 常用数学函数</a><a class="nav-link " href="../chapter10/index.html">第17章 数位分离</a><a class="nav-link " href="../chapter11/index.html">第19章 数学问题</a><a class="nav-link " href="../chapter12/index.html">第20章 GESP 2 级必背编程程序（套路模板）</a></div><a class="nav-link " href="../../../courses/3/index.html">GESP 3级</a><a class="nav-link " href="../../../courses/4/index.html">GESP 4级</a><a class="nav-link " href="../../../courses/5/index.html">GESP 5级</a><a class="nav-link " href="../../../courses/6/index.html">GESP 6级</a><a class="nav-link " href="../../../courses/7/index.html">GESP 7级</a><a class="nav-link " href="../../../courses/8/index.html">GESP 8级</a><a class="nav-link " href="../../../courses/9/index.html">CSP-J</a><a class="nav-link " href="../../../courses/10/index.html">CSP-S</a><a class="nav-link " href="../../../courses/11/index.html">NOIP</a></nav></div><div class="sidebar-note"><strong>学懂一个知识点，<br>再解决一道好题。</strong><span>GESP · CSP · NOIP</span></div></aside><div class="layout"><header class="topbar"><div class="topbar-left"><button class="icon-button mobile-toggle" aria-label="打开导航菜单" data-menu-open>☰</button><span class="topbar-title">第11章 计算机语言</span></div><div class="topbar-actions"><a class="search-shortcut" href="../../../search/index.html"><span aria-hidden="true">⌕</span> 搜索知识点 <kbd>/</kbd></a><button class="icon-button" data-theme aria-label="切换主题" title="切换主题">◐</button></div></header><main id="main" class="reader-layout" tabindex="-1"><div class="reading-column"><nav class="breadcrumb" aria-label="当前位置"><a href="../../../index.html">首页</a><span>/</span><a href="../../../courses/2/index.html">GESP 2级</a><span>/</span><span>第11章 计算机语言</span></nav><article class="prose "><div class="theme-doc-markdown markdown"><div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewbox="0 0 14 16"><path d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z" fill-rule="evenodd"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p><strong>对应 GESP C++ 2 级知识块②：程序设计语言</strong></p><p>官方要求：<em>了解程序设计语言的几大分类及特点（机器语言、汇编语言、高级语言），了解常见的高级语言（C++、Python 等）。</em></p></div></div>
+<header><h1>第11章 计算机语言</h1></header>
+<p>计算机语言是人和计算机交互的符号规则体系，用于编写程序、下发指令。</p>
+<p><img alt="计算机语言三层次" class="img_ev3q" decoding="async" height="360" loading="lazy" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2ODAgMzYwIiBmb250LWZhbWlseT0iJ01pY3Jvc29mdCBZYUhlaScsc2Fucy1zZXJpZiI+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjY4MCIgaGVpZ2h0PSIzNjAiIGZpbGw9IiNmZmZmZmYiLz4KICA8dGV4dCB4PSIyMCIgeT0iMzQiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjMWYyOTM3Ij7orqHnrpfmnLror63oqIDkuInlsYLmrKHvvIjmir3osaHluqbvvIk8L3RleHQ+CgogIDwhLS0gbWFjaGluZSAtLT4KICA8cmVjdCB4PSI0MCIgeT0iNjAiIHdpZHRoPSI2MDAiIGhlaWdodD0iNzAiIHJ4PSI4IiBmaWxsPSIjZmVlMmUyIiBzdHJva2U9IiNkYzI2MjYiLz4KICA8dGV4dCB4PSI2MCIgeT0iODgiIGZvbnQtc2l6ZT0iMTYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjOTkxYjFiIj7mnLrlmajor63oqIA8L3RleHQ+CiAgPHRleHQgeD0iNjAiIHk9IjExMiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzdmMWQxZCI+5LqM6L+b5Yi2IDAvMe+8jENQVSDllK/kuIDlj6/nm7TmjqXmiafooYzvvJvpgJ/luqblv6vkvYbpmr7lhpnjgIHnoazku7bnu5HlrprjgII8L3RleHQ+CgogIDwhLS0gYXNtIC0tPgogIDxyZWN0IHg9IjQwIiB5PSIxNDUiIHdpZHRoPSI2MDAiIGhlaWdodD0iNzAiIHJ4PSI4IiBmaWxsPSIjZmVmM2M3IiBzdHJva2U9IiNkOTc3MDYiLz4KICA8dGV4dCB4PSI2MCIgeT0iMTczIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzkyNDAwZSI+5rGH57yW6K+t6KiAPC90ZXh0PgogIDx0ZXh0IHg9IjYwIiB5PSIxOTciIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM5MjQwMGUiPuWKqeiusOespu+8iEFERC9NT1bvvInvvIzpnIDmsYfnvJbnqIvluo/nv7vor5HvvJvotLTov5Hnoazku7bjgIHlj6/np7vmpI3lt67jgII8L3RleHQ+CgogIDwhLS0gaGlnaCAtLT4KICA8cmVjdCB4PSI0MCIgeT0iMjMwIiB3aWR0aD0iNjAwIiBoZWlnaHQ9IjkwIiByeD0iOCIgZmlsbD0iI2RjZmNlNyIgc3Ryb2tlPSIjMTZhMzRhIi8+CiAgPHRleHQgeD0iNjAiIHk9IjI1OCIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiMxNDUzMmQiPumrmOe6p+ivreiogDwvdGV4dD4KICA8dGV4dCB4PSI2MCIgeT0iMjgyIiBmb250LXNpemU9IjE0IiBmaWxsPSIjMTQ1MzJkIj7or63ms5XmjqXov5Hoh6rnhLbor63oqIAv5pWw5a2m5YWs5byP77yM5bGP6JS956Gs5Lu257uG6IqC44CCPC90ZXh0PgogIDx0ZXh0IHg9IjYwIiB5PSIzMDYiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiMxNDUzMmQiPue8luivkeWei++8iEMvQysr44CBR2/vvInvvJrmlbTkvZPnv7vor5HmiafooYzvvJvop6Pph4rlnovvvIhQeXRob27jgIFKU++8ie+8mumAkOihjOaJp+ihjOOAgjwvdGV4dD4KCiAgPGxpbmUgeDE9IjM0MCIgeTE9IjEzMCIgeDI9IjM0MCIgeTI9IjE0NSIgc3Ryb2tlPSIjOWNhM2FmIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWRhc2hhcnJheT0iMyIvPgogIDxsaW5lIHgxPSIzNDAiIHkxPSIyMTUiIHgyPSIzNDAiIHkyPSIyMzAiIHN0cm9rZT0iIzljYTNhZiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1kYXNoYXJyYXk9IjMiLz4KICA8dGV4dCB4PSIzNjAiIHk9IjE0MCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzZiNzI4MCI+5oq96LGh5bqmIOKGkSAg5Y+v6K+75oCnIOKGkSAg5byA5Y+R5pWI546HIOKGkTwvdGV4dD4KPC9zdmc+Cg==" width="680"/></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="111-计算机语言发展三阶段">11.1 计算机语言发展三阶段</h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1111-机器语言">11.1.1 机器语言</h3>
+<p>计算机唯一可直接执行的语言，全部由二进制 0、1 构成。</p>
+<p>特点：</p>
+<ol>
+<li class="">执行速度极快，无需翻译；</li>
+<li class="">完全绑定硬件，不同 CPU 不能通用；</li>
+<li class="">可读性极差，编写调试难度巨大。</li>
+</ol>
+<p>示例：<code>10001001</code> 代表寄存器加法指令。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1112-汇编语言">11.1.2 汇编语言</h3>
+<p>用英文助记符替代二进制机器指令，是机器语言的符号化版本。</p>
+<p>特点：</p>
+<ol>
+<li class="">ADD、MOV 等助记符，可读性提升；</li>
+<li class="">仍依赖硬件架构，可移植差；</li>
+<li class="">需要汇编程序翻译成机器码才能运行。</li>
+</ol>
+<p>示例：<code>ADD AX,BX</code> 将两个寄存器相加。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1113-高级语言">11.1.3 高级语言</h3>
+<p>语法贴近自然语言与数学公式，屏蔽底层硬件细节，分为四代：</p>
+<ol>
+<li class="">早期科学语言（FORTRAN、COBOL）：用于科学、商业计算；</li>
+<li class="">结构化语言（C、Pascal、BASIC）：顺序/分支/循环三大结构；</li>
+<li class="">面向对象（C++、Java、Python）：封装、继承、多态；</li>
+<li class="">现代脚本语言（JS、PHP、Go、Rust）：轻量化、快速开发。</li>
+</ol>
+<div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewbox="0 0 12 16"><path d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z" fill-rule="evenodd"></path></svg></span>tip</div><div class="admonitionContent_BuS1"><p><strong>GESP 常考</strong>
+问"下列语言中属于高级语言的是？"——C++、Python、Java 都是高级语言；机器语言、汇编语言不是。C++ 同时是"编译型 + 面向对象"语言。</p></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="112-语言四大分类方式">11.2 语言四大分类方式</h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1121-按抽象层次">11.2.1 按抽象层次</h3>
+<ol>
+<li class="">低级语言（机器、汇编）：贴近硬件，效率高，难开发；</li>
+<li class="">高级语言：屏蔽硬件，易读易写，开发效率高。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1122-按执行方式">11.2.2 按执行方式</h3>
+<ol>
+<li class=""><strong>编译型（C/C++、Go、Rust）</strong>
+一次性将全部源码翻译成独立可执行文件，运行速度快；修改代码需要重新编译。</li>
+<li class=""><strong>解释型（Python、JS、PHP）</strong>
+解释器逐行翻译执行，不生成独立程序；调试方便，运行速度慢。</li>
+<li class=""><strong>混合型（Java、C#）</strong>
+先编译为中间字节码，再由虚拟机解释执行；兼顾跨平台与效率。</li>
+</ol>
+<div class="theme-admonition theme-admonition-caution admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewbox="0 0 16 16"><path d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z" fill-rule="evenodd"></path></svg></span>caution</div><div class="admonitionContent_BuS1"><p><strong>编译 vs 解释</strong>
+C++ 是编译型：写完要 <code>g++</code> 编译成 <code>.exe</code> 才能跑；Python 是解释型：直接 <code>python xxx.py</code> 逐行执行。GESP 判断题常考"高级语言一定比机器语言慢""解释型不需要编译"这类说法，注意辨析。</p></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1123-按编程范式">11.2.3 按编程范式</h3>
+<ol>
+<li class="">结构化（C）：以函数、三大流程控制为主；</li>
+<li class="">面向对象（C++/Python/Java）：以对象为核心；</li>
+<li class="">函数式（Haskell、Lisp）：纯函数、无可变状态；</li>
+<li class="">脚本语言：轻量，用于自动化、网页。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1124-按应用领域">11.2.4 按应用领域</h3>
+<p>通用语言：C++、Python、Java，全场景可用；
+专用语言：SQL(数据库)、MATLAB(数学)、HTML(网页)。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="113-各类语言特点汇总">11.3 各类语言特点汇总</h2>
+<table><thead><tr><th>语言类型</th><th>代表</th><th>优势</th><th>劣势</th><th>适用场景</th></tr></thead><tbody><tr><td>机器语言</td><td>二进制指令</td><td>直接执行，速度最快</td><td>难写难读，硬件绑定</td><td>早期底层开发</td></tr><tr><td>汇编</td><td>x86 汇编</td><td>底层可控，高效</td><td>移植差，开发慢</td><td>驱动、嵌入式</td></tr><tr><td>编译高级</td><td>C/C++</td><td>运行快，性能强</td><td>编译步骤繁琐</td><td>操作系统、游戏</td></tr><tr><td>解释语言</td><td>Python</td><td>开发快，跨平台</td><td>执行速度低</td><td>数据分析、脚本</td></tr><tr><td>混合型</td><td>Java</td><td>一次编译到处跑</td><td>虚拟机占用资源</td><td>企业软件</td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="114-发展趋势">11.4 发展趋势</h2>
+<ol>
+<li class="">更高抽象，简化代码；</li>
+<li class="">跨平台成为标配；</li>
+<li class="">强化内存、类型安全（Rust）；</li>
+<li class="">面向 AI、云计算等新兴领域；</li>
+<li class="">多范式融合（Python 同时支持面向对象、函数式）。</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="练习题2-级单选风格">练习题（2 级单选风格）</h2>
+<ol>
+<li class="">计算机能直接执行的"机器语言"由什么组成？<!-- -->
+<ul>
+<li class="">A. 英文单词</li>
+<li class="">B. 二进制 0/1 代码</li>
+<li class="">C. 汇编助记符</li>
+<li class="">D. 数学公式</li>
+</ul>
+</li>
+<li class="">下列属于"高级语言"的是？<!-- -->
+<ul>
+<li class="">A. 机器语言</li>
+<li class="">B. 汇编语言</li>
+<li class="">C. C++</li>
+<li class="">D. 微指令</li>
+</ul>
+</li>
+<li class="">关于"编译型"语言（如 C++），正确的是？<!-- -->
+<ul>
+<li class="">A. 边解释边逐行执行</li>
+<li class="">B. 先整体编译成机器码再运行</li>
+<li class="">C. 不需要任何翻译</li>
+<li class="">D. 运行速度最慢</li>
+</ul>
+</li>
+<li class="">Python 属于哪一类语言？<!-- -->
+<ul>
+<li class="">A. 机器语言</li>
+<li class="">B. 汇编语言</li>
+<li class="">C. 解释型高级语言</li>
+<li class="">D. 微程序语言</li>
+</ul>
+</li>
+<li class="">汇编语言相比机器语言的最大进步是？<!-- -->
+<ul>
+<li class="">A. 运行速度更快</li>
+<li class="">B. 用助记符代替二进制，更易读写</li>
+<li class="">C. 不需要汇编器</li>
+<li class="">D. 可直接被 CPU 执行</li>
+</ul>
+</li>
+</ol>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>参考答案（点击展开）</summary><div><div class="collapsibleContent_i85q"><ol>
+<li class=""><strong>B</strong> — 机器语言就是 CPU 能直接识别的二进制指令，难读但无需翻译。</li>
+<li class=""><strong>C</strong> — C++ 是高级语言；机器语言和汇编语言属于低级语言。</li>
+<li class=""><strong>B</strong> — 编译型语言先由编译器整体翻译成机器码，再一次性运行，通常比解释型快。</li>
+<li class=""><strong>C</strong> — Python 是解释执行的高级语言，开发快、跨平台。</li>
+<li class=""><strong>B</strong> — 汇编用 <code>MOV</code>、<code>ADD</code> 等助记符替代二进制操作码，可读性大幅提升，但仍需汇编器翻译。</li>
+</ol></div></div></details></div></article><nav class="pagination" aria-label="章节翻页"><a href="../chapter2/index.html"><small>← 上一章</small><strong>第10章 计算机网络知识</strong></a><a href="../chapter4/index.html"><small>下一章 →</small><strong>第12章 流程图的概念与描述</strong></a></nav></div><aside class="toc"><p>本章目录</p><nav aria-label="本章目录"><a class="toc-h2" href="#111-计算机语言发展三阶段">11.1 计算机语言发展三阶段</a><a class="toc-h3" href="#1111-机器语言">11.1.1 机器语言</a><a class="toc-h3" href="#1112-汇编语言">11.1.2 汇编语言</a><a class="toc-h3" href="#1113-高级语言">11.1.3 高级语言</a><a class="toc-h2" href="#112-语言四大分类方式">11.2 语言四大分类方式</a><a class="toc-h3" href="#1121-按抽象层次">11.2.1 按抽象层次</a><a class="toc-h3" href="#1122-按执行方式">11.2.2 按执行方式</a><a class="toc-h3" href="#1123-按编程范式">11.2.3 按编程范式</a><a class="toc-h3" href="#1124-按应用领域">11.2.4 按应用领域</a><a class="toc-h2" href="#113-各类语言特点汇总">11.3 各类语言特点汇总</a><a class="toc-h2" href="#114-发展趋势">11.4 发展趋势</a><a class="toc-h2" href="#练习题2-级单选风格">练习题（2 级单选风格）</a></nav><a class="back-top" href="#main">↑ 回到顶部</a></aside></main><footer class="site-footer"><a href="../../../../index.html" data-linked="1" style="text-decoration:underline;text-underline-offset:3px">© 2026 Showball OI · 信息学竞赛知识手册</a><span>信息学竞赛知识手册</span><span>GESP / CSP / NOIP · 系统学习，持续积累</span></footer></div><dialog class="mobile-dialog" aria-label="导航菜单"><div class="dialog-top"><a class="brand" href="../../../index.html"><span class="brand-mark">S</span><span>Showball <b>OI</b></span><span class="brand-tag">知识手册</span></a><button class="icon-button" data-menu-close aria-label="关闭导航菜单">×</button></div><nav aria-label="移动端导航"><a class="nav-link back-to-site" href="../../../../memos.html"><span aria-hidden="true">←</span> 返回 Showball OI</a><a class="nav-link " href="../../../index.html"><span aria-hidden="true">⌂</span> 首页</a><a class="nav-link " href="../../../courses/index.html"><span aria-hidden="true">▤</span> 全部课程</a><a class="nav-link " href="../../tags/index.html"><span aria-hidden="true">#</span> 知识标签</a><p class="nav-label">学习手册</p><a class="nav-link " href="../../../courses/1/index.html">GESP 1级</a><a class="nav-link active" href="../../../courses/2/index.html">GESP 2级</a><div class="chapter-nav"><a class="nav-link " href="../chapter1/index.html">第9章 计算机的架构体系</a><a class="nav-link " href="../chapter2/index.html">第10章 计算机网络知识</a><a class="nav-link current" href="index.html">第11章 计算机语言</a><a class="nav-link " href="../chapter4/index.html">第12章 流程图的概念与描述</a><a class="nav-link " href="../chapter5/index.html">第13章 数据类型的转换</a><a class="nav-link " href="../chapter6/index.html">第14章 ASCII 编码</a><a class="nav-link " href="../chapter7/index.html">第15章 循环、分支的嵌套</a><a class="nav-link " href="../chapter8/index.html">第18章 字符图形</a><a class="nav-link " href="../chapter9/index.html">第16章 常用数学函数</a><a class="nav-link " href="../chapter10/index.html">第17章 数位分离</a><a class="nav-link " href="../chapter11/index.html">第19章 数学问题</a><a class="nav-link " href="../chapter12/index.html">第20章 GESP 2 级必背编程程序（套路模板）</a></div><a class="nav-link " href="../../../courses/3/index.html">GESP 3级</a><a class="nav-link " href="../../../courses/4/index.html">GESP 4级</a><a class="nav-link " href="../../../courses/5/index.html">GESP 5级</a><a class="nav-link " href="../../../courses/6/index.html">GESP 6级</a><a class="nav-link " href="../../../courses/7/index.html">GESP 7级</a><a class="nav-link " href="../../../courses/8/index.html">GESP 8级</a><a class="nav-link " href="../../../courses/9/index.html">CSP-J</a><a class="nav-link " href="../../../courses/10/index.html">CSP-S</a><a class="nav-link " href="../../../courses/11/index.html">NOIP</a></nav></dialog><div class="toast" role="status" aria-live="polite"></div></body></html>

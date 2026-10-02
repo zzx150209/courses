@@ -1,0 +1,398 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="信息学竞赛知识手册：GESP、CSP、NOIP 知识手册，按章节阅读与全文检索。"><title>第3章 计算机软件和计算机语言 · 信息学知识手册</title><script>try{document.documentElement.dataset.theme=localStorage.getItem('showball-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light')}catch(e){}</script><link rel="stylesheet" href="../../../assets/source/971002830b8a88c44f98.css"><link rel="stylesheet" href="../../../assets/theme.css"><script defer src="../../../assets/app.js"></script></head><body data-root="../../../" class="document"><a class="skip" href="#main">跳到正文</a><aside class="sidebar"><a class="brand" href="../../../index.html"><span class="brand-mark">S</span><span>Showball <b>OI</b></span><span class="brand-tag">知识手册</span></a><div class="nav-scroll"><nav aria-label="主导航"><a class="nav-link back-to-site" href="../../../../memos.html"><span aria-hidden="true">←</span> 返回 Showball OI</a><a class="nav-link " href="../../../index.html"><span aria-hidden="true">⌂</span> 首页</a><a class="nav-link " href="../../../courses/index.html"><span aria-hidden="true">▤</span> 全部课程</a><a class="nav-link " href="../../tags/index.html"><span aria-hidden="true">#</span> 知识标签</a><p class="nav-label">学习手册</p><a class="nav-link " href="../../../courses/1/index.html">GESP 1级</a><a class="nav-link " href="../../../courses/2/index.html">GESP 2级</a><a class="nav-link " href="../../../courses/3/index.html">GESP 3级</a><a class="nav-link " href="../../../courses/4/index.html">GESP 4级</a><a class="nav-link " href="../../../courses/5/index.html">GESP 5级</a><a class="nav-link " href="../../../courses/6/index.html">GESP 6级</a><a class="nav-link " href="../../../courses/7/index.html">GESP 7级</a><a class="nav-link " href="../../../courses/8/index.html">GESP 8级</a><a class="nav-link active" href="../../../courses/9/index.html">CSP-J</a><div class="chapter-nav"><a class="nav-link " href="../chapter-01-computer-basics/index.html">第1章 计算机基础知识</a><a class="nav-link " href="../chapter-02-computer-architecture/index.html">第2章 计算机体系基本结构</a><a class="nav-link current" href="index.html">第3章 计算机软件和计算机语言</a><a class="nav-link " href="../chapter-04-number-systems-and-encoding/index.html">第4章 数制转换和信息编码</a><a class="nav-link " href="../chapter-05-codes-and-bitwise-operations/index.html">第5章 原码反码补码和位运算</a><a class="nav-link " href="../chapter-06-computer-networks/index.html">第6章 计算机网络</a><a class="nav-link " href="../chapter-07-internet/index.html">第7章 因特网</a><a class="nav-link " href="../chapter-08-linear-data-structures/index.html">第8章 线性数据结构</a><a class="nav-link " href="../chapter-09-trees-and-graphs/index.html">第9章 树和图</a><a class="nav-link " href="../chapter-10-advanced-time-complexity/index.html">第10章 时间复杂度进阶</a><a class="nav-link " href="../chapter-11-mathematics/index.html">第11章 数学专题</a><a class="nav-link " href="../chapter-12-algorithm-topics/index.html">第12章 算法专题(排序算法、哈夫曼树)</a><a class="nav-link " href="../chapter-13-cspj-essential-codes/index.html">CSP-J 复赛必备编程模板（核心代码速查）</a></div><a class="nav-link " href="../../../courses/10/index.html">CSP-S</a><a class="nav-link " href="../../../courses/11/index.html">NOIP</a></nav></div><div class="sidebar-note"><strong>学懂一个知识点，<br>再解决一道好题。</strong><span>GESP · CSP · NOIP</span></div></aside><div class="layout"><header class="topbar"><div class="topbar-left"><button class="icon-button mobile-toggle" aria-label="打开导航菜单" data-menu-open>☰</button><span class="topbar-title">第3章 计算机软件和计算机语言</span></div><div class="topbar-actions"><a class="search-shortcut" href="../../../search/index.html"><span aria-hidden="true">⌕</span> 搜索知识点 <kbd>/</kbd></a><button class="icon-button" data-theme aria-label="切换主题" title="切换主题">◐</button></div></header><main id="main" class="reader-layout" tabindex="-1"><div class="reading-column"><nav class="breadcrumb" aria-label="当前位置"><a href="../../../index.html">首页</a><span>/</span><a href="../../../courses/9/index.html">CSP-J</a><span>/</span><span>第3章 计算机软件和计算机语言</span></nav><article class="prose "><div class="theme-doc-markdown markdown"><header><h1>第3章 计算机软件和计算机语言</h1></header>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="计算机软件">计算机软件</h2>
+<figure><img alt="计算机软件" src="../../../assets/source/216ab2348bfb5a5e83cd.png"/><figcaption>图3-1 计算机软件</figcaption></figure>
+<p>计算机软件是控制计算机实现用户需求的计算机操作以及管理计算机自身资源的指令集合，是指在硬件上运行的程序和相关的数据及文档，是计算机系统中不可缺少的主要组成部分。</p>
+<p>计算机软件可分为两大部分：</p>
+<ul>
+<li class="">系统软件</li>
+<li class="">应用软件</li>
+</ul>
+<figure><img alt="系统软件和应用软件" src="../../../assets/source/7fa233a57ac0762a3e67.png"/><figcaption>图3-2 系统软件和应用软件</figcaption></figure>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="系统软件">系统软件</h2>
+<p>系统软件是计算机最基本的软件。它负责实现操作者对计算机最基本的操作，管理计算机的软件与硬件资源，具有通用性，主要由计算机厂家和软件公司开发提供。</p>
+<p>系统软件主要包括：</p>
+<ol>
+<li class="">操作系统</li>
+<li class="">语言处理程序</li>
+<li class="">数据库管理系统</li>
+<li class="">服务程序</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="操作系统">操作系统</h3>
+<p>操作系统用于控制和管理计算机的软硬件资源、合理安排计算机的工作流程，是 <strong>用户和计算机的接口</strong>。</p>
+<p>教材列举的操作系统主要有：</p>
+<ul>
+<li class="">Windows</li>
+<li class="">UNIX</li>
+<li class="">Linux</li>
+<li class="">Mac OS</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="windows">Windows</h4>
+<p>Windows 操作系统由微软公司开发，大多数用于台式电脑和笔记本电脑。</p>
+<p>教材举例的个人电脑系统包括：</p>
+<ul>
+<li class="">Windows XP</li>
+<li class="">Windows 7</li>
+<li class="">Windows 10</li>
+</ul>
+<p>教材还列举了适合服务器的 Windows Server 2000、Windows Server 2003。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="unix">UNIX</h4>
+<p>UNIX 是 20 世纪 70 年代初出现的操作系统。</p>
+<p>除了作为网络操作系统之外，也可以作为单机操作系统使用，主要用于工程应用和科学计算等领域。教材注明其使用需要付费。</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="linux">Linux</h4>
+<p>Linux 继承了 UNIX 的许多特性，而且开源免费，广泛用于商业领域的服务器。</p>
+<p>教材列举的常见系列包括：</p>
+<ul>
+<li class="">Red Hat</li>
+<li class="">Ubuntu</li>
+<li class="">CentOS</li>
+<li class="">Debian</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="mac-os">Mac OS</h4>
+<p>Mac OS 是苹果公司开发的操作系统，也是基于 UNIX 开发的，具有良好的用户体验、用户界面和较为简单的操作。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="应用软件">应用软件</h2>
+<p>应用软件是指系统软件以外的所有软件，是为解决实际问题所编写的软件的总称，涉及计算机应用的各个领域。</p>
+<p>教材举例：</p>
+<ul>
+<li class="">字表处理软件：Word、Excel</li>
+<li class="">聊天软件：微信、QQ</li>
+<li class="">网购软件：京东、淘宝、拼多多</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="操作系统常考概念">操作系统常考概念</h2>
+<div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewbox="0 0 12 16"><path d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z" fill-rule="evenodd"></path></svg></span>考点</div><div class="admonitionContent_BuS1"><ul>
+<li class=""><strong>操作系统</strong>：控制和管理计算机系统的各种硬件和软件资源的使用。</li>
+<li class=""><strong>中断</strong>：CPU 暂时停止当前程序的执行，转而执行处理新情况的过程。</li>
+</ul></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="计算机语言">计算机语言</h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="程序和指令">程序和指令</h3>
+<ul>
+<li class=""><strong>指令</strong>：对计算机进行程序控制的最小单位。</li>
+<li class="">所有指令的集合称为计算机的 <strong>指令系统</strong>。</li>
+<li class=""><strong>程序</strong>：为完成一项特定任务而用某种语言编写的一组指令序列。</li>
+</ul>
+<figure><img alt="机器指令的格式" src="../../../assets/source/77943f2d33eadc0db327.png"/><figcaption>图3-3 机器指令的格式</figcaption></figure>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="计算机语言分类">计算机语言分类</h2>
+<p>计算机语言通常分为三类：</p>
+<ol>
+<li class="">机器语言</li>
+<li class="">汇编语言</li>
+<li class="">高级语言</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="机器语言">机器语言</h3>
+<p>机器语言是计算机直接识别的语言，速度快。</p>
+<p>机器语言使用二进制代码编写程序，因此又称 <strong>二进制语言</strong>，属于低级语言。</p>
+<p>教材示例：用机器语言表示 <code>8 + 4</code>：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">00001000 00000100 00000100</span><br/></div></code></pre></div></div>
+<p>机器语言是其他计算机语言的基础。因为计算机硬件只能识别 <code>0</code> 和 <code>1</code> 的二进制，无论后面的计算机语言如何发展，最终在计算机内能够执行的都只能是二进制编码。</p>
+<p>因此，其他计算机语言需要通过 <strong>编译器</strong> 或 <strong>解释器</strong> 转换成机器可以执行的形式。</p>
+<p><strong>机器语言特点：</strong></p>
+<ul>
+<li class="">优点：最底层、速度最快</li>
+<li class="">缺点：最复杂、开发效率最低</li>
+</ul>
+<figure><img alt="纸带打孔编程" src="../../../assets/source/ccebce62e482a6b7e766.png"/><figcaption>图3-4 纸带打孔编程</figcaption></figure>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="汇编语言">汇编语言</h3>
+<p>汇编语言使用 <strong>助记符</strong> 代替操作码，用地址符号或标号代替地址码，即用符号代替机器语言中的二进制码。</p>
+<p>汇编语言也称为 <strong>符号语言</strong>。</p>
+<p>与机器语言相比，汇编语言是一种历史性的进步。尽管仍较复杂、容易出错，但它成为机器语言向更高级语言进化的桥梁。</p>
+<p>教材示例：</p>
+<div class="language-asm codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-asm codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">MOV AL, 20H</span><br/></div></code></pre></div></div>
+<p>含义：将 8 位数据 <code>20H</code> 传送到 <code>AL</code> 寄存器，本质上类似赋值操作。</p>
+<p>用汇编语言编写的源程序不能被计算机直接识别，必须使用特定软件，将汇编源程序翻译和连接成计算机能够直接识别的二进制代码。</p>
+<p><strong>汇编语言特点：</strong></p>
+<ul>
+<li class="">优点：较底层、速度快</li>
+<li class="">缺点：复杂、开发效率依然较低</li>
+</ul>
+<figure><img alt="汇编语言" src="../../../assets/source/dee47247d01165b762d3.png"/><figcaption>图3-5 汇编语言</figcaption></figure>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="高级语言">高级语言</h3>
+<p>高级语言是一种接近人们使用习惯的程序设计语言。</p>
+<p>高级语言所编写的程序不能直接被计算机识别，必须经过转换后才能执行。</p>
+<p>按转换方式，教材分为两类：</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="编译类">编译类</h4>
+<p>事先准备一个称为 <strong>编译程序</strong> 的机器语言程序。当高级语言源程序输入计算机时，编译程序将 <strong>整个源程序</strong> 自动翻译成用机器指令表示的目标程序。</p>
+<figure><img alt="编译类语言" src="../../../assets/source/6aecffdbdd3e618e910c.png"/><figcaption>图3-6 编译类语言</figcaption></figure>
+<p>特点：</p>
+<ul>
+<li class="">使用较方便</li>
+<li class="">效率较高</li>
+<li class="">源程序修改后需要重新编译</li>
+<li class="">教材指出跨平台性较差</li>
+</ul>
+<p>教材举例：</p>
+<ul>
+<li class="">C</li>
+<li class="">C++</li>
+<li class="">Delphi</li>
+<li class="">Pascal</li>
+<li class="">Fortran</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="解释类">解释类</h4>
+<p>事先准备一个称为 <strong>解释程序</strong> 的机器语言程序。当高级语言源程序输入计算机后，解释程序自动 <strong>逐句翻译</strong> 源程序，译一句执行一句。</p>
+<figure><img alt="解释类语言" src="../../../assets/source/bceed99140723aaf0cb4.png"/><figcaption>图3-7 解释类语言</figcaption></figure>
+<p>特点：</p>
+<ul>
+<li class="">使用效率相对较低</li>
+<li class="">依赖解释器</li>
+<li class="">教材指出跨平台性较好</li>
+</ul>
+<p>教材举例：</p>
+<ul>
+<li class="">Python</li>
+<li class="">PHP</li>
+<li class="">ASP</li>
+<li class="">Ruby</li>
+<li class="">Java</li>
+</ul>
+<p>教材总结：</p>
+<blockquote>
+<p>编译的结果是另外一种语言，而解释的是一种中间语言。</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="高级语言的发展">高级语言的发展</h3>
+<p>教材将计算机高级语言的发展分为两个阶段，以 <strong>1980 年</strong>为分界线：</p>
+<ul>
+<li class="">前一阶段：结构化语言或面向过程语言，如 C、Fortran</li>
+<li class="">后一阶段：面向对象语言，如 C++、Java</li>
+</ul>
+<p>面向对象语言的发展有两个方向：</p>
+<ol>
+<li class=""><strong>纯面向对象语言</strong>：如 Smalltalk、EIFFEL</li>
+<li class=""><strong>混合型面向对象语言</strong>：在过程式语言中加入类、继承等成分，如 C++、Objective-C</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="计算机病毒">计算机病毒</h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="计算机病毒概述">计算机病毒概述</h3>
+<p>计算机病毒是隐藏在计算机系统中，利用系统资源进行繁殖并生存，能够影响计算机系统的正常运行，并可通过系统资源共享途径进行传染的程序。</p>
+<figure><img alt="计算机病毒" src="../../../assets/source/e1b9c1c6bd671d0fa2be.png"/><figcaption>图3-8 计算机病毒</figcaption></figure>
+<p>简单地说，计算机病毒是一种特殊的、具有破坏作用的程序：</p>
+<ul>
+<li class="">人为制造</li>
+<li class="">具有传染性</li>
+<li class="">属于软件范畴</li>
+</ul>
+<p>当计算机运行时，源病毒能把自身精确地拷贝，或者有修改地拷贝到其他程序体内，影响正常程序的运行和破坏数据的正确性。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="计算机病毒的特征">计算机病毒的特征</h3>
+<ol>
+<li class="">
+<p><strong>传染性</strong><br/>
+<!-- -->是计算机病毒的主要特征。病毒具有很强的再生能力，可以将自身复制品或变种通过内存、磁盘、网络等传染给其他文件、系统的某个部位或其他计算机。</p>
+</li>
+<li class="">
+<p><strong>破坏性</strong><br/>
+<!-- -->表现在修改和删除大量文件和数据、占用系统资源、使系统运行速度下降，甚至使系统无法运行或瘫痪。</p>
+</li>
+<li class="">
+<p><strong>隐蔽性</strong><br/>
+<!-- -->病毒进入系统后不易被发现，具有传染的隐蔽性和存在的隐蔽性。</p>
+</li>
+<li class="">
+<p><strong>潜伏性</strong><br/>
+<!-- -->病毒具有依附其他媒体而寄生的能力，入侵系统后可以不立即发作，潜伏几周、几个月甚至更长时间。</p>
+</li>
+<li class="">
+<p><strong>激发性</strong><br/>
+<!-- -->病毒具有一定的控制条件。当外界条件满足病毒发作条件时，病毒开始传染或破坏数据。</p>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="病毒分类">病毒分类</h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-文件型病毒">1. 文件型病毒</h3>
+<p>攻击对象是文件，并寄生在文件上，主要感染各类可执行文件。当文件被装载时，病毒程序运行。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-引导型病毒">2. 引导型病毒</h3>
+<p>主要传染磁盘上的系统引导区，把病毒程序加入或替代部分操作系统进行工作。系统一启动时病毒就被激活。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-网络病毒">3. 网络病毒</h3>
+<p>随着网络发展出现的病毒。</p>
+<p>教材描述其特点包括：</p>
+<ul>
+<li class="">占用网络带宽</li>
+<li class="">造成网络拥塞，甚至网络系统瘫痪</li>
+<li class="">可通过网页浏览、邮件收发、文件下载传播</li>
+<li class="">传播速度快</li>
+<li class="">清除难度大</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="计算机病毒的来源">计算机病毒的来源</h2>
+<p>教材列举四类来源：</p>
+<ol>
+<li class="">计算机专业人员或业余爱好者为恶作剧而编制的病毒</li>
+<li class="">公司为保护自己的软件产品而编制的病毒</li>
+<li class="">为达到某一目的、恶意攻击或摧毁计算机系统而编制的病毒</li>
+<li class="">在研究、开发软件过程中，由于未估计到的原因而失去控制所产生的病毒</li>
+</ol>
+<p>教材指出：前三种情况是人为故意所为，最后一种是人为无意所为。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="病毒防治">病毒防治</h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="病毒的防范">病毒的防范</h3>
+<p>教材指出，计算机病毒的传播途径主要有：</p>
+<ul>
+<li class="">网络</li>
+<li class="">U 盘</li>
+</ul>
+<p>因此应以预防为主，堵塞病毒传播途径。</p>
+<figure><img alt="病毒防治" src="../../../assets/source/a8c3f01ea0b2a1319424.png"/><figcaption>图3-9 病毒防治</figcaption></figure>
+<p>常用防范策略：</p>
+<ul>
+<li class="">安装杀毒软件</li>
+<li class="">安装个人防火墙</li>
+<li class="">监控进出内部网络或计算机的信息</li>
+<li class="">过滤不安全的服务</li>
+<li class="">限制内部网络用户访问某些特殊站点</li>
+<li class="">对网络访问进行记录和统计</li>
+<li class="">个人密码设置尽可能复杂</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="病毒检测与消除">病毒检测与消除</h2>
+<p>检测和消除病毒的方法主要有两种：</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-人工检测和消除">1. 人工检测和消除</h3>
+<p>由计算机专业人员进行，可以通过找出有病毒的内容并删除，或使用正确内容覆盖来消除病毒。</p>
+<p>特点：</p>
+<ul>
+<li class="">难度大</li>
+<li class="">技术复杂</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-软件检测和消除">2. 软件检测和消除</h3>
+<p>使用杀毒软件进行检测和消除。</p>
+<p>教材举例：瑞星、360 等。</p>
+<p>特点：</p>
+<ul>
+<li class="">操作简单</li>
+<li class="">使用方便</li>
+<li class="">适用于一般计算机用户</li>
+</ul>
+<div class="theme-admonition theme-admonition-caution admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewbox="0 0 16 16"><path d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z" fill-rule="evenodd"></path></svg></span>caution</div><div class="admonitionContent_BuS1"><p>教材还提到，可以通过对磁盘进行格式化来消除病毒。但采用此方法时，磁盘上的信息也会同时被消除，因此应慎重使用。</p></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="保护知识产权">保护知识产权</h2>
+<p>教材引用《计算机软件保护条例》。</p>
+<ul>
+<li class="">最早的《计算机软件保护条例》由国务院于 1991 年 6 月 4 日发布，教材注明该版本现已废止。</li>
+<li class="">教材记载：现公布《计算机软件保护条例》，自 2002 年 1 月 1 日起实施。</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="软件著作权">软件著作权</h3>
+<p>教材列举第二章第八条所述软件著作权人的权利：</p>
+<ol>
+<li class="">发表权</li>
+<li class="">署名权</li>
+<li class="">修改权</li>
+<li class="">复制权</li>
+<li class="">发行权</li>
+<li class="">出租权</li>
+<li class="">信息网络传播权</li>
+<li class="">翻译权</li>
+<li class="">应当由软件著作权人享有的其他权利</li>
+</ol>
+<hr/>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="随堂检测">随堂检测</h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="单项选择题">单项选择题</h3>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-以下不是微软公司出品的软件是-">1. 以下不是微软公司出品的软件是（ ）。</h4>
+<ul>
+<li class="">A. PowerPoint</li>
+<li class="">B. Word</li>
+<li class="">C. Excel</li>
+<li class="">D. Acrobat Reader</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：D</strong></p></div></div></details>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-操作系统的作用是-">2. 操作系统的作用是（ ）。</h4>
+<ul>
+<li class="">A. 把源程序译成目标程序</li>
+<li class="">B. 便于进行数据管理</li>
+<li class="">C. 控制和管理系统资源</li>
+<li class="">D. 实现硬件之间的连接</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：C</strong></p></div></div></details>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-所谓中断是指-">3. 所谓“中断”是指（ ）。</h4>
+<ul>
+<li class="">A. 操作系统随意停止一个程序的运行</li>
+<li class="">B. 当出现需要时，CPU 暂时停止当前程序的执行，转而执行处理新情况的过程</li>
+<li class="">C. 因停机而停止一个程序的运行</li>
+<li class="">D. 电脑死机</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：B</strong></p></div></div></details>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-下列对操作系统功能的描述最为完整的是-">4. 下列对操作系统功能的描述最为完整的是（ ）。</h4>
+<ul>
+<li class="">A. 负责外设与主机之间的信息交换</li>
+<li class="">B. 负责诊断机器的故障</li>
+<li class="">C. 控制和管理计算机系统的各种硬件和软件资源的使用</li>
+<li class="">D. 将源程序编译成目标程序</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：C</strong></p></div></div></details>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-cpu存储器io-设备是通过-连接起来的">5. CPU、存储器、I/O 设备是通过（ ）连接起来的。</h4>
+<ul>
+<li class="">A. 接口</li>
+<li class="">B. 总线</li>
+<li class="">C. 控制线</li>
+<li class="">D. 系统文件</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：B</strong></p></div></div></details>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-在-windows-资源管理器中用鼠标右键单击一个文件时会出现一个名为复制的操作选项它的意思是-">6. 在 Windows 资源管理器中，用鼠标右键单击一个文件时，会出现一个名为“复制”的操作选项，它的意思是（ ）。</h4>
+<ul>
+<li class="">A. 用剪切板中的文件替换该文件</li>
+<li class="">B. 在该文件所在文件夹中，将该文件克隆一份</li>
+<li class="">C. 将该文件复制到剪切板，并保留原文件</li>
+<li class="">D. 将该文件复制到剪切板，并删除原文件</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：C</strong></p></div></div></details>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="7-下列属于解释执行的程序设计语言是-">7. 下列属于解释执行的程序设计语言是（ ）。</h4>
+<ul>
+<li class="">A. C</li>
+<li class="">B. C++</li>
+<li class="">C. Pascal</li>
+<li class="">D. Python</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：D</strong></p></div></div></details>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="8-下列不属于面向对象程序设计语言的是-">8. 下列不属于面向对象程序设计语言的是（ ）。</h4>
+<ul>
+<li class="">A. C</li>
+<li class="">B. C++</li>
+<li class="">C. Java</li>
+<li class="">D. C#</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：A</strong></p></div></div></details>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="9-关于汇编语言下列说法错误的是-">9. 关于汇编语言，下列说法错误的是（ ）。</h4>
+<ul>
+<li class="">A. 是一种与具体硬件相关的程序设计语言</li>
+<li class="">B. 在编写复杂程序时，相对于高级语言而言代码量较大，且不易调试</li>
+<li class="">C. 可以直接访问寄存器、内存单元以及 I/O 端口</li>
+<li class="">D. 随着高级语言的诞生，如今已完全被淘汰，不再使用</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：D</strong></p></div></div></details>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="10-pascal-语言c-语言和-c-语言都属于-">10. Pascal 语言、C 语言和 C++ 语言都属于（ ）。</h4>
+<ul>
+<li class="">A. 面向对象语言</li>
+<li class="">B. 脚本语言</li>
+<li class="">C. 解释性语言</li>
+<li class="">D. 编译性语言</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：D</strong></p></div></div></details>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="11-在下列关于计算机语言的说法中正确的有-">11. 在下列关于计算机语言的说法中，正确的有（ ）。</h4>
+<ul>
+<li class="">A. 高级语言比汇编语言更高级，是因为它的程序运行效率更高</li>
+<li class="">B. 随着 Pascal、C 等高级语言的出现，机器语言和汇编语言已经退出了历史舞台</li>
+<li class="">C. 高级语言程序比汇编语言程序更容易从一种计算机移植到另一种计算机上</li>
+<li class="">D. C 是一种面向对象的高级计算机语言</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：C</strong></p></div></div></details>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="12-编译器的主要功能是-">12. 编译器的主要功能是（ ）。</h4>
+<ul>
+<li class="">A. 将源程序翻译成机器指令代码</li>
+<li class="">B. 将源程序重新组合</li>
+<li class="">C. 将低级语言翻译成高级语言</li>
+<li class="">D. 将一种高级语言翻译成另一种高级语言</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：A</strong></p></div></div></details>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="13-计算机病毒是-">13. 计算机病毒是（ ）。</h4>
+<ul>
+<li class="">A. 通过计算机传播的危害人体健康的一种病毒</li>
+<li class="">B. 人为制造的能够侵入计算机系统并给计算机带来故障的程序或指令集合</li>
+<li class="">C. 一种由于计算机元器件老化而产生的对生态环境有害的物质</li>
+<li class="">D. 利用计算机的海量高速运算能力而研制出来的用于疾病预防的新型病毒</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：B</strong></p></div></div></details>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="14-在计算机中防火墙的作用是-">14. 在计算机中，防火墙的作用是（ ）。</h4>
+<ul>
+<li class="">A. 防止火灾蔓延</li>
+<li class="">B. 防止网络攻击</li>
+<li class="">C. 防止计算机死机</li>
+<li class="">D. 防止使用者误删除数据</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：B</strong></p></div></div></details>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="15-计算机病毒的特点是-">15. 计算机病毒的特点是（ ）。</h4>
+<ul>
+<li class="">A. 传播性、潜伏性、易读性与隐蔽性</li>
+<li class="">B. 破坏性、传播性、潜伏性与安全性</li>
+<li class="">C. 传播性、潜伏性、破坏性与隐蔽性</li>
+<li class="">D. 传播性、潜伏性、破坏性与易读性</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：C</strong></p></div></div></details></div></article><nav class="pagination" aria-label="章节翻页"><a href="../chapter-02-computer-architecture/index.html"><small>← 上一章</small><strong>第2章 计算机体系基本结构</strong></a><a href="../chapter-04-number-systems-and-encoding/index.html"><small>下一章 →</small><strong>第4章 数制转换和信息编码</strong></a></nav></div><aside class="toc"><p>本章目录</p><nav aria-label="本章目录"><a class="toc-h2" href="#计算机软件">计算机软件</a><a class="toc-h2" href="#系统软件">系统软件</a><a class="toc-h3" href="#操作系统">操作系统</a><a class="toc-h2" href="#应用软件">应用软件</a><a class="toc-h2" href="#操作系统常考概念">操作系统常考概念</a><a class="toc-h2" href="#计算机语言">计算机语言</a><a class="toc-h3" href="#程序和指令">程序和指令</a><a class="toc-h2" href="#计算机语言分类">计算机语言分类</a><a class="toc-h3" href="#机器语言">机器语言</a><a class="toc-h3" href="#汇编语言">汇编语言</a><a class="toc-h3" href="#高级语言">高级语言</a><a class="toc-h3" href="#高级语言的发展">高级语言的发展</a><a class="toc-h2" href="#计算机病毒">计算机病毒</a><a class="toc-h3" href="#计算机病毒概述">计算机病毒概述</a><a class="toc-h3" href="#计算机病毒的特征">计算机病毒的特征</a><a class="toc-h2" href="#病毒分类">病毒分类</a><a class="toc-h3" href="#1-文件型病毒">1. 文件型病毒</a><a class="toc-h3" href="#2-引导型病毒">2. 引导型病毒</a><a class="toc-h3" href="#3-网络病毒">3. 网络病毒</a><a class="toc-h2" href="#计算机病毒的来源">计算机病毒的来源</a><a class="toc-h2" href="#病毒防治">病毒防治</a><a class="toc-h3" href="#病毒的防范">病毒的防范</a><a class="toc-h2" href="#病毒检测与消除">病毒检测与消除</a><a class="toc-h3" href="#1-人工检测和消除">1. 人工检测和消除</a><a class="toc-h3" href="#2-软件检测和消除">2. 软件检测和消除</a><a class="toc-h2" href="#保护知识产权">保护知识产权</a><a class="toc-h3" href="#软件著作权">软件著作权</a><a class="toc-h2" href="#随堂检测">随堂检测</a><a class="toc-h3" href="#单项选择题">单项选择题</a></nav><a class="back-top" href="#main">↑ 回到顶部</a></aside></main><footer class="site-footer"><a href="../../../../index.html" data-linked="1" style="text-decoration:underline;text-underline-offset:3px">© 2026 Showball OI · 信息学竞赛知识手册</a><span>信息学竞赛知识手册</span><span>GESP / CSP / NOIP · 系统学习，持续积累</span></footer></div><dialog class="mobile-dialog" aria-label="导航菜单"><div class="dialog-top"><a class="brand" href="../../../index.html"><span class="brand-mark">S</span><span>Showball <b>OI</b></span><span class="brand-tag">知识手册</span></a><button class="icon-button" data-menu-close aria-label="关闭导航菜单">×</button></div><nav aria-label="移动端导航"><a class="nav-link back-to-site" href="../../../../memos.html"><span aria-hidden="true">←</span> 返回 Showball OI</a><a class="nav-link " href="../../../index.html"><span aria-hidden="true">⌂</span> 首页</a><a class="nav-link " href="../../../courses/index.html"><span aria-hidden="true">▤</span> 全部课程</a><a class="nav-link " href="../../tags/index.html"><span aria-hidden="true">#</span> 知识标签</a><p class="nav-label">学习手册</p><a class="nav-link " href="../../../courses/1/index.html">GESP 1级</a><a class="nav-link " href="../../../courses/2/index.html">GESP 2级</a><a class="nav-link " href="../../../courses/3/index.html">GESP 3级</a><a class="nav-link " href="../../../courses/4/index.html">GESP 4级</a><a class="nav-link " href="../../../courses/5/index.html">GESP 5级</a><a class="nav-link " href="../../../courses/6/index.html">GESP 6级</a><a class="nav-link " href="../../../courses/7/index.html">GESP 7级</a><a class="nav-link " href="../../../courses/8/index.html">GESP 8级</a><a class="nav-link active" href="../../../courses/9/index.html">CSP-J</a><div class="chapter-nav"><a class="nav-link " href="../chapter-01-computer-basics/index.html">第1章 计算机基础知识</a><a class="nav-link " href="../chapter-02-computer-architecture/index.html">第2章 计算机体系基本结构</a><a class="nav-link current" href="index.html">第3章 计算机软件和计算机语言</a><a class="nav-link " href="../chapter-04-number-systems-and-encoding/index.html">第4章 数制转换和信息编码</a><a class="nav-link " href="../chapter-05-codes-and-bitwise-operations/index.html">第5章 原码反码补码和位运算</a><a class="nav-link " href="../chapter-06-computer-networks/index.html">第6章 计算机网络</a><a class="nav-link " href="../chapter-07-internet/index.html">第7章 因特网</a><a class="nav-link " href="../chapter-08-linear-data-structures/index.html">第8章 线性数据结构</a><a class="nav-link " href="../chapter-09-trees-and-graphs/index.html">第9章 树和图</a><a class="nav-link " href="../chapter-10-advanced-time-complexity/index.html">第10章 时间复杂度进阶</a><a class="nav-link " href="../chapter-11-mathematics/index.html">第11章 数学专题</a><a class="nav-link " href="../chapter-12-algorithm-topics/index.html">第12章 算法专题(排序算法、哈夫曼树)</a><a class="nav-link " href="../chapter-13-cspj-essential-codes/index.html">CSP-J 复赛必备编程模板（核心代码速查）</a></div><a class="nav-link " href="../../../courses/10/index.html">CSP-S</a><a class="nav-link " href="../../../courses/11/index.html">NOIP</a></nav></dialog><div class="toast" role="status" aria-live="polite"></div></body></html>

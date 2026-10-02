@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>课程详情 · Showball OI</title>
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('showball-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/theme.css">
+  <script defer src="../assets/app.js"></script>
+  <style>
+    /* ── Course detail / learning path ───────────────────────────── */
+    .detail-hero{
+      position:relative;
+      overflow:hidden;
+      margin-bottom:34px;
+      padding:28px 30px;
+      border:1px solid var(--border);
+      border-radius:18px;
+      background:
+        radial-gradient(circle at 92% 12%,rgba(56,189,248,.18),transparent 28%),
+        linear-gradient(135deg,var(--surface) 0%,var(--brand-50) 100%);
+      box-shadow:var(--shadow);
+    }
+    .detail-hero::after{
+      content:"";
+      position:absolute;
+      width:150px;height:150px;
+      right:-54px;bottom:-82px;
+      border:24px solid rgba(14,165,233,.08);
+      border-radius:50%;
+      pointer-events:none;
+    }
+    .detail-hero .hero-badge{position:relative;z-index:1;margin-bottom:12px}
+    .detail-hero h1{position:relative;z-index:1;font-size:34px}
+    .detail-hero p{position:relative;z-index:1;max-width:680px;font-size:14px}
+    .course-summary{position:relative;z-index:1;display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:16px}
+    .summary-chip{
+      display:inline-flex;align-items:center;gap:6px;
+      min-height:28px;padding:4px 10px;
+      border:1px solid var(--brand-100);border-radius:999px;
+      background:rgba(255,255,255,.72);color:var(--brand-700);
+      font-family:var(--mono);font-size:11px;font-weight:700;
+      backdrop-filter:blur(8px);
+    }
+    .summary-chip::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brand-400);box-shadow:0 0 0 4px rgba(56,189,248,.12)}
+
+    .catalog-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 0 15px}
+    .catalog-heading-main{display:flex;align-items:center;gap:10px}
+    .catalog-heading-icon{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--brand-50);border:1px solid var(--brand-100);color:var(--brand-600)}
+    .catalog-heading-icon svg{width:15px;height:15px;stroke-width:1.9}
+    .catalog-heading h2{margin:0;font-size:15px;font-weight:760;letter-spacing:-.01em}
+    .catalog-heading p{margin:1px 0 0;font-size:10px;color:var(--text-3)}
+
+    .lecture-groups{display:grid;gap:16px}
+    .lecture-group{
+      position:relative;
+      display:grid;
+      grid-template-columns:minmax(170px,220px) minmax(0,1fr);
+      gap:22px;
+      margin:0;
+      padding:20px;
+      border:1px solid var(--border);
+      border-radius:15px;
+      background:var(--surface);
+      box-shadow:0 1px 2px rgba(15,23,42,.025);
+      transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;
+      overflow:hidden;
+    }
+    .lecture-group::before{
+      content:"";position:absolute;left:0;top:18px;bottom:18px;width:3px;
+      border-radius:0 4px 4px 0;background:linear-gradient(180deg,var(--brand-300),var(--brand-600));
+    }
+    .lecture-group:hover{border-color:var(--brand-200);box-shadow:var(--shadow)}
+    .lecture-group-head{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:0;margin:0;padding:4px 2px 4px 7px}
+    .lecture-group-step{
+      display:inline-flex;align-items:center;gap:7px;
+      margin-bottom:18px;color:var(--brand-600);
+      font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    }
+    .lecture-group-step::after{content:"";width:24px;height:1px;background:var(--brand-200)}
+    .lecture-group-title{margin:0;font-size:17px;font-weight:780;letter-spacing:-.02em;line-height:1.35}
+    .lecture-group-count{display:inline-flex;align-items:center;margin-top:8px;padding:3px 8px;border-radius:999px;background:var(--surface-soft);border:1px solid var(--border);font-size:10px;color:var(--text-3);white-space:nowrap}
+    .lecture-group-note{margin-top:auto;padding-top:18px;font-size:10px;line-height:1.6;color:var(--text-3)}
+
+    .lecture-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-content:start}
+    .lecture-card{
+      position:relative;
+      min-height:88px;
+      padding:14px 14px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      background:var(--surface-soft);
+      display:grid;
+      grid-template-columns:34px minmax(0,1fr) 30px;
+      align-items:center;
+      gap:11px;
+      transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease;
+    }
+    .lecture-card::before{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 1px 0 rgba(255,255,255,.38);pointer-events:none}
+    .lecture-card:hover{
+      transform:translateY(-2px);
+      border-color:var(--brand-200);
+      background:var(--surface);
+      box-shadow:0 10px 24px rgba(14,165,233,.08);
+    }
+    .lecture-card-icon{
+      width:34px;height:34px;border-radius:10px;
+      display:grid;place-items:center;
+      background:var(--brand-50);border:1px solid var(--brand-100);color:var(--brand-600);
+      transition:background .18s ease,color .18s ease,transform .18s ease;
+    }
+    .lecture-card-icon svg{width:16px;height:16px;stroke-width:1.8}
+    .lecture-card:hover .lecture-card-icon{background:var(--brand-500);border-color:var(--brand-500);color:#fff;transform:scale(1.04)}
+    .lecture-card-main{min-width:0}
+    .lecture-card-title{display:block;color:var(--text);font-size:13px;font-weight:720;line-height:1.45;transition:color .15s}
+    .lecture-card:hover .lecture-card-title{color:var(--brand-700)}
+    .lecture-card-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:6px;color:var(--text-3);font-size:10px}
+    .lecture-date{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+    .lecture-date svg{width:11px;height:11px;stroke-width:1.8}
+    .lecture-card-meta .tag{display:inline-flex;align-items:center;font-size:9px;padding:2px 7px;border-radius:999px;background:var(--surface);border:1px solid var(--border);color:var(--text-2)}
+    .lecture-arrow{
+      width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+      color:var(--text-3);background:var(--surface);border:1px solid var(--border);
+      transition:transform .18s ease,color .18s ease,border-color .18s ease,background .18s ease;
+    }
+    .lecture-arrow svg{width:13px;height:13px;stroke-width:2}
+    .lecture-card:hover .lecture-arrow{transform:translateX(2px);color:#fff;border-color:var(--brand-500);background:var(--brand-500)}
+
+    .single-list-wrap{padding:18px;border:1px solid var(--border);border-radius:15px;background:var(--surface);box-shadow:var(--shadow)}
+    .single-list-wrap .lecture-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .load-note{margin-top:18px;font-size:11px;color:var(--text-3)}
+
+    html[data-theme="dark"] .detail-hero{
+      background:radial-gradient(circle at 92% 12%,rgba(14,165,233,.16),transparent 30%),linear-gradient(135deg,var(--surface) 0%,rgba(14,165,233,.055) 100%);
+    }
+    html[data-theme="dark"] .summary-chip{background:rgba(15,23,42,.62);border-color:rgba(56,189,248,.18);color:var(--brand-300)}
+    html[data-theme="dark"] .lecture-card::before{box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
+    html[data-theme="dark"] .lecture-card:hover{box-shadow:0 12px 26px rgba(0,0,0,.20),0 0 0 1px rgba(56,189,248,.04)}
+    html[data-theme="dark"] .lecture-card:hover .lecture-card-title{color:var(--brand-300)}
+
+    @media(max-width:980px){
+      .lecture-group{grid-template-columns:150px minmax(0,1fr);gap:16px}
+      .lecture-list{grid-template-columns:1fr}
+    }
+    @media(max-width:700px){
+      .detail-hero{padding:22px 20px;border-radius:14px;margin-bottom:26px}
+      .detail-hero h1{font-size:28px}
+      .lecture-group{grid-template-columns:1fr;gap:14px;padding:16px}
+      .lecture-group-head{padding:1px 2px 0 7px}
+      .lecture-group-step{margin-bottom:8px}
+      .lecture-group-note{display:none}
+      .lecture-group-count{margin-top:6px}
+      .single-list-wrap{padding:12px}
+      .single-list-wrap .lecture-list{grid-template-columns:1fr}
+    }
+    @media(max-width:430px){
+      .lecture-card{grid-template-columns:32px minmax(0,1fr) 26px;padding:12px 11px;gap:9px}
+      .lecture-card-icon{width:32px;height:32px}
+      .lecture-arrow{width:26px;height:26px}
+    }
+  </style>
+</head>
+<body data-page="courses">
+<div class="sidebar-overlay" data-nav-close></div>
+<aside class="app-sidebar" aria-label="主导航">
+  <a class="brand" href="../index.html"><span class="brand-mark">S</span><span class="brand-name">Showball <span>OI</span></span></a>
+  <div class="nav-label">Workspace</div>
+  <nav class="side-nav">
+    <a class="side-link" data-page="home" href="../index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10.5V20h14v-9.5M9 20v-6h6v6"/></svg><span>首页</span></a>
+    <a class="side-link" data-page="favorites" href="../favorite.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2 7.5 14 3 9.6l6.2-.9L12 3Z"/></svg><span>好题收藏</span></a>
+    <a class="side-link" data-page="courses" href="../memos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg><span>课程</span></a>
+    <a class="side-link" data-page="templates" href="../templates.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6M14 4l-4 16"/></svg><span>代码模板</span></a>
+    <a class="side-link" data-page="tools" href="../tools.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 1.55V21h-4v-.05a1.7 1.7 0 0 0-1-1.55 1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3v-4h.05A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3h4v.05a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.55 1H21v4h-.05A1.7 1.7 0 0 0 19.4 15Z"/></svg><span>小工具</span></a>
+  </nav>
+  <div class="sidebar-spacer"></div>
+  <div class="sidebar-note"><strong>Showball OI</strong>好题、课程、模板与算法工具。</div>
+</aside>
+
+<main class="app-main">
+  <header class="app-topbar">
+    <div class="topbar-left">
+      <button class="icon-btn menu-btn" data-menu-toggle aria-label="打开导航"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      <a class="mobile-brand" href="../index.html"><span class="brand-mark">S</span><span>Showball OI</span></a>
+      <span class="topbar-title">课程 / 讲义</span>
+    </div>
+    <div class="topbar-actions"><button class="icon-btn" data-theme-toggle aria-label="切换主题"></button></div>
+  </header>
+
+  <div class="page">
+    <div class="breadcrumb" id="breadcrumb"></div>
+    <div class="hero detail-hero">
+      <div class="hero-badge" id="hero-badge">课程</div>
+      <h1 id="hero-title">加载中…</h1>
+      <p id="hero-desc"></p>
+      <div class="course-summary" id="course-summary"></div>
+    </div>
+    <div id="main-content"></div>
+    <div class="load-note" id="load-note"></div>
+  </div>
+  <footer class="site-footer">© 2026 Showball OI · Course Library</footer>
+</main>
+
+<script>
+const params = new URLSearchParams(location.search);
+const TYPE = params.get('type');
+const ID = params.get('id');
+const COURSE = params.get('course');
+const SECTION = params.get('section');
+
+const LOCAL_COURSES = {"courses":[{"id":"syntax-basics","title":"语法基础课程","color":"green","contents":[{"id":"content-001","title":"程序设计介绍及环境配置","lectures":["lec-003"],"problems":[]},{"id":"content-002","title":"顺序结构","lectures":["lec-004","lec-005"],"problems":[{"pid":"B2002","platform":"luogu","title":"Hello,World!"},{"pid":"B2003","platform":"luogu","title":"输出第二个整数"},{"pid":"B2005","platform":"luogu","title":"字符三角形"},{"pid":"P1001","platform":"luogu","title":"A+B Problem"},{"pid":"B2008","platform":"luogu","title":"计算 (a+b)×c 的值"},{"pid":"B2009","platform":"luogu","title":"计算 (a+b)/c 的值"},{"pid":"B2010","platform":"luogu","title":"带余除法"},{"pid":"B2011","platform":"luogu","title":"计算分数的浮点数值"},{"pid":"B2013","platform":"luogu","title":"温度表达转化"},{"pid":"B2017","platform":"luogu","title":"打印ASCII码"},{"pid":"B2018","platform":"luogu","title":"打印字符"},{"pid":"B2028","platform":"luogu","title":"反向输出一个三位数"},{"pid":"P5708","platform":"luogu","title":"【深基2.习2】三角形面积"}]},{"id":"content-003","title":"分支结构","lectures":["lec-006"],"problems":[{"pid":"B2036","platform":"luogu","title":"输出绝对值"},{"pid":"B2037","platform":"luogu","title":"奇偶数判断"},{"pid":"B2047","platform":"luogu","title":"分段函数"},{"pid":"B2052","platform":"luogu","title":"简单计算器"},{"pid":"P5711","platform":"luogu","title":"【深基3.例3】闰年判断"},{"pid":"P5710","platform":"luogu","title":"【深基3.例2】数的性质"},{"pid":"B2043","platform":"luogu","title":"判断能否被 3，5，7 整除"},{"pid":"P5716","platform":"luogu","title":"【深基3.例9】月份天数"},{"pid":"P5715","platform":"luogu","title":"【深基3.例8】三位数排序"},{"pid":"B2044","platform":"luogu","title":"有一门课不及格的学生"}]},{"id":"content-004","title":"循环结构","lectures":["lec-007","lec-008","lec-009"],"problems":[{"type":"divider","lecture":"lec-007"},{"pid":"P5722","platform":"luogu","title":"【深基4.例11】数列求和"},{"pid":"P5718","platform":"luogu","title":"【深基4.例2】找最小值"},{"pid":"B2054","platform":"luogu","title":"求平均年龄"},{"pid":"P5719","platform":"luogu","title":"【深基4.例3】分类平均"},{"pid":"P5724","platform":"luogu","title":"【深基4.习5】求极差 / 最大跨度值 / 最大值和最小值的差"},{"pid":"B2068","platform":"luogu","title":"统计满足条件的 4 位数"},{"pid":"P5720","platform":"luogu","title":"【深基4.例4】一尺之棰"},{"pid":"B2077","platform":"luogu","title":"角谷猜想"},{"type":"divider","lecture":"lec-008"},{"pid":"P1307","platform":"luogu","title":"[NOIP 2011 普及组] 数字反转"},{"pid":"B2078","platform":"luogu","title":"含 k 个 3 的数"},{"pid":"B2081","platform":"luogu","title":"与 7 无关的数"},{"pid":"P1980","platform":"luogu","title":"[NOIP 2013 普及组] 计数问题"},{"pid":"B2082","platform":"luogu","title":"数字统计"},{"pid":"B4036","platform":"luogu","title":"[GESP202409 二级] 数位之和"},{"pid":"B3841","platform":"luogu","title":"[GESP202306 二级] 自幂数判断"},{"type":"divider","lecture":"lec-009"},{"pid":"P5721","platform":"luogu","title":"【深基4.例6】数字直角三角形"},{"pid":"B3844","platform":"luogu","title":"[GESP样题 二级] 画正方形"},{"pid":"B3924","platform":"luogu","title":"[GESP202312 二级] 小杨的 H 字矩阵"},{"pid":"B3955","platform":"luogu","title":"[GESP202403 二级] 小杨的日字矩阵"},{"pid":"B2086","platform":"luogu","title":"不定方程求解"},{"pid":"B4002","platform":"luogu","title":"[GESP202406 二级] 平方之和"}]},{"id":"content-005","title":"数组","lectures":["lec-010","lec-011","lec-012"],"problems":[{"type":"divider","lecture":"lec-010"},{"pid":"B2089","platform":"luogu","title":"数组逆序重存放"},{"pid":"B2087","platform":"luogu","title":"与指定数字相同的数的个数"},{"pid":"P1428","platform":"luogu","title":"小鱼比可爱"},{"pid":"P5727","platform":"luogu","title":"【深基5.例3】冰雹猜想"},{"pid":"B2091","platform":"luogu","title":"向量点积计算"},{"pid":"B2094","platform":"luogu","title":"不与最大数相同的数字之和"},{"pid":"P1177","platform":"luogu","title":"【模板】排序"}]},{"id":"content-006","title":"字符串","lectures":["lec-015"],"problems":[]},{"id":"content-007","title":"函数","lectures":["lec-016"],"problems":[]},{"id":"content-008","title":"结构体、指针与引用","lectures":["lec-017","lec-018"],"problems":[]}]},{"id":"algo-basics","title":"算法基础课程","color":"blue","contents":[{"id":"content-001","title":"进制与编码","lectures":["lec-019","lec-020"],"problems":[]},{"id":"content-002","title":"枚举法","lectures":["lec-013","lec-014"],"problems":[]},{"id":"content-003","title":"模拟法","lectures":["lec-022"],"problems":[]},{"id":"content-004","title":"递归与递推","lectures":["lec-023"],"problems":[]},{"id":"content-005","title":"排序及常用STL","lectures":["lec-024","lec-030"],"problems":[]},{"id":"content-006","title":"前缀和与差分","lectures":["lec-025","lec-026","lec-027","lec-028"],"problems":[]},{"id":"content-007","title":"双指针算法(尺取法)","lectures":["lec-029"],"problems":[]},{"id":"content-008","title":"基础数论","lectures":["lec-031","lec-032"],"problems":[]},{"id":"content-009","title":"贪心策略","lectures":["lec-033"],"problems":[]},{"id":"content-010","title":"高精度","lectures":[],"problems":[]},{"id":"content-011","title":"高精度","lectures":[],"problems":[]},{"id":"content-012","title":"二分","lectures":["lec-034","lec-035"],"problems":[]},{"id":"content-013","title":"数据结构","lectures":[],"problems":[]},{"id":"content-014","title":"搜索","lectures":[],"problems":[]},{"id":"content-015","title":"动态规划","lectures":[],"problems":[]},{"id":"content-016","title":"图论","lectures":[],"problems":[]}]},{"id":"basics-to-improve","title":"基础提高衔接课程","color":"orange","contents":[{"id":"content-001","title":"并查集","lectures":[],"problems":[]},{"id":"content-002","title":"最短路","lectures":[],"problems":[]},{"id":"content-003","title":"最小生成树","lectures":[],"problems":[]},{"id":"content-004","title":"常见优化技巧","lectures":[],"problems":[]},{"id":"content-005","title":"动态规划进阶","lectures":[],"problems":[]},{"id":"content-006","title":"数学","lectures":[],"problems":[]}]},{"id":"algo-improve","title":"提高算法课程","color":"purple","contents":[{"id":"content-001","title":"AC自动机专题","lectures":["lec-001"],"problems":[{"pid":"P3808","platform":"luogu","title":"AC 自动机（简单版）"},{"pid":"163E","platform":"codeforces","title":"e-Government"},{"pid":"abc455_c","platform":"atcoder","title":"Vanish"},{"pid":"abc205_d","platform":"atcoder","title":"D - Kth Excluded"}]},{"id":"content-002","title":"SAM(后缀自动机)","lectures":["lec-002"],"problems":[{"pid":"P3804","platform":"luogu","title":"【模板】后缀自动机（SAM）"}]},{"id":"content-003","title":"数据结构","lectures":[],"problems":[]},{"id":"content-004","title":"字符串算法","lectures":[],"problems":[]},{"id":"content-005","title":"搜索","lectures":[],"problems":[]},{"id":"content-006","title":"图论","lectures":[],"problems":[]},{"id":"content-007","title":"动态规划","lectures":[],"problems":[]},{"id":"content-008","title":"数论与组合数学","lectures":[],"problems":[]}]},{"id":"contest-prep","title":"竞赛备赛专项课程","color":"green","contents":[{"id":"written-001","type":"written","contest":"CSP-J","title":"CSP 2024 入门级第一轮","lectures":[],"problems":[]},{"id":"mock-001","type":"mock","contest":"粤港澳大湾区信息学","title":"粤港澳模拟赛 #1","problems":[{"pid":"abc458_b","platform":"atcoder","title":"Count Adjacent Cells","full_score":100},{"pid":"abc084_d","platform":"atcoder","title":"2017-like Number","full_score":100},{"pid":"abc130_d","platform":"atcoder","title":"Enough Array","full_score":100},{"pid":"abc280_d","platform":"atcoder","title":"Factorial and Multiple","full_score":100}],"scores":{"stu-005":{"abc458_b":100,"abc084_d":30,"abc130_d":60,"abc280_d":15},"stu-003":{"abc458_b":100,"abc084_d":60,"abc130_d":60,"abc280_d":17},"stu-004":{"abc458_b":100,"abc084_d":60,"abc130_d":83,"abc280_d":17}},"participants":["stu-003","stu-004","stu-005"]}]}],"topics":[{"id":"dp","title":"动态规划","color":"blue"},{"id":"basic-algo","title":"基础算法","color":"green"},{"id":"ds","title":"数据结构","color":"orange"},{"id":"math","title":"数学","color":"purple"},{"id":"graph","title":"图论","color":"blue"},{"id":"misc","title":"杂项","color":"green"},{"id":"string","title":"字符串","color":"orange"}]};
+const LOCAL_LECTURES = [{"id":"lec-001","slug":"lec-001","title":"AC自动机","tags":["ACAM"],"courses":["algo-improve"],"topics":["string"],"href":"memos/lec-001.html","created":"2026-05-13"},{"id":"lec-002","slug":"lec-002","title":"SAM(后缀自动机)","tags":["SAM"],"courses":["algo-improve"],"topics":["string"],"href":"memos/lec-002.html","created":"2026-05-13"},{"id":"lec-003","slug":"lec-003","title":"程序设计介绍及环境配置","tags":["入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/lec-003.html","created":"2026-05-13"},{"id":"lec-004","slug":"lec-004","title":"简单写程序","tags":["入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-basic-programming.html","created":"2026-05-13"},{"id":"lec-005","slug":"lec-005","title":"顺序结构程序设计","tags":["入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-sequential-programming.html","created":"2026-05-13"},{"id":"lec-006","slug":"lec-006","title":"分支结构程序设计","tags":["入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-conditional-programming.html","created":"2026-05-14"},{"id":"lec-007","slug":"lec-007","title":"循环结构程序设计","tags":["入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-loop-programming.html","created":"2026-05-15"},{"id":"lec-008","slug":"lec-008","title":"数字拆分技巧","tags":["入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-digit-decomposition.html","created":"2026-05-15"},{"id":"lec-009","slug":"lec-009","title":"循环嵌套与复杂循环","tags":["入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-nested-and-complex-loops.html","created":"2026-05-15"},{"id":"lec-010","slug":"lec-010","title":"数组的基本概念","tags":["入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-array-basics.html","created":"2026-05-21"},{"id":"lec-011","slug":"lec-011","title":"多维数组及应用","tags":["入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-multidimensional-arrays.html","created":"2026-05-21"},{"id":"lec-012","slug":"lec-012","title":"数组拓展(数组计数与打标记思想)","tags":["入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-array-techniques-index-counting-and-marking.html","created":"2026-05-21"},{"id":"lec-013","slug":"lec-013","title":"时间复杂度","tags":["算法基础课"],"courses":["algo-basics"],"topics":["misc"],"href":"memos/Lec-time-complexity.html","created":"2026-06-17"},{"id":"lec-014","slug":"lec-014","title":"枚举法","tags":["算法基础课程"],"courses":["algo-basics"],"topics":[],"href":"memos/Lec-enumeration.html","created":"2026-06-19"},{"id":"lec-015","slug":"lec-015","title":"字符串的基本概念","tags":["语法基础课程"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-string-basics.html","created":"2026-06-25"},{"id":"lec-016","slug":"lec-016","title":"函数的基本概念","tags":["语法基础课程"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-function-basics.html","created":"2026-06-25"},{"id":"lec-017","slug":"lec-017","title":"结构体","tags":["语法基础课程"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-structs.html","created":"2026-06-25"},{"id":"lec-018","slug":"lec-018","title":"指针与引用","tags":["语法入门"],"courses":["syntax-basics"],"topics":[],"href":"memos/Lec-pointers-and-references.html","created":"2026-06-25"},{"id":"lec-019","slug":"lec-019","title":"进制转换","tags":["算法基础课程"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-base-conversion.html","created":"2026-06-25"},{"id":"lec-020","slug":"lec-020","title":"编码与位运算","tags":["基础算法课程"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-encoding-and-bitwise-operations.html","created":"2026-06-25"},{"id":"lec-021","slug":"lec-021","title":"信息学述职","tags":["笔记"],"courses":[],"topics":[],"href":"memos/lec-021.html","created":"2026-07-01"},{"id":"lec-022","slug":"lec-022","title":"模拟法","tags":["算法基础"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-simulation.html","created":"2026-07-04"},{"id":"lec-023","slug":"lec-023","title":"递推与递归","tags":["基础算法课程"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-recursion-and-recurrence.html","created":"2026-07-08"},{"id":"lec-024","slug":"lec-024","title":"排序算法","tags":["基础算法课程"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-sorting-algorithms.html","created":"2026-07-10"},{"id":"lec-025","slug":"lec-025","title":"一维前缀和与差分","tags":["基础算法"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-1d-prefix-sums-and-difference-arrays.html","created":"2026-07-13"},{"id":"lec-026","slug":"lec-026","title":"二维前缀和与差分","tags":["基础算法"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-2d-prefix-sums-and-difference-arrays.html","created":"2026-07-13"},{"id":"lec-027","slug":"lec-027","title":"前缀和与差分的拓展应用","tags":["基础算法"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-advanced-prefix-sums-and-difference-arrays.html","created":"2026-07-13"},{"id":"lec-028","slug":"lec-028","title":"“好区间”问题","tags":["基础算法"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-good-interval-problems.html","created":"2026-07-13"},{"id":"lec-029","slug":"lec-029","title":"双指针算法(尺取法)","tags":["基础算法"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-two-pointers.html","created":"2026-07-14"},{"id":"lec-030","slug":"lec-030","title":"常用STL","tags":["基础算法"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-common-stl.html","created":"2026-07-14"},{"id":"lec-031","slug":"lec-031","title":"数学符号与基本知识","tags":[],"courses":["algo-basics"],"topics":["math"],"href":"memos/Lec-mathematical-notation-and-basics.html","created":"2026-07-26"},{"id":"lec-032","slug":"lec-032","title":"素数筛法","tags":["基础算法"],"courses":["algo-basics"],"topics":["math"],"href":"memos/Lec-prime-sieve.html","created":"2026-07-29"},{"id":"lec-033","slug":"lec-033","title":"贪心策略","tags":["基础算法课程"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-greedy-strategies.html","created":"2026-08-01"},{"id":"lec-034","slug":"lec-034","title":"二分查找","tags":["基础算法"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-binary-search.html","created":"2026-08-03"},{"id":"lec-035","slug":"lec-035","title":"二分答案","tags":["基础算法"],"courses":["algo-basics"],"topics":["basic-algo"],"href":"memos/Lec-binary-search-on-answer.html","created":"2026-08-06"}];
+
+async function fetchJson(paths){
+  let lastError;
+  for(const path of paths){
+    try{
+      const res = await fetch(path,{cache:'no-store'});
+      if(res.ok) return await res.json();
+      lastError = new Error(`${path} ${res.status}`);
+    }catch(err){ lastError = err; }
+  }
+  throw lastError || new Error('数据加载失败');
+}
+
+async function loadCoreData(){
+  if(location.protocol === 'file:'){
+    return {coursesData:LOCAL_COURSES,allLectures:LOCAL_LECTURES,usingSnapshot:true};
+  }
+  try{
+    const [coursesData,allLectures] = await Promise.all([
+      fetchJson(['courses.json','../memos/courses.json','../momos/courses.json']),
+      fetchJson(['lectures.json','../memos/lectures.json'])
+    ]);
+    return {coursesData,allLectures,usingSnapshot:false};
+  }catch(err){
+    console.warn('课程数据读取失败，使用内置快照。',err);
+    return {coursesData:LOCAL_COURSES,allLectures:LOCAL_LECTURES,usingSnapshot:true};
+  }
+}
+
+function escapeHtml(value=''){
+  return String(value).replace(/[&<>"']/g,ch=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  })[ch]);
+}
+
+function lectureHref(href){
+  if(!href) return '#';
+  if(/^(https?:)?\/\//i.test(href) || href.startsWith('/')) return href;
+  if(href.startsWith('memos/')) return '../' + href;
+  return href;
+}
+
+function setBreadcrumb(items=[]){
+  const base=[
+    '<a href="../index.html">首页</a>',
+    '<span class="breadcrumb-sep">›</span>',
+    '<a href="../memos.html">课程</a>'
+  ];
+  items.forEach(item=>{
+    base.push('<span class="breadcrumb-sep">›</span>');
+    base.push(item.href
+      ? `<a href="${escapeHtml(item.href)}">${escapeHtml(item.label)}</a>`
+      : `<span>${escapeHtml(item.label)}</span>`);
+  });
+  document.getElementById('breadcrumb').innerHTML=base.join('');
+}
+
+function uniqueLectures(ids,lectureMap){
+  const seen=new Set();
+  return (ids||[]).map(id=>lectureMap.get(id)).filter(l=>l && !seen.has(l.id) && seen.add(l.id));
+}
+
+function renderLectureCards(lectures){
+  if(!lectures.length) return '<div class="empty-state">暂无讲义</div>';
+  return `<div class="lecture-list">${lectures.map(l=>`
+    <a class="lecture-card" href="${escapeHtml(lectureHref(l.href))}">
+      <span class="lecture-card-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 3h9l3 3v15H6z"/><path d="M15 3v4h4M9 11h6M9 15h6"/></svg>
+      </span>
+      <div class="lecture-card-main">
+        <span class="lecture-card-title">${escapeHtml(l.title)}</span>
+        <div class="lecture-card-meta">
+          ${l.created ? `<span class="lecture-date"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M7 3v3M17 3v3M4 9h16"/><rect x="4" y="5" width="16" height="15" rx="2"/></svg>${escapeHtml(l.created)}</span>` : ''}
+          ${(l.tags||[]).map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join('')}
+        </div>
+      </div>
+      <span class="lecture-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>`).join('')}</div>`;
+}
+
+function courseLectures(course,allLectures,lectureMap){
+  // 同时支持两种归属方式：
+  // 1. courses.json 的 content.lectures 显式关联；
+  // 2. lectures.json 的 lecture.courses 直接声明所属课程。
+  // 这样新增 GESP 等课程讲义时，只更新 lectures.json 也能立即同步。
+  const ids=new Set((course.contents||[]).flatMap(c=>c.lectures||[]));
+  allLectures.forEach(lecture=>{
+    if((lecture.courses||[]).includes(course.id)) ids.add(lecture.id);
+  });
+  return [...ids].map(id=>lectureMap.get(id)).filter(Boolean);
+}
+
+function renderGroupedCourse(course,lectureMap,allLectures){
+  const usedIds=new Set();
+  const groups=(course.contents||[]).map(content=>{
+    const lectures=uniqueLectures(content.lectures,lectureMap);
+    lectures.forEach(l=>usedIds.add(l.id));
+    return {content,lectures};
+  }).filter(group=>group.lectures.length);
+
+  // lectures.json 中已经归属于课程、但尚未写入具体章节的讲义，也要展示出来。
+  const ungrouped=allLectures.filter(l=>(l.courses||[]).includes(course.id) && !usedIds.has(l.id));
+  if(ungrouped.length){
+    groups.push({content:{title:'课程讲义'},lectures:ungrouped});
+  }
+
+  if(!groups.length) return '<div class="empty-state">该课程暂时还没有讲义</div>';
+
+  const total=groups.reduce((sum,g)=>sum+g.lectures.length,0);
+  return `
+    <div class="catalog-heading">
+      <div class="catalog-heading-main">
+        <span class="catalog-heading-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 0 4 22.5z"/><path d="M4 5.5v17M8 7h8M8 11h6"/></svg></span>
+        <div><h2>课程目录</h2><p>${groups.length} 个章节 · ${total} 篇讲义</p></div>
+      </div>
+    </div>
+    <div class="lecture-groups">
+      ${groups.map(({content,lectures},index)=>`
+        <section class="lecture-group">
+          <div class="lecture-group-head">
+            <span class="lecture-group-step">Chapter ${String(index+1).padStart(2,'0')}</span>
+            <h2 class="lecture-group-title">${escapeHtml(content.title)}</h2>
+            <span class="lecture-group-count">${lectures.length} 篇讲义</span>
+            <div class="lecture-group-note">按课程顺序阅读<br>点击右侧讲义进入内容</div>
+          </div>
+          ${renderLectureCards(lectures)}
+        </section>`).join('')}
+    </div>`;
+}
+
+function courseLectureCount(course,allLectures,lectureMap){
+  return courseLectures(course,allLectures,lectureMap).length;
+}
+
+function setHero(badge,title,desc,count){
+  document.getElementById('hero-badge').textContent=badge;
+  document.getElementById('hero-title').textContent=title;
+  document.getElementById('hero-desc').textContent=desc;
+  document.getElementById('course-summary').innerHTML = count == null ? '' : `<span class="summary-chip">${count} 篇讲义</span>`;
+}
+
+async function init(){
+  const {coursesData,allLectures,usingSnapshot}=await loadCoreData();
+  const lectureMap=new Map(allLectures.map(l=>[l.id,l]));
+  const courses=coursesData.courses||[];
+  const topics=coursesData.topics||[];
+
+  document.getElementById('load-note').textContent = usingSnapshot
+    ? '当前为本地预览数据；通过 HTTP/HTTPS 部署时会实时读取 courses.json 与 lectures.json。'
+    : '';
+
+  if(!TYPE){
+    setBreadcrumb([]);
+    setHero('课程','缺少详情参数','请从课程页面进入对应课程或知识点。',null);
+    document.getElementById('main-content').innerHTML='<div class="empty-state">没有可显示的内容</div>';
+    return;
+  }
+
+  if(TYPE==='course'){
+    const course=courses.find(c=>c.id===ID);
+    if(!course) throw new Error('未找到课程');
+    document.title=`${course.title} · Showball OI`;
+    setBreadcrumb([{label:course.title}]);
+    const count=courseLectureCount(course,allLectures,lectureMap);
+    setHero('课程',course.title,'按课程章节整理的讲义，点击即可进入阅读。',count);
+    document.getElementById('main-content').innerHTML=renderGroupedCourse(course,lectureMap,allLectures);
+    return;
+  }
+
+  if(TYPE==='topic'){
+    const topic=topics.find(t=>t.id===ID);
+    if(!topic) throw new Error('未找到知识点');
+    const lectures=allLectures.filter(l=>(l.topics||[]).includes(ID));
+    document.title=`${topic.title} · Showball OI`;
+    setBreadcrumb([{label:topic.title}]);
+    setHero('知识点',topic.title,'该知识点下整理的全部讲义。',lectures.length);
+    document.getElementById('main-content').innerHTML=`<div class="single-list-wrap">${renderLectureCards(lectures)}</div>`;
+    return;
+  }
+
+  if(TYPE==='content'){
+    const course=courses.find(c=>c.id===COURSE);
+    const content=(course?.contents||[]).find(c=>c.id===ID);
+    if(!course || !content) throw new Error('未找到课程章节');
+    const lectures=uniqueLectures(content.lectures,lectureMap);
+    document.title=`${content.title} · Showball OI`;
+    setBreadcrumb([
+      {label:course.title,href:`detail.html?type=course&id=${encodeURIComponent(course.id)}`},
+      {label:content.title}
+    ]);
+    setHero(course.title,content.title,'本章节讲义，点击即可进入阅读。',lectures.length);
+    document.getElementById('main-content').innerHTML=`<div class="single-list-wrap">${renderLectureCards(lectures)}</div>`;
+    return;
+  }
+
+  // 兼容旧的竞赛详情链接：只提取其中关联的讲义，不再展示题目、排名或学生数据。
+  if(TYPE==='contest-section'){
+    const course=courses.find(c=>c.id==='contest-prep');
+    const contents=(course?.contents||[]).filter(c=>c.type===SECTION);
+    const groups=contents.map(content=>({content,lectures:uniqueLectures(content.lectures,lectureMap)})).filter(g=>g.lectures.length);
+    const label=SECTION==='written'?'笔试讲义':'上机讲义';
+    setBreadcrumb([{label:course?.title||'竞赛备赛',href:'detail.html?type=course&id=contest-prep'},{label}]);
+    setHero('竞赛备赛',label,'这里只保留与课程关联的讲义。',groups.reduce((s,g)=>s+g.lectures.length,0));
+    document.getElementById('main-content').innerHTML=groups.length
+      ? groups.map((g,i)=>`<section class="lecture-group"><div class="lecture-group-head"><span class="lecture-group-step">Chapter ${String(i+1).padStart(2,'0')}</span><h2 class="lecture-group-title">${escapeHtml(g.content.title)}</h2><span class="lecture-group-count">${g.lectures.length} 篇讲义</span></div>${renderLectureCards(g.lectures)}</section>`).join('')
+      : '<div class="empty-state">暂无关联讲义</div>';
+    return;
+  }
+
+  if(TYPE==='written' || TYPE==='mock'){
+    const course=courses.find(c=>c.id===COURSE);
+    const content=(course?.contents||[]).find(c=>c.id===ID);
+    if(!course || !content) throw new Error('未找到课程内容');
+    const lectures=uniqueLectures(content.lectures,lectureMap);
+    setBreadcrumb([{label:course.title,href:`detail.html?type=course&id=${encodeURIComponent(course.id)}`},{label:content.title}]);
+    setHero(course.title,content.title,'这里只保留与该内容关联的讲义。',lectures.length);
+    document.getElementById('main-content').innerHTML=`<div class="single-list-wrap">${renderLectureCards(lectures)}</div>`;
+    return;
+  }
+
+  throw new Error('未知详情类型');
+}
+
+init().catch(err=>{
+  console.error(err);
+  setBreadcrumb([]);
+  setHero('课程','课程详情加载失败',err.message || '请检查课程数据或页面参数。',null);
+  document.getElementById('main-content').innerHTML='<div class="empty-state">无法显示当前内容，请从课程页面重新进入。</div>';
+});
+</script>
+
+</body>
+</html>

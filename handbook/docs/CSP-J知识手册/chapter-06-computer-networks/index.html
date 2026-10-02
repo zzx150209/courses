@@ -1,0 +1,332 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="description" content="信息学竞赛知识手册：GESP、CSP、NOIP 知识手册，按章节阅读与全文检索。"><title>第6章 计算机网络 · 信息学知识手册</title><script>try{document.documentElement.dataset.theme=localStorage.getItem('showball-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light')}catch(e){}</script><link rel="stylesheet" href="../../../assets/source/971002830b8a88c44f98.css"><link rel="stylesheet" href="../../../assets/theme.css"><script defer src="../../../assets/app.js"></script></head><body data-root="../../../" class="document"><a class="skip" href="#main">跳到正文</a><aside class="sidebar"><a class="brand" href="../../../index.html"><span class="brand-mark">S</span><span>Showball <b>OI</b></span><span class="brand-tag">知识手册</span></a><div class="nav-scroll"><nav aria-label="主导航"><a class="nav-link back-to-site" href="../../../../memos.html"><span aria-hidden="true">←</span> 返回 Showball OI</a><a class="nav-link " href="../../../index.html"><span aria-hidden="true">⌂</span> 首页</a><a class="nav-link " href="../../../courses/index.html"><span aria-hidden="true">▤</span> 全部课程</a><a class="nav-link " href="../../tags/index.html"><span aria-hidden="true">#</span> 知识标签</a><p class="nav-label">学习手册</p><a class="nav-link " href="../../../courses/1/index.html">GESP 1级</a><a class="nav-link " href="../../../courses/2/index.html">GESP 2级</a><a class="nav-link " href="../../../courses/3/index.html">GESP 3级</a><a class="nav-link " href="../../../courses/4/index.html">GESP 4级</a><a class="nav-link " href="../../../courses/5/index.html">GESP 5级</a><a class="nav-link " href="../../../courses/6/index.html">GESP 6级</a><a class="nav-link " href="../../../courses/7/index.html">GESP 7级</a><a class="nav-link " href="../../../courses/8/index.html">GESP 8级</a><a class="nav-link active" href="../../../courses/9/index.html">CSP-J</a><div class="chapter-nav"><a class="nav-link " href="../chapter-01-computer-basics/index.html">第1章 计算机基础知识</a><a class="nav-link " href="../chapter-02-computer-architecture/index.html">第2章 计算机体系基本结构</a><a class="nav-link " href="../chapter-03-software-and-programming-languages/index.html">第3章 计算机软件和计算机语言</a><a class="nav-link " href="../chapter-04-number-systems-and-encoding/index.html">第4章 数制转换和信息编码</a><a class="nav-link " href="../chapter-05-codes-and-bitwise-operations/index.html">第5章 原码反码补码和位运算</a><a class="nav-link current" href="index.html">第6章 计算机网络</a><a class="nav-link " href="../chapter-07-internet/index.html">第7章 因特网</a><a class="nav-link " href="../chapter-08-linear-data-structures/index.html">第8章 线性数据结构</a><a class="nav-link " href="../chapter-09-trees-and-graphs/index.html">第9章 树和图</a><a class="nav-link " href="../chapter-10-advanced-time-complexity/index.html">第10章 时间复杂度进阶</a><a class="nav-link " href="../chapter-11-mathematics/index.html">第11章 数学专题</a><a class="nav-link " href="../chapter-12-algorithm-topics/index.html">第12章 算法专题(排序算法、哈夫曼树)</a><a class="nav-link " href="../chapter-13-cspj-essential-codes/index.html">CSP-J 复赛必备编程模板（核心代码速查）</a></div><a class="nav-link " href="../../../courses/10/index.html">CSP-S</a><a class="nav-link " href="../../../courses/11/index.html">NOIP</a></nav></div><div class="sidebar-note"><strong>学懂一个知识点，<br>再解决一道好题。</strong><span>GESP · CSP · NOIP</span></div></aside><div class="layout"><header class="topbar"><div class="topbar-left"><button class="icon-button mobile-toggle" aria-label="打开导航菜单" data-menu-open>☰</button><span class="topbar-title">第6章 计算机网络</span></div><div class="topbar-actions"><a class="search-shortcut" href="../../../search/index.html"><span aria-hidden="true">⌕</span> 搜索知识点 <kbd>/</kbd></a><button class="icon-button" data-theme aria-label="切换主题" title="切换主题">◐</button></div></header><main id="main" class="reader-layout" tabindex="-1"><div class="reading-column"><nav class="breadcrumb" aria-label="当前位置"><a href="../../../index.html">首页</a><span>/</span><a href="../../../courses/9/index.html">CSP-J</a><span>/</span><span>第6章 计算机网络</span></nav><article class="prose "><div class="theme-doc-markdown markdown"><header><h1>第6章 计算机网络</h1></header>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="网络的定义">网络的定义</h2>
+<p>计算机网络就是利用通信线路和设备，把分布在不同地理位置上的多台计算机连接起来，在功能完善的网络软件（网络协议、网络操作系统等）的支持下，实现计算机之间 <strong>数据通信和资源共享</strong> 的系统。</p>
+<p>计算机网络是 <strong>计算机技术与通信技术相结合的产物</strong>。</p>
+<p>网络中计算机与计算机之间的通信依靠协议进行。协议是计算机收、发数据的规则。主要包括：</p>
+<ul>
+<li class="">IP 协议</li>
+<li class="">TCP 协议</li>
+</ul>
+<figure><img alt="计算机网络" src="../../../assets/source/fa79077af1f449911aba.png"/><figcaption>图6-1 计算机网络</figcaption></figure>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="计算机网络的发展">计算机网络的发展</h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="面向终端的第一代计算机网络">面向终端的第一代计算机网络</h3>
+<p>以单个主机为中心的远程联机系统，实现了地理位置分散的大量终端与主机之间的连接和通信。</p>
+<p>各终端通过通信线路共享昂贵的中心主机的硬件和软件资源。</p>
+<figure><img alt="第一代计算机网络（单主机）" src="../../../assets/source/010c7c7f98ef6d1f7f6d.png"/><figcaption>图6-2 第一代计算机网络（单主机）</figcaption></figure>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="以分组交换网为中心的第二代计算机网络">以分组交换网为中心的第二代计算机网络</h3>
+<p>以分组交换网络为中心，主机都处在网络的外围。</p>
+<p>用户通过分组交换网，可共享连接在网络上的许多硬件和各种丰富的软件资源。</p>
+<figure><img alt="分组交换网络（第二代计算机网络）" src="../../../assets/source/1ea3aa13dc8143052085.png"/><figcaption>图6-3 分组交换网络（第二代计算机网络）</figcaption></figure>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="以网络互联为核心的第三代计算机网络">以网络互联为核心的第三代计算机网络</h3>
+<p>通常将网络之间的连接称为 <strong>网络互连</strong>。</p>
+<p>最常见的网络互连方式，就是通过 <strong>路由器</strong> 等互联设备将不同的网络连接到一起，形成可以互相访问的“互联网”。</p>
+<p>著名的 Internet 就是目前世界上最大的一个国际互联网。</p>
+<figure><img alt="网络互联（第三代计算机网络）" src="../../../assets/source/b99dcf92b61cd41f3487.png"/><figcaption>图6-4 网络互联（第三代计算机网络）</figcaption></figure>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="网络的主要功能">网络的主要功能</h2>
+<p>计算机网络的主要功能包括：</p>
+<ol>
+<li class="">通信功能</li>
+<li class="">资源共享</li>
+<li class="">提高系统性能，主要是可靠性和可用性</li>
+<li class="">实现数据的传输和集中管理</li>
+<li class="">均衡负载，即分布式控制和分担负荷，提高计算机的处理能力</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="网络的分类">网络的分类</h2>
+<p>按照网络的地理范围，可分为：</p>
+<ul>
+<li class="">局域网（LAN）</li>
+<li class="">城域网（MAN）</li>
+<li class="">广域网（WAN）</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="局域网local-area-network">局域网（Local Area Network）</h3>
+<p>局域网是指地理范围在几米到十几公里内的计算机及外围设备通过高速通信线路相连的专用网络。</p>
+<p>一个学校或企业通常会拥有许多个互连的局域网，这类网络常称为：</p>
+<ul>
+<li class="">校园网</li>
+<li class="">企业网</li>
+</ul>
+<figure><img alt="局域网" src="../../../assets/source/aaa7547e10c248b32302.png"/><figcaption>图6-5 局域网</figcaption></figure>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="局域网的特点">局域网的特点</h4>
+<ul>
+<li class=""><strong>传输距离有限</strong>：一般在几米到十几公里范围</li>
+<li class=""><strong>传输速率高</strong>：一般在 <code>10 Mbps ～ 10 Gbps</code></li>
+<li class=""><strong>传输可靠性高</strong>：误码率通常在 <code>10^-7 ～ 10^-12</code></li>
+<li class="">结构简单</li>
+<li class="">协议简单</li>
+<li class="">容易实现</li>
+<li class="">灵活性较好</li>
+</ul>
+<blockquote>
+<p>误码率是指每传送 n 个位，可能发生一个位的传输差错。</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="城域网metropolitan-area-network">城域网（Metropolitan Area Network）</h3>
+<p>城域网是在一个城市范围内建立的计算机通信网。</p>
+<p>城域网通常使用与局域网相似的技术，传输媒体主要采用 <strong>光缆</strong>。</p>
+<p>教材指出，城域网技术并没有在世界各国迅速推广，而在实际中被广域网技术所取代。</p>
+<figure><img alt="城域网" src="../../../assets/source/239e42fe1b03d48204cb.png"/><figcaption>图6-6 城域网</figcaption></figure>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="广域网wide-area-network">广域网（Wide Area Network）</h3>
+<p>广域网一般是在不同城市和不同国家之间，将 LAN 或 MAN 网络进行互联。</p>
+<p>其地理范围通常为：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">几十公里 ～ 几千公里</span><br/></div></code></pre></div></div>
+<p>通信传输装置和媒体一般由电信部门提供。</p>
+<figure><img alt="广域网" src="../../../assets/source/97913b19ea2519a531fc.png"/><figcaption>图6-7 广域网</figcaption></figure>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="广域网的特点">广域网的特点</h4>
+<ul>
+<li class=""><strong>覆盖范围大</strong>：通信距离通常为几十公里到几千公里</li>
+<li class=""><strong>传输速率较低，传输误码率较高</strong></li>
+<li class="">通信子网通常由电信部门负责建设，或借用现成的公共通信网络</li>
+<li class="">结构复杂</li>
+<li class="">协议复杂</li>
+<li class="">投资大</li>
+<li class="">实现周期长</li>
+</ul>
+<p>教材同时指出，随着光纤标准和全球光纤通信网络的发展，广域网的速度和可靠性也会提高。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="网络拓扑结构">网络拓扑结构</h2>
+<p>计算机网络的 <strong>物理拓扑结构</strong>，用于描述计算机网络中通信子网的终点与通信线路之间的几何关系。</p>
+<p>它会影响：</p>
+<ul>
+<li class="">网络性能</li>
+<li class="">网络协议的实现</li>
+<li class="">网络可靠性</li>
+<li class="">网络通信成本</li>
+</ul>
+<p>教材主要介绍以下几种结构：</p>
+<ol>
+<li class="">星形</li>
+<li class="">总线形</li>
+<li class="">环形</li>
+<li class="">树形</li>
+<li class="">网状形</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="星形拓扑">星形拓扑</h2>
+<p>星形拓扑存在一个 <strong>中心节点</strong>。</p>
+<p>每个节点通过点到点链路与中心节点连接，所有通信都通过中心节点进行。</p>
+<p>交换局域网是一种典型的星形拓扑结构。</p>
+<figure><img alt="星形网络" src="../../../assets/source/c0f24062e03cfe127a26.png"/><figcaption>图6-8 星形网络</figcaption></figure>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="优点">优点</h3>
+<ul>
+<li class="">结构简单</li>
+<li class="">组网容易</li>
+<li class="">控制相对简单</li>
+<li class="">故障影响小</li>
+<li class="">容易检测和排除故障</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="缺点">缺点</h3>
+<ul>
+<li class="">电缆数量大</li>
+<li class="">安装工作量大</li>
+<li class="">通信线路利用率低</li>
+<li class="">中心节点是全网可靠性的瓶颈</li>
+<li class="">中心节点出现故障时，整个网络通信会瘫痪</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="应用">应用</h3>
+<p>星形拓扑在 <strong>以太网</strong> 中得到非常广泛的应用。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="总线形拓扑">总线形拓扑</h2>
+<p>所有节点都连接到一条作为公共传输媒体的总线上，信息以 <strong>广播方式</strong> 进行传输。</p>
+<figure><img alt="总线型网络" src="../../../assets/source/b61b9abb73c449767b30.png"/><figcaption>图6-9 总线型网络</figcaption></figure>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="优点-1">优点</h3>
+<ul>
+<li class="">布线简单</li>
+<li class="">节点增删容易</li>
+<li class="">成本较低</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="缺点-1">缺点</h3>
+<ul>
+<li class="">节点发送信息时要竞用总线，容易引起冲突</li>
+<li class="">节点过多会降低网络速度</li>
+<li class="">故障影响大</li>
+<li class="">故障难以检测和排除</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="应用-1">应用</h3>
+<p>早期用于以太网，目前已经较少采用。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="环形拓扑">环形拓扑</h2>
+<p>环形拓扑以共享媒体方式进行数据传输。</p>
+<p>每个节点都与两个相邻节点相连，节点之间采用点到点链路，网络中所有节点构成一个闭合的环。</p>
+<p>环中的数据沿一个方向绕环逐站传输。</p>
+<figure><img alt="环形网络" src="../../../assets/source/3adedab26af0ca5b1ac5.png"/><figcaption>图6-10 环形网络</figcaption></figure>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="优点-2">优点</h3>
+<ul>
+<li class="">结构简单</li>
+<li class="">实时性强</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="缺点-2">缺点</h3>
+<ul>
+<li class="">增删节点操作复杂</li>
+<li class="">增删节点会干扰整个网络正常运行</li>
+<li class="">故障影响大</li>
+<li class="">故障难以检测和排除</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="应用-2">应用</h3>
+<p>早期的令牌环网和 FDDI 采用环形结构。</p>
+<p>教材指出，目前环形拓扑由于其单向传输的特点，主要应用于光纤网中。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="树形拓扑">树形拓扑</h2>
+<p>树形拓扑可以看作是 <strong>星形拓扑的扩展</strong>。</p>
+<figure><img alt="树形网络" src="../../../assets/source/a3753113de1fc954bf42.png"/><figcaption>图6-11 树形网络</figcaption></figure>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="优点-3">优点</h3>
+<ul>
+<li class="">可扩展性好</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="缺点-3">缺点</h3>
+<ul>
+<li class="">各个节点对根节点的依赖性太大</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="应用-3">应用</h3>
+<p>教材指出，树形拓扑在以太网中得到了非常广泛的应用。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="网状形拓扑">网状形拓扑</h2>
+<p>网状形拓扑中，节点之间的连接是任意的，没有规律。</p>
+<p>一种特殊的网状结构是 <strong>全连接</strong>：</p>
+<blockquote>
+<p>任意两个节点之间都有连接。</p>
+</blockquote>
+<figure><img alt="网状形网络" src="../../../assets/source/dd9a3a73ee909d1f2b39.png"/><figcaption>图6-12 网状形网络</figcaption></figure>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="优点-4">优点</h3>
+<ul>
+<li class="">系统可靠性高</li>
+<li class="">系统不容易受瓶颈问题和失效问题影响</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="缺点-4">缺点</h3>
+<ul>
+<li class="">结构复杂</li>
+<li class="">成本高</li>
+<li class="">网络协议复杂</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="应用-4">应用</h3>
+<p>主要用于军方或其他特殊用途，一般应用中较少使用。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="网络协议">网络协议</h2>
+<p>网络协议（Network Protocol），简称 <strong>协议</strong>，是为进行网络中的数据交换而建立的规则、标准或约定的集合。</p>
+<p>协议主要由三个要素组成：</p>
+<table><thead><tr><th>要素</th><th>含义</th></tr></thead><tbody><tr><td>语法</td><td>通信双方交换数据和控制信息的格式</td></tr><tr><td>语义</td><td>每部分控制信息和数据所代表的含义</td></tr><tr><td>同步</td><td>事件实现顺序的详细说明</td></tr></tbody></table>
+<p>例如：</p>
+<ul>
+<li class="">通信如何发起</li>
+<li class="">收到一个数据后，下一步要做什么</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="人类协议和网络协议">人类协议和网络协议</h2>
+<figure><img alt="人类协议和网络协议" src="../../../assets/source/b5b9442403f169908370.png"/><figcaption>图6-13 人类协议和网络协议</figcaption></figure>
+<p>教材通过人类交流过程与网络通信过程进行类比：</p>
+<ul>
+<li class="">人类交流需要约定</li>
+<li class="">网络通信同样需要协议</li>
+</ul>
+<p>这说明网络通信中的数据交换必须遵循双方都认可的规则。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="协议分层设计">协议分层设计</h2>
+<p>概念上可以认为通信是 <strong>水平的</strong>，但实际上水平通信依赖 <strong>垂直通信</strong> 来实现。</p>
+<p>网络协议被分解成若干相互有联系的简单协议，这些简单协议的集合称为 <strong>协议栈</strong>。</p>
+<figure><img alt="7层协议" src="../../../assets/source/cdf2bade5d41d16795d0.png"/><figcaption>图6-14 7层协议</figcaption></figure>
+<p>教材使用“信件的寄送过程”来类比分层通信过程。</p>
+<figure><img alt="类比信件寄送过程" src="../../../assets/source/7fd21f98b59da4629804.png"/><figcaption>图6-15 类比信件寄送过程</figcaption></figure>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="网络体系结构">网络体系结构</h2>
+<p>网络体系结构（architecture）是：</p>
+<blockquote>
+<p>计算机网络的各层及其协议的集合。</p>
+</blockquote>
+<p>也就是这个计算机网络及其部件所应完成的功能的精确定义。</p>
+<p>教材列举两个典型例子：</p>
+<ol>
+<li class="">ISO/OSI 参考模型</li>
+<li class="">TCP/IP 体系结构</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="isoosi-参考模型">ISO/OSI 参考模型</h3>
+<p>OSI 参考模型，即 <strong>开放系统互联参考模型</strong>，由 ISO 组织提出，目的是实现异种机互连。</p>
+<p>其中：</p>
+<ul>
+<li class="">“开放”表示任何两个遵守 OSI 标准的系统可以互连</li>
+<li class="">“系统”指计算机、终端或外部设备等</li>
+</ul>
+<p>教材指出，OSI 参考模型相关协议已经很少使用，但该模型本身仍然非常通用，在每一层上讨论到的特性仍然非常重要。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="tcpip-体系结构">TCP/IP 体系结构</h3>
+<p>TCP/IP 体系结构是 Internet 使用的体系结构，目的是用于网络互连，是事实上的工业标准。</p>
+<p>教材称：</p>
+<ul>
+<li class="">ISO/OSI 参考模型可看作“法律上的国际标准”</li>
+<li class="">TCP/IP 是事实上的工业标准</li>
+</ul>
+<figure><img alt="OSI七层协议和TCP_IP四层协议" src="../../../assets/source/dc5b31b61bddc001c407.png"/><figcaption>图6-16 OSI七层协议和TCP_IP四层协议</figcaption></figure>
+<p>TCP/IP 体系结构中最重要的两个协议是：</p>
+<ul>
+<li class="">TCP</li>
+<li class="">IP</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="ip-地址">IP 地址</h2>
+<p>IP 地址可以理解为每台计算机的一个“身份证”。</p>
+<p>教材指出，这个“身份证”是可变的：</p>
+<ul>
+<li class="">重启计算机后可能变化</li>
+<li class="">将计算机移动到其他地区后也可能动态变化</li>
+</ul>
+<p>计算机还有一个理论上不变的地址，即 <strong>MAC 地址</strong>。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mac-地址">MAC 地址</h3>
+<p>教材指出：</p>
+<ul>
+<li class="">MAC 地址一般由计算机厂商在生产时烧录在网卡 EPROM 上</li>
+<li class="">理论上是独一无二的</li>
+<li class="">但硬件地址可以人为修改</li>
+<li class="">MAC 地址位于 <strong>数据链路层</strong></li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ip-地址-1">IP 地址</h3>
+<p>IP 位于 <strong>网络层</strong>。</p>
+<p>教材以 IPv4 地址为例：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">192.168.1.2</span><br/></div></code></pre></div></div>
+<p>IPv4：</p>
+<ul>
+<li class="">共 32 位</li>
+<li class="">采用点分十进制形式</li>
+<li class="">每 8 位一组，共 4 组</li>
+<li class="">每组取值范围为 <code>0～255</code></li>
+</ul>
+<p>IPv4 地址总数为：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">4294967296</span><br/></div></code></pre></div></div>
+<p>大约 43 亿个。</p>
+<p>为了弥补 IPv4 地址数量不足的问题，引入 IPv6。</p>
+<p>IPv6：</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_QJqH"><pre class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e" tabindex="0"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#bfc7d5"><span class="token plain">128 位</span><br/></div></code></pre></div></div>
+<hr/>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="随堂检测">随堂检测</h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-广域网的英文缩写是-">1. 广域网的英文缩写是（ ）。</h3>
+<ul>
+<li class="">A. LAN</li>
+<li class="">B. WAN</li>
+<li class="">C. MAN</li>
+<li class="">D. LNA</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：B</strong></p></div></div></details>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-以下不属于无线通信技术的是-">2. 以下不属于无线通信技术的是（ ）。</h3>
+<ul>
+<li class="">A. 蓝牙</li>
+<li class="">B. WiFi</li>
+<li class="">C. GPRS</li>
+<li class="">D. 以太网</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：D</strong></p></div></div></details>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-下列选项是正确的-ip-地址的有-">3. 下列选项是正确的 IP 地址的有（ ）。</h3>
+<ul>
+<li class="">A. <code>202.300.12.4</code></li>
+<li class="">B. <code>192.168.0.3</code></li>
+<li class="">C. <code>100:128:35:91</code></li>
+<li class="">D. <code>111-120-35-21</code></li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：B</strong></p></div></div></details>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-下列几个-32-位-ip-地址中书写错误的是-">4. 下列几个 32 位 IP 地址中，书写错误的是（ ）。</h3>
+<ul>
+<li class="">A. <code>162.105.142.27</code></li>
+<li class="">B. <code>192.168.0.1</code></li>
+<li class="">C. <code>256.256.129.1</code></li>
+<li class="">D. <code>10.0.0.1</code></li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：C</strong></p></div></div></details>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-ipv4-协议使用-32-位地址随着其不断被分配地址资源日趋枯竭因此它正逐渐被使用-位地址的-ipv6-协议所取代">5. IPv4 协议使用 32 位地址，随着其不断被分配，地址资源日趋枯竭。因此，它正逐渐被使用（ ）位地址的 IPv6 协议所取代。</h3>
+<ul>
+<li class="">A. 40</li>
+<li class="">B. 48</li>
+<li class="">C. 64</li>
+<li class="">D. 128</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：D</strong></p></div></div></details>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-关于互联网下面的说法哪一个是正确的-">6. 关于互联网，下面的说法哪一个是正确的（ ）。</h3>
+<ul>
+<li class="">A. 新一代互联网使用的 IPv6 标准是 IPv5 标准的升级与补充</li>
+<li class="">B. 互联网的入网主机如果有了域名就不再需要 IP 地址</li>
+<li class="">C. 互联网的基础协议为 TCP/IP 协议</li>
+<li class="">D. 互联网上所有可下载的软件及数据资源都是可以合法免费使用的</li>
+</ul>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>查看答案</summary><div><div class="collapsibleContent_i85q"><p><strong>答案：C</strong></p></div></div></details></div></article><nav class="pagination" aria-label="章节翻页"><a href="../chapter-05-codes-and-bitwise-operations/index.html"><small>← 上一章</small><strong>第5章 原码反码补码和位运算</strong></a><a href="../chapter-07-internet/index.html"><small>下一章 →</small><strong>第7章 因特网</strong></a></nav></div><aside class="toc"><p>本章目录</p><nav aria-label="本章目录"><a class="toc-h2" href="#网络的定义">网络的定义</a><a class="toc-h2" href="#计算机网络的发展">计算机网络的发展</a><a class="toc-h3" href="#面向终端的第一代计算机网络">面向终端的第一代计算机网络</a><a class="toc-h3" href="#以分组交换网为中心的第二代计算机网络">以分组交换网为中心的第二代计算机网络</a><a class="toc-h3" href="#以网络互联为核心的第三代计算机网络">以网络互联为核心的第三代计算机网络</a><a class="toc-h2" href="#网络的主要功能">网络的主要功能</a><a class="toc-h2" href="#网络的分类">网络的分类</a><a class="toc-h3" href="#局域网local-area-network">局域网（Local Area Network）</a><a class="toc-h3" href="#城域网metropolitan-area-network">城域网（Metropolitan Area Network）</a><a class="toc-h3" href="#广域网wide-area-network">广域网（Wide Area Network）</a><a class="toc-h2" href="#网络拓扑结构">网络拓扑结构</a><a class="toc-h2" href="#星形拓扑">星形拓扑</a><a class="toc-h3" href="#优点">优点</a><a class="toc-h3" href="#缺点">缺点</a><a class="toc-h3" href="#应用">应用</a><a class="toc-h2" href="#总线形拓扑">总线形拓扑</a><a class="toc-h3" href="#优点-1">优点</a><a class="toc-h3" href="#缺点-1">缺点</a><a class="toc-h3" href="#应用-1">应用</a><a class="toc-h2" href="#环形拓扑">环形拓扑</a><a class="toc-h3" href="#优点-2">优点</a><a class="toc-h3" href="#缺点-2">缺点</a><a class="toc-h3" href="#应用-2">应用</a><a class="toc-h2" href="#树形拓扑">树形拓扑</a><a class="toc-h3" href="#优点-3">优点</a><a class="toc-h3" href="#缺点-3">缺点</a><a class="toc-h3" href="#应用-3">应用</a><a class="toc-h2" href="#网状形拓扑">网状形拓扑</a><a class="toc-h3" href="#优点-4">优点</a><a class="toc-h3" href="#缺点-4">缺点</a><a class="toc-h3" href="#应用-4">应用</a><a class="toc-h2" href="#网络协议">网络协议</a><a class="toc-h2" href="#人类协议和网络协议">人类协议和网络协议</a><a class="toc-h2" href="#协议分层设计">协议分层设计</a><a class="toc-h2" href="#网络体系结构">网络体系结构</a><a class="toc-h3" href="#isoosi-参考模型">ISO/OSI 参考模型</a><a class="toc-h3" href="#tcpip-体系结构">TCP/IP 体系结构</a><a class="toc-h2" href="#ip-地址">IP 地址</a><a class="toc-h3" href="#mac-地址">MAC 地址</a><a class="toc-h3" href="#ip-地址-1">IP 地址</a><a class="toc-h2" href="#随堂检测">随堂检测</a><a class="toc-h3" href="#1-广域网的英文缩写是-">1. 广域网的英文缩写是（ ）。</a><a class="toc-h3" href="#2-以下不属于无线通信技术的是-">2. 以下不属于无线通信技术的是（ ）。</a><a class="toc-h3" href="#3-下列选项是正确的-ip-地址的有-">3. 下列选项是正确的 IP 地址的有（ ）。</a><a class="toc-h3" href="#4-下列几个-32-位-ip-地址中书写错误的是-">4. 下列几个 32 位 IP 地址中，书写错误的是（ ）。</a><a class="toc-h3" href="#5-ipv4-协议使用-32-位地址随着其不断被分配地址资源日趋枯竭因此它正逐渐被使用-位地址的-ipv6-协议所取代">5. IPv4 协议使用 32 位地址，随着其不断被分配，地址资源日趋枯竭。因此，它正逐渐被使用（ ）位地址的 IPv6 协议所取代。</a><a class="toc-h3" href="#6-关于互联网下面的说法哪一个是正确的-">6. 关于互联网，下面的说法哪一个是正确的（ ）。</a></nav><a class="back-top" href="#main">↑ 回到顶部</a></aside></main><footer class="site-footer"><a href="../../../../index.html" data-linked="1" style="text-decoration:underline;text-underline-offset:3px">© 2026 Showball OI · 信息学竞赛知识手册</a><span>信息学竞赛知识手册</span><span>GESP / CSP / NOIP · 系统学习，持续积累</span></footer></div><dialog class="mobile-dialog" aria-label="导航菜单"><div class="dialog-top"><a class="brand" href="../../../index.html"><span class="brand-mark">S</span><span>Showball <b>OI</b></span><span class="brand-tag">知识手册</span></a><button class="icon-button" data-menu-close aria-label="关闭导航菜单">×</button></div><nav aria-label="移动端导航"><a class="nav-link back-to-site" href="../../../../memos.html"><span aria-hidden="true">←</span> 返回 Showball OI</a><a class="nav-link " href="../../../index.html"><span aria-hidden="true">⌂</span> 首页</a><a class="nav-link " href="../../../courses/index.html"><span aria-hidden="true">▤</span> 全部课程</a><a class="nav-link " href="../../tags/index.html"><span aria-hidden="true">#</span> 知识标签</a><p class="nav-label">学习手册</p><a class="nav-link " href="../../../courses/1/index.html">GESP 1级</a><a class="nav-link " href="../../../courses/2/index.html">GESP 2级</a><a class="nav-link " href="../../../courses/3/index.html">GESP 3级</a><a class="nav-link " href="../../../courses/4/index.html">GESP 4级</a><a class="nav-link " href="../../../courses/5/index.html">GESP 5级</a><a class="nav-link " href="../../../courses/6/index.html">GESP 6级</a><a class="nav-link " href="../../../courses/7/index.html">GESP 7级</a><a class="nav-link " href="../../../courses/8/index.html">GESP 8级</a><a class="nav-link active" href="../../../courses/9/index.html">CSP-J</a><div class="chapter-nav"><a class="nav-link " href="../chapter-01-computer-basics/index.html">第1章 计算机基础知识</a><a class="nav-link " href="../chapter-02-computer-architecture/index.html">第2章 计算机体系基本结构</a><a class="nav-link " href="../chapter-03-software-and-programming-languages/index.html">第3章 计算机软件和计算机语言</a><a class="nav-link " href="../chapter-04-number-systems-and-encoding/index.html">第4章 数制转换和信息编码</a><a class="nav-link " href="../chapter-05-codes-and-bitwise-operations/index.html">第5章 原码反码补码和位运算</a><a class="nav-link current" href="index.html">第6章 计算机网络</a><a class="nav-link " href="../chapter-07-internet/index.html">第7章 因特网</a><a class="nav-link " href="../chapter-08-linear-data-structures/index.html">第8章 线性数据结构</a><a class="nav-link " href="../chapter-09-trees-and-graphs/index.html">第9章 树和图</a><a class="nav-link " href="../chapter-10-advanced-time-complexity/index.html">第10章 时间复杂度进阶</a><a class="nav-link " href="../chapter-11-mathematics/index.html">第11章 数学专题</a><a class="nav-link " href="../chapter-12-algorithm-topics/index.html">第12章 算法专题(排序算法、哈夫曼树)</a><a class="nav-link " href="../chapter-13-cspj-essential-codes/index.html">CSP-J 复赛必备编程模板（核心代码速查）</a></div><a class="nav-link " href="../../../courses/10/index.html">CSP-S</a><a class="nav-link " href="../../../courses/11/index.html">NOIP</a></nav></dialog><div class="toast" role="status" aria-live="polite"></div></body></html>

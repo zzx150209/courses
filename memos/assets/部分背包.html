@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>背包问题交互演示</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --text: #172033;
+      --muted: #667085;
+      --primary: #315efb;
+      --primary-dark: #2448c8;
+      --success: #12a36d;
+      --warning: #f59e0b;
+      --danger: #e5484d;
+      --border: #dfe5ef;
+      --gold: #e6a817;
+      --shadow: 0 12px 32px rgba(31, 45, 75, 0.10);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(49, 94, 251, .10), transparent 28%),
+        radial-gradient(circle at 90% 20%, rgba(230, 168, 23, .13), transparent 28%),
+        var(--bg);
+    }
+
+    button, input { font: inherit; }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 42px;
+    }
+
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: flex-start;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.16;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 760px;
+    }
+
+    .mode-switch {
+      background: rgba(255,255,255,.8);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 5px;
+      display: flex;
+      gap: 5px;
+      box-shadow: var(--shadow);
+      flex-shrink: 0;
+    }
+
+    .mode-switch button {
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      cursor: pointer;
+      color: var(--muted);
+      background: transparent;
+      transition: .2s ease;
+      white-space: nowrap;
+    }
+
+    .mode-switch button.active {
+      color: #fff;
+      background: var(--primary);
+      box-shadow: 0 6px 16px rgba(49,94,251,.28);
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(300px, .8fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .panel {
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(223,229,239,.92);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .gold-panel { padding: 22px; }
+
+    .panel-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .panel-title h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .badge {
+      border-radius: 999px;
+      background: #eef2ff;
+      color: var(--primary);
+      padding: 6px 10px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .gold-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .gold-card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      transition: .2s ease;
+      background: linear-gradient(145deg, #fffdf4, #ffffff 58%);
+    }
+
+    .gold-card.selected {
+      border-color: rgba(49,94,251,.52);
+      box-shadow: 0 0 0 3px rgba(49,94,251,.09);
+    }
+
+    .gold-card.over-limit {
+      border-color: rgba(229,72,77,.55);
+      animation: shake .28s ease;
+    }
+
+    @keyframes shake {
+      25% { transform: translateX(-3px); }
+      75% { transform: translateX(3px); }
+    }
+
+    .gold-head {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .gold-icon {
+      width: 48px;
+      height: 36px;
+      flex: 0 0 auto;
+      border-radius: 8px 8px 10px 10px;
+      display: grid;
+      place-items: center;
+      color: #6c4b00;
+      font-weight: 900;
+      background: linear-gradient(135deg, #ffe16a, #d99a00);
+      border: 1px solid rgba(138,93,0,.25);
+      box-shadow: inset 0 2px 2px rgba(255,255,255,.55), 0 5px 10px rgba(202,143,0,.22);
+      clip-path: polygon(15% 0,85% 0,100% 100%,0 100%);
+    }
+
+    .gold-name { font-weight: 800; }
+
+    .gold-meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 3px;
+    }
+
+    .ratio {
+      color: #8b6500;
+      font-size: 13px;
+      margin-top: 6px;
+      font-weight: 700;
+    }
+
+    .whole-control {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 15px;
+    }
+
+    .select-btn {
+      min-width: 104px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 12px;
+      background: #fff;
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .select-btn.active {
+      color: #fff;
+      border-color: var(--primary);
+      background: var(--primary);
+    }
+
+    .fraction-control {
+      margin-top: 14px;
+      display: none;
+    }
+
+    .fraction-row {
+      display: grid;
+      grid-template-columns: 1fr 72px;
+      gap: 10px;
+      align-items: center;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+    }
+
+    .percent-input {
+      width: 72px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 8px 7px;
+      text-align: right;
+      outline: none;
+    }
+
+    .percent-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(49,94,251,.09);
+    }
+
+    .fraction-detail {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .sidebar {
+      display: grid;
+      gap: 20px;
+      position: sticky;
+      top: 18px;
+    }
+
+    .summary-panel { padding: 22px; }
+
+    .capacity-visual {
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 16px;
+      background: #fbfcff;
+    }
+
+    .capacity-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .capacity-number {
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .capacity-label {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .bar {
+      height: 16px;
+      border-radius: 999px;
+      background: #e9edf5;
+      overflow: hidden;
+      margin-top: 12px;
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--success), var(--primary));
+      border-radius: inherit;
+      transition: width .25s ease, background .2s ease;
+    }
+
+    .bar-fill.warning {
+      background: linear-gradient(90deg, var(--warning), var(--danger));
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .stat {
+      border-radius: 13px;
+      padding: 13px;
+      background: #f7f9fc;
+      border: 1px solid #edf0f5;
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .stat strong { font-size: 21px; }
+
+    .message {
+      min-height: 24px;
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .message.error { color: var(--danger); font-weight: 700; }
+    .message.success { color: var(--success); font-weight: 700; }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .action-btn {
+      border-radius: 11px;
+      padding: 11px 12px;
+      cursor: pointer;
+      font-weight: 800;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+
+    .action-btn.primary {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .action-btn.primary:hover { background: var(--primary-dark); }
+
+    .explanation {
+      padding: 20px 22px;
+    }
+
+    .explanation h3 { margin: 0 0 10px; }
+
+    .explanation p, .explanation li {
+      color: var(--muted);
+      line-height: 1.68;
+      font-size: 14px;
+    }
+
+    .explanation ol {
+      margin: 10px 0 0;
+      padding-left: 20px;
+    }
+
+    .solution-line {
+      margin-top: 12px;
+      border-radius: 12px;
+      padding: 12px;
+      background: #f7f9fc;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 22px;
+    }
+
+    @media (max-width: 860px) {
+      .hero { flex-direction: column; }
+      .dashboard { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+    }
+
+    @media (max-width: 560px) {
+      .page { width: min(100% - 20px, 1180px); padding-top: 18px; }
+      .gold-grid { grid-template-columns: 1fr; }
+      .mode-switch { width: 100%; }
+      .mode-switch button { flex: 1; padding-inline: 8px; }
+      .actions { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div>
+        <h1>背包问题交互演示</h1>
+        <p>
+          背包最大承重量为 <strong>50</strong>。选择金块后，系统会实时计算已用重量、
+          剩余承重量和当前总价值。可在“0/1 背包”和“分数背包”之间切换。
+        </p>
+      </div>
+      <div class="mode-switch" role="group" aria-label="背包模式">
+        <button id="wholeModeBtn" class="active" type="button">不可分割（0/1）</button>
+        <button id="fractionModeBtn" type="button">可以分割（分数）</button>
+      </div>
+    </section>
+
+    <section class="dashboard">
+      <section class="panel gold-panel">
+        <div class="panel-title">
+          <h2>可选金块</h2>
+          <span id="modeBadge" class="badge">每块只能选或不选</span>
+        </div>
+        <div id="goldGrid" class="gold-grid"></div>
+      </section>
+
+      <aside class="sidebar">
+        <section class="panel summary-panel">
+          <div class="panel-title">
+            <h2>背包状态</h2>
+            <span class="badge">容量 50</span>
+          </div>
+
+          <div class="capacity-visual">
+            <div class="capacity-top">
+              <div>
+                <div id="usedWeight" class="capacity-number">0</div>
+                <div class="capacity-label">当前已用重量</div>
+              </div>
+              <div style="text-align:right">
+                <div id="remainingWeight" class="capacity-number">50</div>
+                <div class="capacity-label">剩余承重量</div>
+              </div>
+            </div>
+
+            <div class="bar" aria-label="背包容量使用进度">
+              <div id="barFill" class="bar-fill"></div>
+            </div>
+
+            <div class="stats">
+              <div class="stat">
+                <span>当前总价值</span>
+                <strong id="totalValue">0</strong>
+              </div>
+              <div class="stat">
+                <span>容量利用率</span>
+                <strong id="utilization">0%</strong>
+              </div>
+            </div>
+          </div>
+
+          <div id="message" class="message">请选择金块放入背包。</div>
+
+          <div class="actions">
+            <button id="resetBtn" class="action-btn" type="button">清空背包</button>
+            <button id="optimalBtn" class="action-btn primary" type="button">演示最优解</button>
+          </div>
+
+          <div id="solutionLine" class="solution-line">
+            当前模式：0/1 背包。金块不可分割，每块最多选择一次。
+          </div>
+        </section>
+
+        <section class="panel explanation">
+          <h3>课堂讲解提示</h3>
+          <div id="explanationText">
+            <ol>
+              <li>每块金块只能“全部放入”或“不放入”。</li>
+              <li>目标是在总重量不超过 50 的前提下，使总价值最大。</li>
+              <li>价值密度高不一定保证 0/1 背包获得全局最优解。</li>
+            </ol>
+          </div>
+        </section>
+      </aside>
+    </section>
+
+    <div class="footer-note">
+      数据：(重量, 价值) = (10,60)、(20,100)、(30,120)、(15,45)
+    </div>
+  </main>
+
+  <script>
+    const CAPACITY = 50;
+    const items = [
+      { id: 0, name: "金块 A", weight: 10, value: 60 },
+      { id: 1, name: "金块 B", weight: 20, value: 100 },
+      { id: 2, name: "金块 C", weight: 30, value: 120 },
+      { id: 3, name: "金块 D", weight: 15, value: 45 }
+    ];
+
+    let mode = "whole";
+    let fractions = [0, 0, 0, 0];
+    let lastValidFractions = [...fractions];
+
+    const goldGrid = document.getElementById("goldGrid");
+    const wholeModeBtn = document.getElementById("wholeModeBtn");
+    const fractionModeBtn = document.getElementById("fractionModeBtn");
+    const modeBadge = document.getElementById("modeBadge");
+    const usedWeightEl = document.getElementById("usedWeight");
+    const remainingWeightEl = document.getElementById("remainingWeight");
+    const totalValueEl = document.getElementById("totalValue");
+    const utilizationEl = document.getElementById("utilization");
+    const barFill = document.getElementById("barFill");
+    const messageEl = document.getElementById("message");
+    const resetBtn = document.getElementById("resetBtn");
+    const optimalBtn = document.getElementById("optimalBtn");
+    const solutionLine = document.getElementById("solutionLine");
+    const explanationText = document.getElementById("explanationText");
+
+    function formatNumber(number) {
+      const rounded = Math.round((number + Number.EPSILON) * 100) / 100;
+      return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(2);
+    }
+
+    function calculate(values = fractions) {
+      return items.reduce(
+        (acc, item, index) => {
+          acc.weight += item.weight * values[index];
+          acc.value += item.value * values[index];
+          return acc;
+        },
+        { weight: 0, value: 0 }
+      );
+    }
+
+    function renderCards() {
+      goldGrid.innerHTML = "";
+
+      items.forEach((item, index) => {
+        const card = document.createElement("article");
+        card.className = "gold-card";
+        card.dataset.index = index;
+
+        const percent = Math.round(fractions[index] * 100);
+        const selectedWeight = item.weight * fractions[index];
+        const selectedValue = item.value * fractions[index];
+
+        card.innerHTML = `
+          <div class="gold-head">
+            <div class="gold-icon">Au</div>
+            <div>
+              <div class="gold-name">${item.name}</div>
+              <div class="gold-meta">重量 ${item.weight} ｜ 价值 ${item.value}</div>
+              <div class="ratio">单位重量价值：${formatNumber(item.value / item.weight)}</div>
+            </div>
+          </div>
+
+          <div class="whole-control">
+            <button class="select-btn ${fractions[index] === 1 ? "active" : ""}"
+                    type="button"
+                    data-action="toggle"
+                    data-index="${index}">
+              ${fractions[index] === 1 ? "已放入" : "放入整块"}
+            </button>
+          </div>
+
+          <div class="fraction-control">
+            <div class="fraction-row">
+              <input
+                type="range"
+                min="0"
+                max="100"
+                step="1"
+                value="${percent}"
+                data-action="range"
+                data-index="${index}"
+                aria-label="${item.name}分割比例"
+              />
+              <div style="display:flex;align-items:center;gap:4px;">
+                <input
+                  class="percent-input"
+                  type="number"
+                  min="0"
+                  max="100"
+                  step="1"
+                  value="${percent}"
+                  data-action="number"
+                  data-index="${index}"
+                  aria-label="${item.name}百分比"
+                />%
+              </div>
+            </div>
+            <div class="fraction-detail">
+              <span>取用重量：${formatNumber(selectedWeight)}</span>
+              <span>获得价值：${formatNumber(selectedValue)}</span>
+            </div>
+          </div>
+        `;
+
+        card.classList.toggle("selected", fractions[index] > 0);
+        card.querySelector(".whole-control").style.display = mode === "whole" ? "flex" : "none";
+        card.querySelector(".fraction-control").style.display = mode === "fraction" ? "block" : "none";
+        goldGrid.appendChild(card);
+      });
+    }
+
+    function updateSummary(customMessage = "") {
+      const totals = calculate();
+      const remaining = CAPACITY - totals.weight;
+      const utilization = Math.min(100, (totals.weight / CAPACITY) * 100);
+
+      usedWeightEl.textContent = formatNumber(totals.weight);
+      remainingWeightEl.textContent = formatNumber(Math.max(0, remaining));
+      totalValueEl.textContent = formatNumber(totals.value);
+      utilizationEl.textContent = `${formatNumber(utilization)}%`;
+      barFill.style.width = `${utilization}%`;
+      barFill.classList.toggle("warning", utilization >= 90);
+
+      if (customMessage) {
+        messageEl.textContent = customMessage;
+        return;
+      }
+
+      messageEl.className = "message";
+      if (totals.weight === 0) {
+        messageEl.textContent = "请选择金块放入背包。";
+      } else if (Math.abs(remaining) < 0.0001) {
+        messageEl.textContent = "背包容量已刚好用满。";
+        messageEl.classList.add("success");
+      } else {
+        messageEl.textContent = `还可以继续装入 ${formatNumber(remaining)} 单位重量。`;
+      }
+    }
+
+    function updateUI(customMessage = "") {
+      renderCards();
+      updateSummary(customMessage);
+    }
+
+    function flashOverLimit(index) {
+      const card = goldGrid.querySelector(`[data-index="${index}"].gold-card`);
+      if (!card) return;
+      card.classList.add("over-limit");
+      setTimeout(() => card.classList.remove("over-limit"), 320);
+    }
+
+    function trySetFraction(index, newFraction) {
+      newFraction = Math.max(0, Math.min(1, newFraction));
+      const candidate = [...fractions];
+      candidate[index] = newFraction;
+      const totals = calculate(candidate);
+
+      if (totals.weight <= CAPACITY + 0.000001) {
+        fractions = candidate;
+        lastValidFractions = [...fractions];
+        updateUI();
+        return true;
+      }
+
+      fractions = [...lastValidFractions];
+      updateUI("超过背包最大承重量 50，本次操作已撤销。");
+      messageEl.className = "message error";
+      flashOverLimit(index);
+      return false;
+    }
+
+    goldGrid.addEventListener("click", event => {
+      const button = event.target.closest('[data-action="toggle"]');
+      if (!button || mode !== "whole") return;
+
+      const index = Number(button.dataset.index);
+      const next = fractions[index] === 1 ? 0 : 1;
+      trySetFraction(index, next);
+    });
+
+    goldGrid.addEventListener("input", event => {
+      const target = event.target;
+      const action = target.dataset.action;
+      if (mode !== "fraction" || !["range", "number"].includes(action)) return;
+
+      const index = Number(target.dataset.index);
+      let percent = Number(target.value);
+      if (!Number.isFinite(percent)) percent = 0;
+      percent = Math.max(0, Math.min(100, percent));
+
+      trySetFraction(index, percent / 100);
+    });
+
+    function switchMode(nextMode) {
+      mode = nextMode;
+      fractions = [0, 0, 0, 0];
+      lastValidFractions = [...fractions];
+
+      const isWhole = mode === "whole";
+      wholeModeBtn.classList.toggle("active", isWhole);
+      fractionModeBtn.classList.toggle("active", !isWhole);
+      modeBadge.textContent = isWhole ? "每块只能选或不选" : "每块可取 0%～100%";
+
+      solutionLine.textContent = isWhole
+        ? "当前模式：0/1 背包。金块不可分割，每块最多选择一次。"
+        : "当前模式：分数背包。可按任意比例取用金块。";
+
+      explanationText.innerHTML = isWhole
+        ? `<ol>
+             <li>每块金块只能“全部放入”或“不放入”。</li>
+             <li>目标是在总重量不超过 50 的前提下，使总价值最大。</li>
+             <li>价值密度高不一定保证 0/1 背包获得全局最优解。</li>
+           </ol>`
+        : `<ol>
+             <li>先计算每块金块的单位重量价值。</li>
+             <li>按单位重量价值从高到低装入：A → B → C → D。</li>
+             <li>最后一块装不下时，只取恰好填满剩余容量的部分。</li>
+           </ol>`;
+
+      updateUI();
+    }
+
+    wholeModeBtn.addEventListener("click", () => switchMode("whole"));
+    fractionModeBtn.addEventListener("click", () => switchMode("fraction"));
+
+    resetBtn.addEventListener("click", () => {
+      fractions = [0, 0, 0, 0];
+      lastValidFractions = [...fractions];
+      solutionLine.textContent = mode === "whole"
+        ? "当前模式：0/1 背包。金块不可分割，每块最多选择一次。"
+        : "当前模式：分数背包。可按任意比例取用金块。";
+      updateUI("背包已清空。");
+    });
+
+    function solveWholeKnapsack() {
+      let bestValue = -1;
+      let bestWeight = 0;
+      let bestSelection = [0, 0, 0, 0];
+
+      const combinations = 1 << items.length;
+      for (let mask = 0; mask < combinations; mask++) {
+        const selection = items.map((_, index) => (mask >> index) & 1);
+        const totals = calculate(selection);
+
+        if (
+          totals.weight <= CAPACITY &&
+          (totals.value > bestValue ||
+            (totals.value === bestValue && totals.weight < bestWeight))
+        ) {
+          bestValue = totals.value;
+          bestWeight = totals.weight;
+          bestSelection = selection;
+        }
+      }
+
+      return { selection: bestSelection, weight: bestWeight, value: bestValue };
+    }
+
+    function solveFractionalKnapsack() {
+      const selection = [0, 0, 0, 0];
+      let remaining = CAPACITY;
+
+      const sorted = items
+        .map((item, index) => ({
+          ...item,
+          index,
+          density: item.value / item.weight
+        }))
+        .sort((a, b) => b.density - a.density);
+
+      sorted.forEach(item => {
+        if (remaining <= 0) return;
+        const fraction = Math.min(1, remaining / item.weight);
+        selection[item.index] = fraction;
+        remaining -= item.weight * fraction;
+      });
+
+      const totals = calculate(selection);
+      return { selection, weight: totals.weight, value: totals.value };
+    }
+
+    optimalBtn.addEventListener("click", () => {
+      const result = mode === "whole"
+        ? solveWholeKnapsack()
+        : solveFractionalKnapsack();
+
+      fractions = [...result.selection];
+      lastValidFractions = [...fractions];
+      updateUI("已自动装入当前模式下的最优方案。");
+      messageEl.className = "message success";
+
+      if (mode === "whole") {
+        const chosenNames = items
+          .filter((_, index) => result.selection[index] === 1)
+          .map(item => item.name)
+          .join("、");
+
+        solutionLine.innerHTML =
+          `<strong>0/1 背包最优解：</strong>${chosenNames}；` +
+          `总重量 ${formatNumber(result.weight)}，总价值 ${formatNumber(result.value)}。`;
+      } else {
+        const parts = items
+          .map((item, index) => {
+            const fraction = result.selection[index];
+            if (fraction <= 0) return null;
+            return `${item.name} ${formatNumber(fraction * 100)}%`;
+          })
+          .filter(Boolean)
+          .join("、");
+
+        solutionLine.innerHTML =
+          `<strong>分数背包最优解：</strong>${parts}；` +
+          `总重量 ${formatNumber(result.weight)}，总价值 ${formatNumber(result.value)}。`;
+      }
+    });
+
+    updateUI();
+  </script>
+
+</body>
+</html>

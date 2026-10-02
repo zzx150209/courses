@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>404 · 页面走丢了 | Showball 信息学课堂</title>
+
+  <style>
+    :root {
+      --bg-a: #fffaf5;
+      --bg-b: #f4f8ff;
+      --card: rgba(255,255,255,.82);
+      --text: #475569;
+      --title: #334155;
+      --muted: #94a3b8;
+      --blue: #93c5fd;
+      --blue-2: #bfdbfe;
+      --purple: #c4b5fd;
+      --pink: #f9a8d4;
+      --yellow: #fde68a;
+      --green: #a7f3d0;
+      --line: #e2e8f0;
+      --shadow: 0 22px 60px rgba(100,116,139,.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      overflow-x: hidden;
+      font-family:
+        Inter, "PingFang SC", "Microsoft YaHei",
+        system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 16%, rgba(249,168,212,.18), transparent 23%),
+        radial-gradient(circle at 88% 18%, rgba(147,197,253,.24), transparent 27%),
+        radial-gradient(circle at 83% 83%, rgba(167,243,208,.18), transparent 22%),
+        linear-gradient(135deg, var(--bg-a), var(--bg-b));
+    }
+
+    .bubble {
+      position: fixed;
+      border-radius: 999px;
+      opacity: .62;
+      filter: blur(.5px);
+      pointer-events: none;
+      animation: float 7s ease-in-out infinite;
+    }
+
+    .b1 { width: 72px; height: 72px; left: 7%; top: 11%; background: var(--yellow); }
+    .b2 { width: 44px; height: 44px; right: 10%; top: 18%; background: var(--pink); animation-delay: -2s; }
+    .b3 { width: 92px; height: 92px; right: 11%; bottom: 9%; background: var(--green); animation-delay: -4s; }
+    .b4 { width: 36px; height: 36px; left: 12%; bottom: 14%; background: var(--purple); animation-delay: -1s; }
+
+    main {
+      width: min(94vw, 780px);
+      padding: 24px;
+      position: relative;
+      z-index: 2;
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,.96);
+      border-radius: 34px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+      padding: 0 4px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: #64748b;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+
+    .brand-icon {
+      width: 31px;
+      height: 31px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      color: white;
+      background: linear-gradient(135deg, #93c5fd, #a5b4fc);
+      box-shadow: 0 7px 16px rgba(99,102,241,.17);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+    }
+
+    .domain {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 28px;
+      align-items: center;
+      padding: 18px 18px 12px;
+    }
+
+    .visual {
+      min-height: 330px;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .big404 {
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #e0ecff;
+      font-size: clamp(110px, 18vw, 160px);
+      line-height: .9;
+      letter-spacing: -.10em;
+      font-weight: 950;
+      user-select: none;
+    }
+
+    .robot-wrap {
+      position: relative;
+      width: 210px;
+      height: 235px;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+    }
+
+    .robot {
+      position: relative;
+      width: 118px;
+      animation: bob 3.2s ease-in-out infinite;
+    }
+
+    .antenna {
+      width: 4px;
+      height: 22px;
+      margin: 0 auto -2px;
+      border-radius: 5px;
+      background: #94a3b8;
+      position: relative;
+    }
+
+    .antenna::before {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      left: 50%;
+      top: -8px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: var(--pink);
+      box-shadow: 0 0 0 6px rgba(249,168,212,.15);
+    }
+
+    .head {
+      width: 104px;
+      height: 72px;
+      margin: 0 auto;
+      padding: 12px;
+      border: 5px solid #cbd5e1;
+      border-radius: 28px;
+      background: #f8fafc;
+      box-shadow: inset 0 -5px 0 rgba(148,163,184,.07);
+    }
+
+    .face {
+      height: 100%;
+      position: relative;
+      border-radius: 18px;
+      background: #dbeafe;
+    }
+
+    .eye {
+      position: absolute;
+      top: 13px;
+      width: 10px;
+      height: 14px;
+      border-radius: 50%;
+      background: #64748b;
+      animation: blink 4s infinite;
+    }
+
+    .eye.left { left: 19px; }
+    .eye.right { right: 19px; }
+
+    .mouth {
+      position: absolute;
+      width: 20px;
+      height: 9px;
+      left: 50%;
+      bottom: 8px;
+      transform: translateX(-50%);
+      border-bottom: 3px solid #94a3b8;
+      border-radius: 50%;
+    }
+
+    .body {
+      width: 80px;
+      height: 64px;
+      margin: -1px auto 0;
+      display: grid;
+      place-items: center;
+      border: 5px solid #cbd5e1;
+      border-radius: 19px 19px 28px 28px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-2));
+    }
+
+    .body code {
+      color: white;
+      font: 900 19px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .arm {
+      position: absolute;
+      top: 93px;
+      width: 35px;
+      height: 10px;
+      border-radius: 10px;
+      background: #cbd5e1;
+    }
+
+    .arm.left { left: -18px; transform: rotate(18deg); }
+    .arm.right { right: -18px; transform: rotate(-18deg); }
+
+    .shadow {
+      width: 94px;
+      height: 13px;
+      margin: 7px auto 0;
+      border-radius: 50%;
+      background: rgba(100,116,139,.12);
+      animation: shadowPulse 3.2s ease-in-out infinite;
+    }
+
+    .terminal {
+      position: absolute;
+      left: 7px;
+      bottom: 0;
+      width: 145px;
+      padding: 10px 11px;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      background: rgba(255,255,255,.88);
+      box-shadow: 0 12px 28px rgba(100,116,139,.10);
+      transform: rotate(-4deg);
+      font: 11px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: #64748b;
+    }
+
+    .terminal .dots {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 7px;
+    }
+
+    .terminal .dots i {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .terminal .dots i:nth-child(1) { background: var(--pink); }
+    .terminal .dots i:nth-child(2) { background: var(--yellow); }
+    .terminal .dots i:nth-child(3) { background: var(--green); }
+
+    .terminal strong {
+      color: #ef9a9a;
+      font-weight: 800;
+    }
+
+    .copy h1 {
+      margin: 0;
+      color: var(--title);
+      font-size: clamp(30px, 5vw, 47px);
+      line-height: 1.12;
+      letter-spacing: -.045em;
+    }
+
+    .copy .lead {
+      margin: 15px 0 0;
+      max-width: 480px;
+      color: #64748b;
+      font-size: 15px;
+      line-height: 1.85;
+    }
+
+    .error-box {
+      margin-top: 18px;
+      padding: 13px 14px;
+      border: 1px solid #e2e8f0;
+      border-radius: 15px;
+      background: rgba(248,250,252,.88);
+      text-align: left;
+      font: 12px/1.7 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      overflow: hidden;
+    }
+
+    .error-box .label {
+      color: #a78bfa;
+      font-weight: 800;
+    }
+
+    .error-box .path {
+      color: #64748b;
+      overflow-wrap: anywhere;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 21px;
+    }
+
+    .btn {
+      min-width: 138px;
+      padding: 12px 17px;
+      border: 0;
+      border-radius: 14px;
+      font: inherit;
+      font-weight: 800;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); }
+
+    .primary {
+      color: white;
+      background: linear-gradient(135deg, #93c5fd, #818cf8);
+      box-shadow: 0 10px 22px rgba(99,102,241,.20);
+    }
+
+    .secondary {
+      color: #64748b;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+    }
+
+    .foot {
+      margin-top: 13px;
+      color: #94a3b8;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-13px) rotate(5deg); }
+    }
+
+    @keyframes bob {
+      0%,100% { transform: translateY(0) rotate(-1deg); }
+      50% { transform: translateY(-7px) rotate(1deg); }
+    }
+
+    @keyframes shadowPulse {
+      0%,100% { transform: scaleX(1); opacity: .8; }
+      50% { transform: scaleX(.82); opacity: .5; }
+    }
+
+    @keyframes blink {
+      0%,45%,49%,100% { transform: scaleY(1); }
+      47% { transform: scaleY(.1); }
+    }
+
+    @media (max-width: 720px) {
+      main {
+        width: min(96vw, 620px);
+        padding: 18px;
+        border-radius: 28px;
+      }
+
+      .content {
+        grid-template-columns: 1fr;
+        gap: 4px;
+        text-align: center;
+        padding: 6px 8px 10px;
+      }
+
+      .visual { min-height: 280px; }
+
+      .big404 {
+        top: 8px;
+        font-size: 120px;
+      }
+
+      .copy .lead {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .actions { justify-content: center; }
+
+      .error-box {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    @media (max-width: 460px) {
+      body { padding: 10px; }
+
+      .topline { align-items: flex-start; }
+
+      .domain { display: none; }
+
+      .visual {
+        min-height: 250px;
+        transform: scale(.92);
+        margin: -10px 0 -14px;
+      }
+
+      .actions { flex-direction: column; }
+
+      .btn { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bubble b1"></div>
+  <div class="bubble b2"></div>
+  <div class="bubble b3"></div>
+  <div class="bubble b4"></div>
+
+  <main>
+    <div class="topline">
+      <div class="brand">
+        <span class="brand-icon">&lt;/&gt;</span>
+        <span>Showball 信息学课堂</span>
+      </div>
+      <div class="domain">showball.ac.cn</div>
+    </div>
+
+    <section class="content">
+      <div class="visual" aria-hidden="true">
+        <div class="big404">404</div>
+
+        <div class="robot-wrap">
+          <div class="robot">
+            <div class="antenna"></div>
+            <div class="head">
+              <div class="face">
+                <span class="eye left"></span>
+                <span class="eye right"></span>
+                <span class="mouth"></span>
+              </div>
+            </div>
+            <div class="arm left"></div>
+            <div class="arm right"></div>
+            <div class="body">
+              <code>{?}</code>
+            </div>
+            <div class="shadow"></div>
+          </div>
+
+          <div class="terminal">
+            <div class="dots"><i></i><i></i><i></i></div>
+            <div>&gt; locating page...</div>
+            <div><strong>Error 404</strong></div>
+            <div>&gt; page not found :(</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="copy">
+        <h1>糟糕，代码小机器人也没找到这个页面。</h1>
+
+        <p class="lead">
+          可能是网址写错了，也可能是课程页面搬家啦。
+          别担心，返回课程首页，我们继续学习和探索吧！
+        </p>
+
+        <div class="error-box">
+          <div><span class="label">404_NOT_FOUND</span></div>
+          <div class="path" id="wrongPath"></div>
+        </div>
+
+        <div class="actions">
+          <a class="btn primary" href="https://showball.top/courses" id="homeBtn">🏠 返回课程首页</a>
+          <button class="btn secondary" type="button" id="backBtn">← 返回上一页</button>
+        </div>
+
+        <div class="foot">
+          小提示：程序报错并不可怕，找到原因就是一次新的进步 ✨
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // showball.ac.cn 是独立域名，因此站点根路径使用 "/"
+    const SITE_BASE = "https://showball.top/courses";
+
+    const homeBtn = document.getElementById("homeBtn");
+    const backBtn = document.getElementById("backBtn");
+    const wrongPath = document.getElementById("wrongPath");
+
+    homeBtn.href = SITE_BASE;
+
+    const currentPath = decodeURIComponent(location.pathname + location.search);
+    wrongPath.textContent = "requested_path = " + currentPath;
+
+    backBtn.addEventListener("click", () => {
+      if (history.length > 1) {
+        history.back();
+      } else {
+        location.href = SITE_BASE;
+      }
+    });
+  </script>
+
+</body>
+</html>
